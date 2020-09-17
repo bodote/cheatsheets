@@ -46,6 +46,6 @@ bundle exec jekyll serve
 and voila: Server is finaly running with only minor warnings . The site is generated on http://localhost:4000 but still there are some parts missing.
 you need to replase in `about.markdown`the line `layout: page` by `layout: single` and replase in `_posts/2020-09-17-welcome-to-jekyll.markdown`the line `layout: post` by `layout: posts` 
 
-ok now the warnings disapear.
+ok now the warnings disapears.
 
 
