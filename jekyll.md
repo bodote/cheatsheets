@@ -32,3 +32,20 @@ plugins:
 and delete the `theme: minima` line in `_config.yml` as the [quick-start-guide](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/) already states
 
 then run `bundle`and then `bundle exec jekyll serve` but that doesn't work yet: I got a `Liquid Exception: No repo name found....` - error.
+
+So obviousely you need to make the working directory (which is still mm-remote-theme-method) to be a git controled repository. 
+My way was to create a empty projekt on my github account (i called it "bt-blog" , make a `git clone git@github.com:bodote/bt-blog.git`in there.
+Then 
+```
+cd ..
+cp -r mm-remote-theme-method/* bt-blog/
+cd bt-blog
+bundle exec jekyll serve
+```
+
+and voila: Server is finaly running with only minor warnings . The site is generated on http://localhost:4000 but still there are some parts missing.
+you need to replase in `about.markdown`the line `layout: page` by `layout: single` and replase in `_posts/2020-09-17-welcome-to-jekyll.markdown`the line `layout: post` by `layout: posts` 
+
+ok now the warnings disapear.
+
+
