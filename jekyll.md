@@ -14,7 +14,7 @@ watch the "note" from above in [quick-start-guide](https://mmistakes.github.io/m
 >  jekyll-include-cache plugin which will need to be installed in your Gemfile **AND** added to the plugins array of _config.yml.
 
 Therefore replace the contens of the Gemfile with: 
-````
+```
 source "https://rubygems.org"
 
 gem "github-pages", group: :jekyll_plugins
