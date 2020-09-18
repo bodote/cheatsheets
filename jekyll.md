@@ -1,6 +1,7 @@
 # Docu fix for minimal-mistakes theme 
 https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-## Start with:
+## Versuch 1 (gescheitert)
+### Start with:
 Its unclear where to start.
 I choose to start with : 
 ```
@@ -8,7 +9,7 @@ I choose to start with :
   cd mm-remote-theme-method
 ```
 
-## Using "Remote theme methodPermalink":
+### Using "Remote theme methodPermalink":
 watch the "note" from above in [quick-start-guide](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/), it is also needed for remote theme! 
 (which was unclear to me at first)
 >  jekyll-include-cache plugin which will need to be installed in your Gemfile **AND** added to the plugins array of _config.yml.
@@ -46,6 +47,18 @@ bundle exec jekyll serve
 and voila: Server is finaly running with only minor warnings . The site is generated on http://localhost:4000 but still there are some parts missing.
 you need to replase in `about.markdown`the line `layout: page` by `layout: single` and replase in `_posts/2020-09-17-welcome-to-jekyll.markdown`the line `layout: post` by `layout: posts` 
 
-ok now the warnings disapears.
+ok now the warnings disapears. but finally, when wir look the the result on http://localhost:4000 the links to the targes in the navigation (\_data/navigation.yml) are broken, eg.: http://localhost:4000/posts/ leads to a "not Found" error for what ever reason. maybe becausethere
+
+## ## Versuch 2 (gescheitert)
+we make a indentical copy from https://github.com/mmistakes/mm-github-pages-starter/ , create a new projekt with the same name on my own github account.
+Then we change Gemfile and remove these 2 lines:
+``` 
+gem "tzinfo-data"
+gem "wdm", "~> 0.1.0" if Gem.win_platform?
+```
+because tzinfo-data is not really necessary and leads to a [security problem](https://github.com/mmistakes/minimal-mistakes/issues/2693) at least on my MacBook.
+and the 2nd one is obviousely not needed for MacOS or github-pages-hosting.
+
+
 
 
