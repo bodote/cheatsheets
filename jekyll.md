@@ -59,6 +59,8 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 because tzinfo-data is not really necessary and leads to a [security problem](https://github.com/mmistakes/minimal-mistakes/issues/2693) at least on my MacBook.
 and the 2nd one is obviousely not needed for MacOS or github-pages-hosting.
 
+And hey, it finally works on http://localhost:4000 ! 
+
 
 
 
