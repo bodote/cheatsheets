@@ -1,6 +1,6 @@
 # Docu fix for minimal-mistakes theme 
 https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-## Versuch 1 (gescheitert)
+## 1st Trail (not working)
 ### Start with:
 Its unclear where to start.
 I choose to start with : 
@@ -49,7 +49,7 @@ you need to replase in `about.markdown`the line `layout: page` by `layout: singl
 
 ok now the warnings disapears. but finally, when wir look the the result on http://localhost:4000 the links to the targes in the navigation (\_data/navigation.yml) are broken, eg.: http://localhost:4000/posts/ leads to a "not Found" error for what ever reason. maybe becausethere
 
-## ## Versuch 2 (gescheitert)
+## 2nd trail:
 we make a indentical copy from https://github.com/mmistakes/mm-github-pages-starter/ , create a new projekt with the same name on my own github account.
 Then we change Gemfile and remove these 2 lines:
 ``` 
