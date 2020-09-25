@@ -4,3 +4,4 @@ Bodos cheet sheets in mark down format:
 * [OpenStack cheat sheet](openstack.md)
 * [Jekyll](jekyll.md)
 * [git](git.md)
+* [ansible](ansible.md)
