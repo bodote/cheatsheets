@@ -1,4 +1,5 @@
-# JPA/Hibernate Cascading 
+# JPA/Hibernate  
+## Cascading OneToMany
 * JPA translates entity state transitions to database DML statements. Because it’s common to operate on entity graphs, 
 JPA allows us to propagate entity state changes from **Parents to Child** entities.
 This behavior is configured through the CascadeType mappings.
@@ -6,6 +7,15 @@ This behavior is configured through the CascadeType mappings.
 @OneToMany(cascade = CascadeType.ALL, mappedBy = "<the other class property>")
 ```
 * [jpa-and-hibernate-cascade-types](https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/)
+## ManyToOne mit Join
+```Java
+@ManyToOne
+@JoinColumn(name = "<foreign key in dieser Tabelle>", nullable = false)
+//@JoinColumn  'name' ist der foreign key in dieser Tabelle, der auf  "id" in anderen Tabelle zeigt
+private TheOtherClass otherObj;
+```
+
+
 ## persist vs merge
 
 
