@@ -5,3 +5,4 @@ Bodos cheet sheets in mark down format:
 * [Jekyll](jekyll.md)
 * [git](git.md)
 * [ansible](ansible.md)
+* [java ee annotations](pdfslide.net_java-ee-reference-sheet.pdf)
