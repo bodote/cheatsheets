@@ -66,3 +66,20 @@ wobei der primary key hier ein im Beispiel ein `Long` ist.
 public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
 ```
 
+## Config ändern
+Änderung für "MyClass", read only:
+
+```Java
+@Configuration
+public class RestConfig implements RepositoryRestConfigurer {
+    @Override
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration restConfig) {
+       HttpMethod[] theUnsupportedActions = {HttpMethod.PUT,HttpMethod.POST,HttpMethod.DELETE};
+       restConfig.getExposureConfiguration()
+          .forDomainType(<MyClass>.class)
+          .withItemExposure((metadata,httpMethods)-> httpMethods.disable(theUnsupportedActions))
+          .withCollectionExposure((metadata,httpMethods)-> httpMethods.disable(theUnsupportedActions));
+    }
+}
+```
+
