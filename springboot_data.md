@@ -89,5 +89,5 @@ public class RestConfig implements RepositoryRestConfigurer {
 * `@Table`(mit argument `name=<name der Tabelle in der DB>`)
 *  Lobok: `@Data` oder `@Getter` `@Setter` 
 *  `@ID` für den primary key mandatory, dazu optional `@GeneratedValue` (meist `Auto`) 
-*  `@Column` optional, wenn man die DB-Tabelle anders nennen will
+*  `@Column` optional, wenn man die DB-Spalte anders nennen will
 
