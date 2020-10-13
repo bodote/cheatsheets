@@ -2,9 +2,13 @@
 * JPA translates entity state transitions to database DML statements. Because it’s common to operate on entity graphs, 
 JPA allows us to propagate entity state changes from **Parents to Child** entities.
 This behavior is configured through the CascadeType mappings.
-
+```java
+@OneToMany(cascade = CascadeType.ALL, mappedBy = "<the other class property>")
+```
 * [jpa-and-hibernate-cascade-types](https://vladmihalcea.com/a-beginners-guide-to-jpa-and-hibernate-cascade-types/)
 ## persist vs merge
+
+
 ### persist
 * Insert a new register to the database
 * Attach the object to the entity manager.
