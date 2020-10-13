@@ -45,3 +45,17 @@ private TheOtherClass otherObj;
 private Long id;
 ```
 [Details hier](https://thorben-janssen.com/jpa-generate-primary-keys/)
+
+# JPA und REST 
+## Basics
+Im grunde reicht es die Klasse `JpaRepository` zu extenden:
+```java
+public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
+```
+wobei der primary key hier ein im Beispiel ein `Long` ist.
+## Json und api-url-link ändern : 
+```java
+@RepositoryRestResource(collectionResourceRel = "<JsonName>", path = "<api-url-pfad name>")
+public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
+```
+
