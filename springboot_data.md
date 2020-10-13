@@ -83,3 +83,11 @@ public class RestConfig implements RepositoryRestConfigurer {
 }
 ```
 
+# Entities (und Lombok) 
+...werden wieder durch Annoations definiert :
+* `@Entity`, mandatory
+* `@Table`(mit argument `name=<name der Tabelle in der DB>`)
+*  Lobok: `@Data` oder `@Getter` `@Setter` 
+*  `@ID` für den primary key mandatory, dazu optional `@GeneratedValue` (meist `Auto`) 
+*  `@Column` optional, wenn man die DB-Tabelle anders nennen will
+
