@@ -48,7 +48,7 @@ private Long id;
 
 # JPA und REST 
 ## Basics
-Im grunde reicht es die Klasse `JpaRepository` zu extenden:
+Im grunde reicht es das Interface `JpaRepository` zu extenden:
 ```java
 public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
 ```
