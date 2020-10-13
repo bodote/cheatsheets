@@ -1,4 +1,5 @@
-# Using CommandLineRunner
+# Startup and Config
+## Using CommandLineRunner
 Spring Boot provides different mechanisms to run a specific code at [Application Startup.](https://medium.com/@cancerian0684/run-method-on-application-startup-in-spring-boot-37aa5e82c948)
 
 Eine Möglichkeit ist der `CommandLineRunner`:
@@ -22,3 +23,5 @@ public class Application {
 }
 ```
 wobei `(args) ->` hier die `args` von `main(args)` sind
+## Configuration Klassen
+`@Configuration` kann man jeder Klasse geben, damit es von SpringBoot beim Startup gescannt wird. 
