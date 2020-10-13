@@ -1,4 +1,11 @@
 # JPA/Hibernate  
+
+## Debug:
+```
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
+
 ## Cascading OneToMany
 * JPA translates entity state transitions to database DML statements. Because it’s common to operate on entity graphs, 
 JPA allows us to propagate entity state changes from **Parents to Child** entities.
