@@ -20,3 +20,14 @@ This behavior is configured through the CascadeType mappings.
 
 ### persist() semantics:
 * It makes sure that you are inserting and not updating by mistake.
+
+## Primary Key.
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+//GenerationType.AUTO besser weil GenerationType.IDENTITY=bad optimization in hibernate 
+//
+@Column(name = "id")
+private Long id;
+```
+[Details hier](https://thorben-janssen.com/jpa-generate-primary-keys/)
