@@ -3,6 +3,9 @@
 ng new <my-project>
 ng generate <class|component|module> whatever
 ```
+## Neue Child-Component in Parent - Component: 
+component mit namen generieren, dann in Parent-component den `selector` name der Child-component in die \*.html der Parent - Component einfügen
+
 # Service client-side
 Import in app module `HttpClientModule`
 
