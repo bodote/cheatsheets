@@ -19,6 +19,12 @@ definiere ein "get\<whatever\>" Funktion, die ein Observable vom Typ "\<whatever
 wo bei noch "Observable" von "rxjs" und "map" von "rxjs/operators" zu importieren ist, und ein interface "GetResponse" zu definieren ist, welchers das Json-Format der Response definiert (so , wie sie das Backend eben vorgibt)
 Dadurch funktioniert dann das mapping mit "map(response => ... )" von der kompletten Response-Json auf den Teil, der davon interessiert.
 
+## A new Component using a Service
+* Component soll `OnInit` implementieren, macht das `ng generate...` auch schon automatisch.
+* Injecte den  Service im den `constructor()` der Component.
+* definiere eine `property` zum speichern des Ergebnisses des Services
+* in der ngOnInit() dann das `Observable<>` des Serivces geben lassen und darauf `subscriben` 
+* die `subscribe`-Lambda weißt dann die definierte `property` zu.
 
 # Dependency Injection
 ```TypeScript
