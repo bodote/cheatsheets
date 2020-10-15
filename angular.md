@@ -14,7 +14,7 @@ Dann noch den neuen Service in `@NgModules({})`-`providers`-Array aufnehmen
 Im ClientService selbst, dann baseUrl festlegen, und im `constructor` den `HttpClient`injekten.
 
 ## ClientService "GET"
-definiere ein "get<whatever>" Funktion, die ein Observable vom Typ "<whatever>" zurückgibt.
+definiere ein "get\<whatever\>" Funktion, die ein Observable vom Typ "\<whatever\>" zurückgibt.
       `return this.httpClient.get<GetResponse>(this.baseUrl).pipe(map(response => ... ))`
 wo bei noch "Observable" von "rxjs" und "map" von "rxjs/operators" zu importieren ist, und ein interface "GetResponse" zu definieren ist, welchers das Json-Format der Response definiert (so , wie sie das Backend eben vorgibt)
 Dadurch funktioniert dann das mapping mit "map(response => ... )" von der kompletten Response-Json auf den Teil, der davon interessiert.
