@@ -24,6 +24,7 @@ nach `<root>/index.html` und vergesse nicht die andere `viewport` - Zeile zu lö
 ```html
 <div class="container"><h1 class="mb-3 mt-3">header</h1></div>
 ```
+dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` muss in `@Component` einen `selector` mit gleichem Namen `app-root` haben und die `templateUrl` muss auf `app.component.html` verweisen 
 
 # localen server starten
 `ng serve --open`
