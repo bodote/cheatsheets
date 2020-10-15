@@ -25,6 +25,7 @@ Dadurch funktioniert dann das mapping mit "map(response => ... )" von der komple
 * definiere eine `property` zum speichern des Ergebnisses des Services
 * in der ngOnInit() dann das `Observable<>` des Serivces geben lassen und darauf `subscriben` 
 * die `subscribe`-Lambda weißt dann die definierte `property` zu.
+* verwende die `property`in der  `\*.component.hlml` der Component
 
 # Dependency Injection
 ```TypeScript
