@@ -1,13 +1,17 @@
 # Neues Projekt, neue Componenten
 ```bash
 ng new <my-project>
-ng generate <class|component|module> whatever
+ng generate <class|component|module|service> whatever
 ```
 ## Neue Child-Component in Parent - Component: 
 component mit namen generieren, dann in Parent-component den `selector` name der Child-component in die \*.html der Parent - Component einfügen
 
-# Service client-side
-Import in app module `HttpClientModule`
+## neuen Service Client - Side
+mit CLI wie oben erzeugen.
+Dann in `app.module.ts` den `HttpClientModule` importieren von `@angular/commons/http` UND auch in `@NgModules({})` in das  `import`- Array reinschreiben.
+Dann noch den neuen Service in `@NgModules({})`-`providers`-Array aufnehmen
+
+
 
 # Dependency Injection
 ```TypeScript
