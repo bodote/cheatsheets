@@ -91,3 +91,7 @@ public class RestConfig implements RepositoryRestConfigurer {
 *  `@ID` für den primary key mandatory, dazu optional `@GeneratedValue` (meist `Auto`) 
 *  `@Column` optional, wenn man die DB-Spalte anders nennen will
 
+# REST 
+## ERROR: Access-Control-Allow-Origin
+`@CrossOrigin("http://localhost:4200")` dem  `inferface` hinzufügen , welches  `JpaRepository<>` extended
+
