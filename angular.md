@@ -49,3 +49,27 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 
 # localen server starten
 `ng serve --open`
+
+# html - template 
+## table mit bootstrap und fallunterscheidungen
+```html
+<table class="table table-hover table-sm">
+  <thead class="thead-dark">
+    <tr>
+      <th>First name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let salesPerson of salesPersonList"
+      [ngClass]=" salesPerson.volume < 6000 ? 'bg-warning': 'table-success' ">
+          <td> {{ salesPerson.firstName }}</td>
+          <td> {{ salesPerson.volume | currency:'EUR' }}</td>
+          <td>
+            <div *ngIf="salesPerson.volume >= 6000 ; else myElseBlock">yes</div>
+            <ng-template #myElseBlock>no</ng-template>
+          </td>
+    </tr>
+  </tbody>
+</table>
+```
+
