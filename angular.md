@@ -72,4 +72,16 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
   </tbody>
 </table>
 ```
+# Typescript Specials
+## Getter , Setter:
+```typescript
+class ...
+private _fullName: string = "";
+  get fullName(): string { return this._fullName; }
+  set fullName(newName: string) {this._fullName = newName;}
+...
+//Verwendung:
+employee.fullName = "Bob Smith";
+```
 
+  
