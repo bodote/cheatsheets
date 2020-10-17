@@ -82,6 +82,12 @@ public class RestConfig implements RepositoryRestConfigurer {
     }
 }
 ```
+## Spring-Rest default args
+JpaRepository<my-stuff,Long> hat beim Zugriff über `http://whatever/api/my-stuff` schon eingebaute Argumente, 
+* z.b. `?size=<number>`  (default ist  *20*)
+* also `http://whatever/api/my-stuf?size=100` liefert dann 100 Ergebnisse.
+
+
 
 # Entities (und Lombok) 
 ...werden wieder durch Annoations definiert :
