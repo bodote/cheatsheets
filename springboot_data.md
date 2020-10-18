@@ -63,10 +63,11 @@ wobei der primary key hier ein im Beispiel ein `Long` ist.
 public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
 ```
 ## findBy ergänzen
-das Interface wird einfach mit einer Method-Signature ergänzt: 
+* das Interface wird einfach mit einer Method-Signature ergänzt: 
 `public Page<MyActualClass> findByMySelectionID (@RequestParameter("id") Long id, Pageable pageble);`
-der alles andere ist Springboot - Magic  und führt zu folgendem SQL: 
+* der alles andere ist Springboot - Magic  und führt zu folgendem SQL: 
 `SELECT * FROM myclass where myselection_id=?`
+* `http://localhost:8080/api/myactualclass/search` sollte dann die `findBymyselectionId`anzeigen und `http://localhost:8080/api/myactualclass/search/findByMyselectionId?id=1` müsste dann die gefilterten Ergebnisse liefern 
 
 ## Config ändern
 Änderung für "MyClass", read only:
