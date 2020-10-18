@@ -64,7 +64,7 @@ public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKl
 ```
 ## findBy ergänzen
 das Interface wird einfach mit einer Method-Signature ergänzt: 
-`public Page<MyActualClass> findByMySelectionID (@RequestParameter("id"), Pageable pageble);`
+`public Page<MyActualClass> findByMySelectionID (@RequestParameter("id") Long id, Pageable pageble);`
 der alles andere ist Springboot - Magic  und führt zu folgendem SQL: 
 `SELECT * FROM myclass where myselection_id=?`
 
