@@ -25,7 +25,19 @@ Dadurch funktioniert dann das mapping mit "map(response => ... )" von der komple
 * definiere eine `property` zum speichern des Ergebnisses des Services
 * in der ngOnInit() dann das `Observable<>` des Serivces geben lassen und darauf `subscriben` 
 * die `subscribe`-Lambda weißt dann die definierte `property` zu.
-* verwende die `property`in der  `\*.component.hlml` der Component
+* verwende die `property`in der  `\*.component.hlml` der Componen
+
+## Routing
+### Routes definieren
+* im `app.module.ts` dort in `@NgModule` das `RouterModule` importieren  dabei auch gleich `.forRoot()` mit dem Array der möglichen `Routes` aufrufen.
+* `Routes` werden als Array definiert mit `path` plus `component`, oder mit `path` , `redirect` und `pathMatch`
+### Routes verwenden
+* `<router-outlet/>` in app.component.html einfügen, an die Stelle, wo dann die unterschiedlichen Components eingefügt werden sollen. Und zwar statt einer statischen Referenz zu eine Componente mit dem `selector` der `@Component` einer `whatever.component.ts`
+* ab dann kann man Links mit dem `path`einer Route verwenden, das bewirkt dann eine erneutes Rendern der referenzierten Component mit ggf. den zusätzlich Route-Parametern (also `?param=3` an den Link angehängt) 
+### Links zu Routes
+* `<a routerLink="/path" >link</a>` oder  mit parameter: `<a routerLink="/path/3" >link</a>` oder
+* optinal: CSS Style für `routerLinkActive` definieren (mit  bootstrap z.B.:  `<a routerLink="/path/3" routerLinkActive="nav-link active" >link</a>`)
+
 
 # Dependency Injection
 ```TypeScript
