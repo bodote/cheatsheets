@@ -37,7 +37,8 @@ Dadurch funktioniert dann das mapping mit "map(response => ... )" von der komple
 ### Links zu Routes
 * `<a routerLink="/path" >link</a>` oder  mit parameter: `<a routerLink="/path/3" >link</a>` oder
 * optinal: CSS Style für `routerLinkActive` definieren (mit  bootstrap z.B.:  `<a routerLink="/path/3" routerLinkActive="nav-link active" >link</a>`)
-
+### lesen der Route/Parameter in Component
+mit `this.router.snapshot.paramMap.get(<param-name>)` kann man den Parameter lesen.
 
 # Dependency Injection
 ```TypeScript
@@ -95,6 +96,8 @@ private _fullName: string = "";
 //Verwendung:
 employee.fullName = "Bob Smith";
 ```
+## String to Number conversion: 
+`let number = +"my number as string"`, also mit einem `+`Zeichen
 
 # Browser Tricks
 ## Cache problem bei statischen Inhalten vermeiden
