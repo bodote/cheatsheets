@@ -37,8 +37,21 @@ Dadurch funktioniert dann das mapping mit "map(response => ... )" von der komple
 ### Links zu Routes
 * `<a routerLink="/path" >link</a>` oder  mit parameter: `<a routerLink="/path/3" >link</a>` oder
 * optinal: CSS Style für `routerLinkActive` definieren (mit  bootstrap z.B.:  `<a routerLink="/path/3" routerLinkActive="nav-link active" >link</a>`)
-### lesen der Route/Parameter in Component
-mit `this.router.snapshot.paramMap.get(<param-name>)` kann man den Parameter lesen.
+### lesen der Route/Parameter  Component
+* übergebe dem constructor die `ActivatedRoute` , speichere das in `route`
+* in `ngOnInit()` subscribe auf `this.route.paramMap.subscribe( () => {} )`
+* In der Component kann man dann **innerhalb** des subscribe-lambda statements prüfen ob der parameter überhaupt da ist mit `this.router.snapshot.paramMap.has('<param-name>')`
+* mit `this.router.snapshot.paramMap.get(<param-name>)` kann man den Parameter **innerhalb** des subscribe-lambda lesen:
+```typescript
+this.route.paramMap.subscribe( () => {
+   if (this.router.snapshot.paramMap.has('<param-name>'))
+       param = this.router.snapshot.paramMap.get(<param-name>)
+   else param = 1
+   //call Service mit zusätzlichem Argument `param`
+   this.myservice.getWhatever(param).subscribe(...)
+} )
+``` 
+
 
 # Dependency Injection
 ```TypeScript
