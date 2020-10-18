@@ -61,7 +61,8 @@ this.route.paramMap.subscribe( () => {
    this.myservice.getWhatever(param).subscribe(...)
 } )
 ``` 
-
+## Debug Routing
+` RouterModule.forRoot(routes, { enableTracing: true }) ],`
 
 # Dependency Injection
 ```TypeScript
