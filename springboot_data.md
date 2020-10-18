@@ -22,10 +22,7 @@ This behavior is configured through the CascadeType mappings.
 private TheOtherClass otherObj;
 ```
 
-
 ## persist vs merge
-
-
 ### persist
 * Insert a new register to the database
 * Attach the object to the entity manager.
@@ -65,6 +62,11 @@ wobei der primary key hier ein im Beispiel ein `Long` ist.
 @RepositoryRestResource(collectionResourceRel = "<JsonName>", path = "<api-url-pfad name>")
 public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
 ```
+## findBy ergänzen
+das Interface wird einfach mit einer Method-Signature ergänzt: 
+`public Page<MyActualClass> findByMySelectionID (@RequestParameter("id"), Pageable pageble);`
+der alles andere ist Springboot - Magic  und führt zu folgendem SQL: 
+`SELECT * FROM myclass where myselection_id=?`
 
 ## Config ändern
 Änderung für "MyClass", read only:
