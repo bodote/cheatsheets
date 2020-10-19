@@ -98,9 +98,12 @@ public RestConfig(EntityManager theEntityManager){
 ```
 z.B. um vom EntityManager alle Typen, die er verwaltet zu lesen:
 ```Java
+...
  for (EntityType<?> entity : entityManager.getMetamodel().getEntities()) {
          logger.debug("Java Type:" + entity.getJavaType().toString());
+         restConfig.exposeIdsFor(entity.getJavaType())
     }
+...
 ``` 
 das kann man verwenden um die dann einzeln zu Konfigurieren, hier z.B. um die **Id in der Json Antwort** mit einzuschließen (was eben defaultmäßig nicht der Fall ist):
 `config.exposeIdsFor(User.class)`  wenn User.class eine von den Entitys des EntityMangers ist;
