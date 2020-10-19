@@ -85,6 +85,28 @@ public class RestConfig implements RepositoryRestConfigurer {
     }
 }
 ```
+GGf. braucht man noch ein EntityManager Instanz für die Configänderung, dann ergänze: 
+eine Constructor der den EnitiyManager per @Autowired injektet.
+```Java
+....
+private EntityManager entityManager;
+@Autowired
+public RestConfig(EntityManager theEntityManager){
+   this.entityManager= theEntityManager;
+}
+...
+```
+z.B. um vom EntityManager alle Typen, die er verwaltet zu lesen:
+```Java
+ for (EntityType<?> entity : entityManager.getMetamodel().getEntities()) {
+         logger.debug("Java Type:" + entity.getJavaType().toString());
+    }
+``` 
+das kann man verwenden um die dann einzeln zu Konfigurieren, hier z.B. um die **Id in der Json Antwort** mit einzuschließen (was eben defaultmäßig nicht der Fall ist):
+`config.exposeIdsFor(User.class)`  wenn User.class eine von den Entitys des EntityMangers ist;
+
+siehe auch https://docs.spring.io/spring-data/rest/docs/current/reference/html/#getting-started.changing-base-uri
+
 ## Spring-Rest default args
 JpaRepository<my-stuff,Long> hat beim Zugriff über `http://whatever/api/my-stuff` schon eingebaute Argumente, 
 * z.b. `?size=<number>`  (default ist  *20*)
