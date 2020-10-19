@@ -62,7 +62,7 @@ this.route.paramMap.subscribe( () => {
 } )
 ``` 
 ## Debug Routing
-` RouterModule.forRoot(routes, { enableTracing: true }) ],`
+in `app.module.ts` einfügen: ` RouterModule.forRoot(routes, { enableTracing: true }) ],`
 
 # Dependency Injection
 ```TypeScript
