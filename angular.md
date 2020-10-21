@@ -3,6 +3,8 @@
 ng new <my-project>
 ng generate <class|component|module|service> whatever
 ```
+z.B.:
+`ng generate component components/search` legt im Unterverzeichniss "components" die search.component.ts , plus spec,html,css an 
 ## Neue Child-Component in Parent - Component: 
 component mit namen generieren, dann in Parent-component den `selector` name der Child-component in die \*.html der Parent - Component einfügen
 
