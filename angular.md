@@ -66,7 +66,7 @@ this.route.paramMap.subscribe( () => {
 ## Routes aus Typescript Methoden heraus aufrufen
 wenn man nicht direkt einen Link auf die Route hat, dann kann man auch einen Event mit einer Methode der Componente der Klasse verbinden und dann dort  programmatisch die Route aufrufen
 * den constructor initialisieren mit : `constructor(private router:Router) { }``
-* die Route direkt aufrufen: `this.router.navigateByUrl(urlString)`
+* die Route direkt aufrufen: `this.router.navigateByUrl(urlString)` wobei z.B. `urlString` = `"/search/"+searchstring` wenn das Endergebniss so ausschaun soll: `http://localhost:4200/search/searchstring` 
 
 ## Debug Routing
 in `app.module.ts` einfügen: ` RouterModule.forRoot(routes, { enableTracing: true }) ],`
