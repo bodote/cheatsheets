@@ -69,7 +69,7 @@ in `app.module.ts` einfügen: ` RouterModule.forRoot(routes, { enableTracing: tr
 @Injectable({})
 ```
 # add Bootstrap support
-copy from (https://getbootstrap.com/docs/4.5/getting-started/introduction/):
+copy from [here](https://getbootstrap.com/docs/4.5/getting-started/introduction/):
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
@@ -117,7 +117,7 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 <sometag #refMarker ..... (eventname)="method(refMarker.value) " >
 <someothertag ..... (othereventname)="method(refMarker.value) " >
 ```
-* wichtige (events)[https://developer.mozilla.org/en-US/docs/Web/Events] `keyUp.enter` oder `keyDown.enter` , `click`, `focus` und sein Gegenteil: `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war. Weiterhin `dblclick`
+* wichtige [events](https://developer.mozilla.org/en-US/docs/Web/Events) `keyUp.enter` oder `keyDown.enter` , `click`, `focus` und sein Gegenteil: `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war. Weiterhin `dblclick`
 
 
 # Typescript Specials
