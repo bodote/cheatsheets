@@ -67,7 +67,8 @@ public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKl
 `public Page<MyActualClass> findByMySelectionID (@RequestParameter("id") Long id, Pageable pageble);`
 * der alles andere ist Springboot - Magic  und führt zu folgendem SQL: 
 `SELECT * FROM myclass where myselection_id=?`
-* `http://localhost:8080/api/myactualclass/search` sollte dann die `findBymyselectionId`anzeigen und `http://localhost:8080/api/myactualclass/search/findByMyselectionId?id=1` müsste dann die gefilterten Ergebnisse liefern 
+* `http://localhost:8080/api/myactualclass/search` sollte dann die `findBymyselectionId`anzeigen und `http://localhost:8080/api/myactualclass/search/findByMyselectionId?id=1` müsste dann die gefilterten Ergebnisse liefern
+* allgemein kann man die `findBy`-methoden - Varianten, die man im INterface definieren kann [hier](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods) finden: 
 
 ## Config ändern
 Änderung für "MyClass", read only:
