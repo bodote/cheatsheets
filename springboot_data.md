@@ -70,6 +70,18 @@ public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKl
 * `http://localhost:8080/api/myactualclass/search` sollte dann die `findBymyselectionId`anzeigen und `http://localhost:8080/api/myactualclass/search/findByMyselectionId?id=1` müsste dann die gefilterten Ergebnisse liefern
 * allgemein kann man die `findBy`-methoden - Varianten, die man im INterface definieren kann [hier](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods) finden: 
 
+Beispiele:
+```Java
+@CrossOrigin("http://localhost:4200")
+public interface ProductRepository extends JpaRepository<Product,Long> {
+    public Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);
+    public Page<Product> findByNameContainingOrDescriptionContaining(@RequestParam("name") String name,
+                                                                     @RequestParam("description") String description ,
+                                                                     Pageable pageable);
+}
+```
+
+
 ## Config ändern
 Änderung für "MyClass", read only:
 
