@@ -109,10 +109,16 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
   </tbody>
 </table>
 ```
-#EventBinding
+# EventBinding
 * Browser/Mouse/Tastatur-Event ruft Methode in zugehöriger Componente: `<sometag (eventname)="typescript-Method-call"></..>`:
 * reading Input aus einem Feld (z.B. INput) `<sometag #refMarker ..... (eventname)="method(refMarker.value) " >`
+* reading Input aus einem **ANDEREN** Feld funktioniert genau so:
+```html
+<sometag #refMarker ..... (eventname)="method(refMarker.value) " >
+<someothertag r ..... (othereventname)="method(refMarker.value) " >
+```
 * wichtige events `keyUp.enter` , `click`, `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war.
+
 
 # Typescript Specials
 ## Getter , Setter:
