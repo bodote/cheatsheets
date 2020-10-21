@@ -115,9 +115,9 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 * reading Input aus einem **ANDEREN** Feld funktioniert genau so:
 ```html
 <sometag #refMarker ..... (eventname)="method(refMarker.value) " >
-<someothertag r ..... (othereventname)="method(refMarker.value) " >
+<someothertag ..... (othereventname)="method(refMarker.value) " >
 ```
-* wichtige events `keyUp.enter` , `click`, `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war.
+* wichtige (events)[https://developer.mozilla.org/en-US/docs/Web/Events] `keyUp.enter` oder `keyDown.enter` , `click`, `focus` und sein Gegenteil: `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war. Weiterhin `dblclick`
 
 
 # Typescript Specials
