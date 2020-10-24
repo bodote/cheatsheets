@@ -157,8 +157,19 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 ## installation
 * `ng add @angular/localize` und `ng install @ng-bootstrap/ng-bootstrap`
 * Import in `app.module.ts` : `@NgImport .... NgbModule `
-* Siehe [Spring Data REST](https://www.baeldung.com/rest-api-pagination-in-spring#spring-data-rest-pagination)
+* Siehe [Spring Data REST](https://www.baeldung.com/rest-api-pagination-in-spring#spring-data-rest-pagination), oder [hier](https://bezkoder.com/spring-boot-pagination-filter-jpa-pageable/)
+* in Angular muss das `interface GetResponseWhatever{ _enbedded: {..} }` um das `page:{ size: number, ...}` erweitert werden, oder was immer spring hier mit `..&page=1&size=10` zurückgibt 
+* `pageNumber, pageSize, totalElements` als Properties der Angular-Component hinzufügen damit diese dann beim Angular-Service aufruf übergeben werden können.
+* umgekehrt muss in der gleichen Componente aus dem Result vom Service-Aufruf dann die 3 parameter wieder gelesen werden.
+* **Achtung** Spring ist zero-based und Angular ist "1"-based
+* in dem HTML-Template , nutze `<ngb-pagination>` gemäß [ng-bootstrap](https://ng-bootstrap.github.io)
+* **2-Way** Data-Binding für die parameter verwenden mit `[(page)]="pageNumber"` wenn `pageNumber` die Property in der Componente ist.
+* definiere Binding-call von `pageChange` zu einer Methode in der Componente die dann den Service aufruft.
 
+
+
+
+ 
 # Typescript Specials
 ## Getter , Setter:
 ```typescript
