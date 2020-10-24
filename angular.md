@@ -157,7 +157,7 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 ## installation
 * `ng add @angular/localize` und `ng install @ng-bootstrap/ng-bootstrap`
 * Import in `app.module.ts` : `@NgImport .... NgbModule `
-* Siehe Spring Data REST ....
+* Siehe [Spring Data REST](https://www.baeldung.com/rest-api-pagination-in-spring#spring-data-rest-pagination)
 
 # Typescript Specials
 ## Getter , Setter:
