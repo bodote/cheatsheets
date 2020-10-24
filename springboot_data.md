@@ -130,7 +130,7 @@ JpaRepository<my-stuff,Long> hat beim Zugriff über `http://whatever/api/my-stuf
 
 ## Pagination 
 ist per default schon dabei ! siehe das`"page"` Json - Element am Ende eines Reply-Content !
-`http://localhost:8080/api/products{?page,size,sort}`
+`http://localhost:8080/api/products{?page,size,sort}` z.B. `http://localhost:8080/api/products?page=2&size=2`
 
 
 
