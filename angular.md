@@ -17,6 +17,7 @@
 - [html - template](#html---template)
   - [table mit bootstrap und fallunterscheidungen](#table-mit-bootstrap-und-fallunterscheidungen)
 - [EventBinding](#eventbinding)
+- [Pagination](#Pagination)
 - [Typescript Specials](#typescript-specials)
   - [Getter , Setter:](#getter--setter)
   - [String to Number conversion:](#string-to-number-conversion)
@@ -152,6 +153,11 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 ```
 * wichtige [events](https://developer.mozilla.org/en-US/docs/Web/Events) `keyUp.enter` oder `keyDown.enter` , `click`, `focus` und sein Gegenteil: `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war. Weiterhin `dblclick`
 
+# Pagination
+## installation
+* `ng add @angular/localize` und `ng install @ng-bootstrap/ng-bootstrap`
+* Import in `app.module.ts` : `@NgImport .... NgbModule `
+* Siehe Spring Data REST ....
 
 # Typescript Specials
 ## Getter , Setter:
