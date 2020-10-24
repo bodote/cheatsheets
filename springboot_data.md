@@ -128,6 +128,9 @@ JpaRepository<my-stuff,Long> hat beim Zugriff über `http://whatever/api/my-stuf
 * z.b. `?size=<number>`  (default ist  *20*)
 * also `http://whatever/api/my-stuf?size=100` liefert dann 100 Ergebnisse.
 
+## Pagination 
+ist per default schon dabei ! siehe das`"page"` Json - Element am Ende eines Reply-Content !
+
 
 
 # Entities (und Lombok) 
