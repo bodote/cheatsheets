@@ -12,7 +12,7 @@
   - [Debug Routing](#debug-routing)
 - [Dependency Injection](#dependency-injection)
 - [add Bootstrap support](#add-bootstrap-support)
-- [einfache `app.component.html` für Bootstrap](#einfache-appcomponenthtml-fr-bootstrap)
+- [einfache `app.component.html` für Bootstrap](#einfache-appcomponenthtml-f%C3%BCr-bootstrap)
 - [localen server starten](#localen-server-starten)
 - [html - template](#html---template)
   - [table mit bootstrap und fallunterscheidungen](#table-mit-bootstrap-und-fallunterscheidungen)
