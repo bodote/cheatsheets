@@ -1,3 +1,27 @@
+# Table of contents
+
+- [Neues Projekt, neue Componenten](#neues-projekt-neue-componenten)
+  - [Neue Child-Component in Parent - Component:](#neue-child-component-in-parent---component)
+  - [neuen Service Client - Side](#neuen-service-client---side)
+  - [ClientService "GET"](#clientservice-get)
+  - [A new Component using a Service](#a-new-component-using-a-service)
+- [Routing](#routing)
+  - [Routes definieren](#routes-definieren)
+  - [Routes verwenden](#routes-verwenden)
+  - [Routes aus Typescript Methoden heraus aufrufen](#routes-aus-typescript-methoden-heraus-aufrufen)
+  - [Debug Routing](#debug-routing)
+- [Dependency Injection](#dependency-injection)
+- [add Bootstrap support](#add-bootstrap-support)
+- [einfache `app.component.html` für Bootstrap](#einfache-appcomponenthtml-fr-bootstrap)
+- [localen server starten](#localen-server-starten)
+- [html - template](#html---template)
+  - [table mit bootstrap und fallunterscheidungen](#table-mit-bootstrap-und-fallunterscheidungen)
+- [EventBinding](#eventbinding)
+- [Typescript Specials](#typescript-specials)
+  - [Getter , Setter:](#getter--setter)
+  - [String to Number conversion:](#string-to-number-conversion)
+- [Browser Tricks](#browser-tricks)
+  - [Cache problem bei statischen Inhalten vermeiden](#cache-problem-bei-statischen-inhalten-vermeiden)
 # Neues Projekt, neue Componenten
 ```bash
 ng new <my-project>
