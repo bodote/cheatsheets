@@ -155,7 +155,7 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 
 # Pagination
 ## Installation
-* `ng add @angular/localize` und `ng install @ng-bootstrap/ng-bootstrap`
+* `ng add @angular/localize` und `npm install @ng-bootstrap/ng-bootstrap`
 * Import in `app.module.ts` : `@NgImport .... NgbModule `
 * Siehe [Spring Data REST](https://www.baeldung.com/rest-api-pagination-in-spring#spring-data-rest-pagination), oder [hier](https://bezkoder.com/spring-boot-pagination-filter-jpa-pageable/)
 ## Verwendung
