@@ -168,7 +168,8 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 <ngb-pagination
   [(page)]="page"
   [pageSize]="pageSize"
-  [maxSize]="5" <!-- zeigt max 5 pages im page-selector  an -->              
+  [maxSize]="5" <!-- zeigt max 5 pages im page-selector  an --> 
+  [boundaryLinks]="true"
   [collectionSize]="items.length"></ngb-pagination>
 ```
 * **2-Way** Data-Binding für die parameter verwenden mit `[(page)]="pageNumber"` wenn `pageNumber` die Property in der Componente ist.
