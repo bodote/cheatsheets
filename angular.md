@@ -187,6 +187,11 @@ employee.fullName = "Bob Smith";
 ```
 ## String to Number conversion: 
 `let number = +"my number as string"`, also mit einem `+`Zeichen
+## String interpolation with Varables:
+```typescript
+console.log(`The size is ${ value }`);
+```
+
 
 # Browser Tricks
 ## Cache problem bei statischen Inhalten vermeiden
