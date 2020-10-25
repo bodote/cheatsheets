@@ -168,11 +168,14 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 <ngb-pagination
   [(page)]="page"
   [pageSize]="pageSize"
+  [maxSize]="5" <!-- zeigt max 5 pages im page-selector  an -->              
   [collectionSize]="items.length"></ngb-pagination>
 ```
 * **2-Way** Data-Binding für die parameter verwenden mit `[(page)]="pageNumber"` wenn `pageNumber` die Property in der Componente ist.
 * definiere Binding-call von `pageChange` zu einer Methode in der Componente die dann den Service aufruft.
-* 
+## Anpassen der Pagesize vom User
+* Variante 1: Verwende [ng-bootstraps Dropdown](https://ng-bootstrap.github.io/#/components/dropdown/examples) `<div ngbDropdown placement="top-right" class="d-inline-block">...` und bei jedme Button definieren den `(click)`- Event: `(click)="updatePageSize(5)` etc.
+* Variante 2: verwende html - `<select>...<option>` und dazu den `(change)` - Event mit `(change)="updatePageSize($event.target.value)"` 
  
 # Typescript Specials
 ## Getter , Setter:
