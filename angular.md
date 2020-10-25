@@ -163,7 +163,7 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 * `pageNumber, pageSize, totalElements` als Properties der Angular-Component hinzufügen damit diese dann beim Angular-Service aufruf übergeben werden können.
 * umgekehrt muss in der gleichen Componente aus dem Result vom Service-Aufruf dann die 3 parameter wieder gelesen werden. d.h. der `GetResponseWhatever` vom  `Observeable<GetResponseWhatever>` muss jetzt vom Service auch zurückgegeben werden, statt nur die eigentliche Entity-Klasse  
 * **Achtung** Spring ist zero-based und Angular ist "1"-based
-* in dem HTML-Template verwende im Template dann `<div class="footer-pagination">..<div class="row">`, nutze `<ngb-pagination>` gemäß [ng-bootstrap](https://ng-bootstrap.github.io) [Beispiel](https://ng-bootstrap.github.io/#/components/pagination/overview):
+* in dem HTML-Template verwende im Template dann `<ngb-pagination>` gemäß [ng-bootstrap](https://ng-bootstrap.github.io) [Beispiel](https://ng-bootstrap.github.io/#/components/pagination/overview):
 ```html
 <ngb-pagination
   [(page)]="page"
