@@ -177,7 +177,20 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 ## Anpassen der Pagesize vom User
 * Variante 1: Verwende [ng-bootstraps Dropdown](https://ng-bootstrap.github.io/#/components/dropdown/examples) `<div ngbDropdown placement="top-right" class="d-inline-block">...` und bei jedme Button definieren den `(click)`- Event: `(click)="updatePageSize(5)` etc.
 * Variante 2: verwende html - `<select>...<option>` und dazu den `(change)` - Event mit `(change)="updatePageSize($event.target.value)"` 
- 
+
+# RXJS- Spezials
+## Observable >>Subjects<< 
+damit kann man Properies "wrappen" damit andere Objekte sich auf deren Änderung "subscriben" können: 
+```typescript 
+
+mynumber = new Subject<number>()// just the wrapper
+actualNumbervalue = 0 ; // that actual number
+....
+actualNumbervalue= 5 // neue Wert 
+this.mynumber.next(actualNumbervalue) // an alle Subscriber versendet
+```
+so bekommen alle subscriber von "actualNumbervalue" den neuen Wert mitgeteilt
+
 # Typescript Specials
 ## Getter , Setter:
 ```typescript
