@@ -209,6 +209,11 @@ employee.fullName = "Bob Smith";
 ```typescript
 console.log(`The size is ${ value }`);
 ```
+## Array find
+```typescript
+foundItem = myArray.find(item => { item.property === whatever })
+``` 
+`fundItem`is the first match  or `unfefined` if nothing found
 
 
 # Browser Tricks
