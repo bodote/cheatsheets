@@ -18,6 +18,7 @@
   - [table mit bootstrap und fallunterscheidungen](#table-mit-bootstrap-und-fallunterscheidungen)
 - [EventBinding](#eventbinding)
 - [Pagination](#Pagination)
+- [RXJS-Specials](#rxjs--spezials)
 - [Typescript Specials](#typescript-specials)
   - [Getter , Setter:](#getter--setter)
   - [String to Number conversion:](#string-to-number-conversion)
