@@ -18,9 +18,10 @@
   - [table mit bootstrap und fallunterscheidungen](#table-mit-bootstrap-und-fallunterscheidungen)
 - [EventBinding](#eventbinding)
 - [Pagination](#Pagination)
-- [RXJS-Specials](#rxjs--spezials)
+- [RXJS-Specials](#rxjs-spezials)
+- [Reactive Forms](#reactive-forms)
 - [Typescript Specials](#typescript-specials)
-  - [Getter , Setter:](#getter--setter)
+  - [Getter , Setter:](#getter-setter)
   - [String to Number conversion:](#string-to-number-conversion)
 - [Browser Tricks](#browser-tricks)
   - [Cache problem bei statischen Inhalten vermeiden](#cache-problem-bei-statischen-inhalten-vermeiden)
@@ -179,7 +180,7 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 * Variante 1: Verwende [ng-bootstraps Dropdown](https://ng-bootstrap.github.io/#/components/dropdown/examples) `<div ngbDropdown placement="top-right" class="d-inline-block">...` und bei jedme Button definieren den `(click)`- Event: `(click)="updatePageSize(5)` etc.
 * Variante 2: verwende html - `<select>...<option>` und dazu den `(change)` - Event mit `(change)="updatePageSize($event.target.value)"` 
 
-# RXJS- Spezials
+# RXJS-Spezials
 ## Observable >>Subjects<< 
 damit kann man Properies "wrappen" damit andere Objekte sich auf deren Änderung "subscriben" können: 
 ```typescript 
@@ -191,9 +192,44 @@ actualNumbervalue= 5 // neue Wert
 this.mynumber.next(actualNumbervalue) // an alle Subscriber versendet
 ```
 so bekommen alle subscriber von "actualNumbervalue" den neuen Wert mitgeteilt
+# Reactive Forms
+* Installation, Configuration: in `apps.module.ts` hinzufügen: `imports: [.., ReacitveFormsModule, ..]`
+* `FormGroup` in Component als non-private Field, im constructor einen `FormBuilder` injecten und im `ngOnInit()` mit  `FormBuilder.group()` eine oder mehrere `FormGroup`s hierarchisch als "anonyme" Json-Structuren definieren, auf unterster Ebene dann die eigentlichen `FormControl`s :
+```typescript
+myFormGroup: FormGroup
+constructor (private formBuilder: FormBuilder )
+ngOnInit(){
+  this.myFormGroup = this.formBuilder.group({
+    myTopLevelElement:  this.formBuilder.group({
+      myControl1: ['defaultValue'],
+      myControl2: [''] //empty default value
+    })
+  })
+}
+```
+* `onSubmit()` methode definieren
+```typescript
+this.myFormGroup.get('myTopLevelElement').value // alle Felder der Gruppe
+this.myFormGroup.get('myTopLevelElement').value.myControl1 //nur ein bestimmtes Feld
+```
+
+* HTML-Template bildet die hierarchische Groupierung 1:1 ab :
+```html
+<form [formGroup]="myFormGroup" (ngSubmit)="onSubmit()">
+    <div formGroupName="myTopLevelElement" class ="form-area" >
+      <div class="row">
+        <label>a Label</label>
+        <input formControlName="myControl1" type="text">
+      </div>
+    </div>
+  <div class=".." >
+    <button type="submit" class="btn btn-info">Buttonname</button>
+  </div>  
+```
+
 
 # Typescript Specials
-## Getter , Setter:
+## Getter, Setter:
 ```typescript
 class ...
 private _fullName: string = "";
