@@ -193,7 +193,7 @@ this.mynumber.next(actualNumbervalue) // an alle Subscriber versendet
 ```
 so bekommen alle subscriber von "actualNumbervalue" den neuen Wert mitgeteilt
 # Reactive Forms
-* Installation, Configuration: in `apps.module.ts` hinzufügen: `imports: [.., ReacitveFormsModule, ..]`
+* Installation, Configuration: in `apps.module.ts` hinzufügen: `imports: [.., FormsModule, ReacitveFormsModule, ..]`
 * `FormGroup` in Component als non-private Field, im constructor einen `FormBuilder` injecten und im `ngOnInit()` mit  `FormBuilder.group()` eine oder mehrere `FormGroup`s hierarchisch als "anonyme" Json-Structuren definieren, auf unterster Ebene dann die eigentlichen `FormControl`s :
 ```typescript
 myFormGroup: FormGroup
