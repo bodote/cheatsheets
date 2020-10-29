@@ -252,6 +252,17 @@ foundItem = myArray.find(item => { item.property === whatever })
 ``` 
 `fundItem`is the first match  or `unfefined` if nothing found
 
+# JSON ist gleichzeitig gültiges TypeScript- Objekt
+Beispiel:
+```typescript
+this.checkoutForm = this.formBuilder.group({
+      customer: this.formBuilder.group({
+        firstname: [''],
+        lastname: [''],
+        email: ['']
+      })
+```
+
 
 # Browser Tricks
 ## Cache problem bei statischen Inhalten vermeiden
