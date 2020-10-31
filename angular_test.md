@@ -16,3 +16,21 @@ describe('TodoFormComponent', () => {
 ```
 ebenso `beforeAll()` `afterEach()` und `afterAll()`
 
+# Testbed:
+```typescript
+import { async, TestBed } from '@angular/core/testing';
+
+beforeEach(async(() => {
+  TestBed.configureTestingModule({
+    declarations: [ SelfComponent ],
+    providers: [],
+    imports: []
+  })
+  .compileComponents();
+}));
+
+it('...', () => {
+  let fixture = TestBed.createComponent(AppComponent);
+});
+```
+* in `configureTestingModule` -> `declarations` und `imports` nur das aus `@NgModule({...` abschreiben, was auch wirklich gebraucht wird, evtl ist aber **mindestens** die zu Testenden Component, sonst werden im Template die `*ngFor` etc. nicht aufgelöst
