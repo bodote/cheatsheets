@@ -1,0 +1,1 @@
+gh-md-toc ang*.md > angular_toc.md
