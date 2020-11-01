@@ -29,18 +29,3 @@ Dadurch funktioniert dann das mapping mit "map(response => ... )" von der komple
 * die `subscribe`-Lambda weißt dann die definierte `property` zu.
 * verwende die `property`in der  `\*.component.hlml` der Componen
 
-# Routing
-## Routes definieren
-* im `app.module.ts` dort in `@NgModule` das `RouterModule` importieren  dabei auch gleich `.forRoot()` mit dem Array der möglichen `Routes` aufrufen.
-* `Routes` werden als Array definiert mit `path` plus `component`, oder mit `path` , `redirect` und `pathMatch`
-### Beispiel Routes:
-```typescript
-let routes : Routes = [
-  { path: 'category/:id', component:  ProductListComponent},
-  { path: 'category', component:  ProductListComponent},
-  { path: '', pathMatch: 'full', redirectTo: '/products'},  
-  { path: '**', pathMatch: 'full', redirectTo: '/products'}  
-]
-```
-# localen server starten
-`ng serve --open`

@@ -81,3 +81,6 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 # Browser Tricks
 ## Cache problem bei statischen Inhalten vermeiden
 füge ein `?v=2` hinzu z.B. `<link rel="icon" type="image/x-icon" href="favicon.ico?v=2">` oder dann `3`, `4`etc. 
+
+# localen server starten
+`ng serve --open`

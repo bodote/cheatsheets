@@ -8,6 +8,6 @@ Bodos cheet sheets in mark down format:
 * [java ee annotations](pdfslide.net_java-ee-reference-sheet.pdf)
 * [Spring Data](springboot_data.md)
 * [Spring Allgemein](spring_boot_allg.md)
-* [Angular](angular.md) / [Angular Unittests](angular_test.md)
+* [Angular](angular_toc.md) 
 * [HTML und CSS](html_css.md)
 * [VSCode support for Angular](vscode_angular.md)

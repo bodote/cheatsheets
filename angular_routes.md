@@ -1,3 +1,17 @@
+# Routing
+## Routes definieren
+* im `app.module.ts` dort in `@NgModule` das `RouterModule` importieren  dabei auch gleich `.forRoot()` mit dem Array der möglichen `Routes` aufrufen.
+* `Routes` werden als Array definiert mit `path` plus `component`, oder mit `path` , `redirect` und `pathMatch`
+### Beispiel Routes:
+```typescript
+let routes : Routes = [
+  { path: 'category/:id', component:  ProductListComponent},
+  { path: 'category', component:  ProductListComponent},
+  { path: '', pathMatch: 'full', redirectTo: '/products'},  
+  { path: '**', pathMatch: 'full', redirectTo: '/products'}  
+]
+```
+
 
 ## Routes verwenden
 * `<router-outlet/>` in app.component.html einfügen, an die Stelle, wo dann die unterschiedlichen Components eingefügt werden sollen. Und zwar statt einer statischen Referenz zu eine Componente mit dem `selector` der `@Component` einer `whatever.component.ts`
