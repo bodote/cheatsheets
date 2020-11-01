@@ -39,4 +39,4 @@ it('...', () => {
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
 * Componente initialisieren, dann auf die `@Output()` - Property (die ja vom Typ `EventEmitter` ist) subscriben.
-* **innerhalb** der `subscribe` funktion dann testen ob das von subscribe übergebene argument (= der eigentliche Wert des Events , z.B. direkt eine Zahl oder ein String) der Erwartung entspricht 
+* **außerhalb** der `subscribe` funktion dann testen ob das von subscribe übergebene argument (= der eigentliche Wert des Events , z.B. direkt eine Zahl oder ein String) der Erwartung entspricht 
