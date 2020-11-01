@@ -14,7 +14,10 @@
    * [einfache app.component.html für Bootstrap](angular.md#einfache-appcomponenthtml-für-bootstrap)
    * [html - template](angular.md#html---template)
       * [table mit bootstrap und fallunterscheidungen](angular.md#table-mit-bootstrap-und-fallunterscheidungen)
-   * [EventBinding](angular.md#eventbinding)
+   * [Input Properties](angular.md#input-properties)
+   * [Events](angular.md#events)
+      * [Binding](angular.md#binding)
+      * [Event Emitters und Output Properties](angular.md#event-emitters-und-output-properties)
    * [Pagination](angular.md#pagination)
       * [Installation](angular.md#installation)
       * [Verwendung](angular.md#verwendung)
@@ -46,6 +49,8 @@
       * [spec - file](angular_test.md#spec---file)
       * [Testbed:](angular_test.md#testbed)
       * [EventEmitters](angular_test.md#eventemitters)
+      * [Testing Observables](angular_test.md#testing-observables)
+   * [&gt;&gt;Spies&lt;&lt; um Services zu testen](angular_test.md#spies-um-services-zu-testen)
 
 
 
