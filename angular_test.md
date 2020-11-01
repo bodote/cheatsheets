@@ -62,7 +62,7 @@ beforeEach(done => {
   });
 ```
 
-# >>Spies<< um Services zu testen
+# Spy um Services zu testen
 * verwende `spyOn(clazz,'methodName')` um einen spy aus einer echten Klasse `clazz` zu erzeugen.
 * verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
 
