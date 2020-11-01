@@ -1,7 +1,3 @@
-<!--ts-->
-
-
-<!--te-->
 # Typescript Specials
 ## Getter, Setter:
 ```typescript
