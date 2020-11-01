@@ -9,5 +9,4 @@ Bodos cheet sheets in mark down format:
 * [Spring Data](springboot_data.md)
 * [Spring Allgemein](spring_boot_allg.md)
 * [Angular](angular_toc.md) 
-* [HTML und CSS](html_css.md)
-* [VSCode support for Angular](vscode_angular.md)
+
