@@ -40,3 +40,29 @@ it('...', () => {
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
 * Componente initialisieren, dann auf die `@Output()` - Property (die ja vom Typ `EventEmitter` ist) subscriben.
 * **außerhalb** der `subscribe` funktion dann testen ob das von subscribe übergebene argument (= der eigentliche Wert des Events , z.B. direkt eine Zahl oder ein String) der Erwartung entspricht 
+
+## Testing Observables
+* über geben statt kein Argument das Argumente `done` , subscribe das `Observable` und teste innerhalb des `subscribe` das Ergebnis. Dann rufe `done()` auf: 
+```typescript
+it('a test', done =>  {
+    myobservable.subscribe( data => {
+      expect(data).not.toBeNull()
+      expect(data).toBe(whatever)
+      done() // dont forget!!
+    })
+})
+do_something_to_trigger_next_element_in_observable()
+```
+* optional: setzte im `beforeEach()`einen timeout:
+```typescript
+beforeEach(done => {
+    setTimeout(() => {
+      done()
+    },1000)
+  });
+```
+
+# >>Spies<< um Services zu testen
+* verwende `spyOn(clazz,'methodName')` um einen spy aus einer echten Klasse `clazz` zu erzeugen.
+* verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
+

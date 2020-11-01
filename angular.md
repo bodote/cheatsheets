@@ -41,7 +41,14 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
   </tbody>
 </table>
 ```
-# EventBinding
+
+# Input Properties
+* in der zur Wiederverwendung gedachten Child-Componente: definiere eine `@Input('my-prop-name') myProperty = anyClass_or_string_or_number`
+* in der Parent-Componenten verwende : `<my-child-component [my-prop-name]="anything_from_Parent_class">`
+* auf diese weise kann man von der Parent-Componente Werte an die Child-Componente übergeben.
+
+# Events
+## Binding
 * Browser/Mouse/Tastatur-Event ruft Methode in zugehöriger Componente: `<sometag (eventname)="typescript-Method-call"></..>`:
 * reading Input aus einem Feld (z.B. INput) `<sometag #refMarker ..... (eventname)="method(refMarker.value) " >`
 * reading Input aus einem **ANDEREN** Feld funktioniert genau so:
@@ -50,6 +57,13 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 <someothertag ..... (othereventname)="method(refMarker.value) " >
 ```
 * wichtige [events](https://developer.mozilla.org/en-US/docs/Web/Events) `keyUp.enter` oder `keyDown.enter` , `click`, `focus` und sein Gegenteil: `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war. Weiterhin `dblclick`
+
+## Event Emitters und Output Properties
+* in der zur Wiederverwendung gedachten Child-Componente: definiere eine `@Output('my-event-name') myoutput = new EventEmitter()` Property.  
+* damit kann man jetzt in einer beliebigen Methode der Componente einen event erzeugen: `myoutput.emit(any_Object_or_Number)`
+* in der Parent-Componente kann man jetzt im html-Template `<my-child-component (my-event-name)="callMethodInParent($event)">` wobei `$event` gleich `any_Object_or_Number` aus der `emit()`methode ist.
+* **Interessant:** Event Emitters sind gleichzeitig auch Observables, auf die `subscribe`en kann
+
 
 # Pagination
 ## Installation
