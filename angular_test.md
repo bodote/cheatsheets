@@ -63,9 +63,23 @@ beforeEach(done => {
   });
 ```
 
-# Spy um Services zu testen
+## Testing Forms
+* Initialisiere :  `component= new MyComponent(new FormBuilder)` 
+* prüfe, ob die Felder da sind: `expect(component.form.contains('myField')).toBeTruthy()`
+* check Validation: 
+```typescript
+let control = component.form.get('myField')
+control.setValue('any ok-value')
+expect(control.valid).toBeTruthy()
+control.setValue('any not-ok-value')
+expect(control.valid).toBeFalsy()
+```
+
+
+
+## Spy um Services zu testen
 * verwende `spyOn(clazz,'methodName')` um einen spy aus einer echten Klasse `clazz` zu erzeugen.
 * verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
-# Test Observables
+## Test Observables
 * use `EMPTY` `from 'rxjs'`
 * Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
