@@ -78,6 +78,21 @@ expect(control.valid).toBeFalsy()
 ## Spy um Services zu testen
 * verwende `spyOn(clazz,'methodName')` um einen spy aus einer echten Klasse `clazz` zu erzeugen.
 * verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
+```typescript
+tape = jasmine.createSpyObj('tape', 
+    {
+        'controls': {
+            rewind: function() {
+                return true;
+            },
+            forward: function() { 
+                return true;
+            }
+        }
+    }
+);
+spyOn(tape.controls(), 'rewind');
+```
 ## Test Observables
 * use `EMPTY` `from 'rxjs'`
 * Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
