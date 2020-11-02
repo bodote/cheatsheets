@@ -68,3 +68,4 @@ beforeEach(done => {
 * verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
 # Test Observables
 * use `EMPTY` `from 'rxjs'`
+* Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
