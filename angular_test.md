@@ -87,6 +87,8 @@ expect(control.valid).toBeFalsy()
 
 ## Template testing
 
+## Code Coverage
+`ng test --code-coverage`
 
 
 
