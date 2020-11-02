@@ -1,3 +1,5 @@
+[Inhalt](angular_toc.md)
+
 # Neues Projekt, neue Componenten
 ```bash
 ng new <my-project>
