@@ -83,3 +83,4 @@ expect(control.valid).toBeFalsy()
 ## Test Observables
 * use `EMPTY` `from 'rxjs'`
 * Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
+* simuliere, dass ein Service Fehler im Observable  wirft: `spyOn(service, 'add').and.returnValue(throwError(error))`
