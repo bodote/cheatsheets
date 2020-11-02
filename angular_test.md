@@ -1,3 +1,5 @@
+[Inhalt](angular_toc.md)
+
 # Angular Unit Tesing
 ## spec - file 
 * Unittest für `mytypescript.ts`: `mytypescript.spec.ts` , ebenso `mycomp.compentent.ts` -> `mycomp.compentent.spec.ts`
@@ -34,6 +36,9 @@ it('...', () => {
   let fixture = TestBed.createComponent(AppComponent);
 });
 ```
+* `fixture` ist vom Typ `ComponentFixture<MyComponent>` kann man entwerder von der Root - `AppComponent` per `createComponent` erzeugen , oder auch von `MyComponent` die ich gerade testen will.
+* die eigentliche Test-Component bekommt man mit `component =  fixture.componentInstance` 
+* und `fixture.nativeElement` ist das HTML-Root-Element dieser Component.
 * in `configureTestingModule` -> `declarations` und `imports` nur das aus `@NgModule({...` abschreiben, was auch wirklich gebraucht wird, evtl ist aber **mindestens** die zu Testenden Component, sonst werden im Template die `*ngFor` etc. nicht aufgelöst
 * `TestBed.get()` was deprecated as of Angular version 9. To help minimize breaking changes, Angular introduces a new function called `TestBed.inject()`, which you should use instead. For information on the removal of TestBed.get(), see its entry in the Deprecations index.
 
