@@ -128,7 +128,7 @@ würde den Text-inhalt `some content` finden
 * querySelectors argument ist ein String mit eine Kommaseparierte Liste von class-attributen und/oder html-tags
 * querySelector suche nach einem Element mit einer ID `<p id="demo">..` : `querySelector("#demo")`
 ### mit debugElement (besser für Unittests)
-* verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.css('h1')` oder 
+* verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.css('h1')` oder `By.css('.someclass')` oder kombiniere `By.css('h1.someclass')`
 
 
 ## Router testing
