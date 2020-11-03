@@ -117,6 +117,16 @@ spyOn(tape.controls(), 'rewind');
 * Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
 * simuliere, dass ein Service Fehler im Observable  wirft: `spyOn(service, 'add').and.returnValue(throwError(error))`
 
+## Finding HTML-Elements in DOM
+für z.B. "<span class="vote-count">some content</span>``: 
+```typescript
+hTMLElement = fixture.nativeElement;
+hTMLElement.querySelector('span, .vote-count')?.textContent
+```
+würde den Text-inhalt `some content` finden
+* querySelectors argument ist ein String mit eine Kommaseparierte Liste von class-attributen und/oder html-tags
+* querySelector suche nach einem Element mit einer ID `<p id="demo">..` : `querySelector("#demo")`
+
 ## Router testing
 
 ## Template testing
