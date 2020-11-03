@@ -112,6 +112,9 @@ tape = jasmine.createSpyObj('tape',
 );
 spyOn(tape.controls(), 'rewind');
 ```
+## Test mit Dep-Injection und ngOnInit()
+* wenn man von einer Component das `ngOnInit()`testen will darf man `fixture.detectChanges()` **nicht** zu früh aufrufen, sondern muss zuerst den `spyOn` erzeugen und die Dep-Injektion statt finden lassen. 
+
 ## Test Observables
 * use `EMPTY` `from 'rxjs'`
 * Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
