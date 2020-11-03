@@ -1,7 +1,12 @@
+[Inhalt](angular_toc.md)
+
 # Dependency Injection
 ```TypeScript
 @Injectable({})
 ```
+## Services as Providers
+* einen `my.service.ts` muss man entweder im `app.modules.ts` der `providers` Liste hinzufügen (Singleton) oder direkt in der Componente , dort dann in `@Component({ providers: [],...` wo er gebraucht wird (Nicht-Singleton ) 
+
 # add Bootstrap support
 copy from [here](https://getbootstrap.com/docs/4.5/getting-started/introduction/):
 ```html
