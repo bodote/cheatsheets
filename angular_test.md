@@ -129,7 +129,7 @@ würde den Text-inhalt `some content` finden
 * querySelector suche nach einem Element mit einer ID `<p id="demo">..` : `querySelector("#demo")`
 ### mit debugElement (besser für Unittests)
 * verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.css('h1')` oder `By.css('.someclass')` oder kombiniere `By.css('h1.someclass')`
-
+* see [here](https://github.com/puddlejumper26/blogs/issues/4) oder [here](https://sodocumentation.net/de/protractor/topic/1524/css-selektoren)
 
 ## Router testing
 
