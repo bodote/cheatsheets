@@ -56,6 +56,14 @@ beforeEach(() => {
 * in `configureTestingModule` -> `declarations` und `imports` nur das aus `@NgModule({...` abschreiben, was auch wirklich gebraucht wird, evtl ist aber **mindestens** die zu Testenden Component, sonst werden im Template die `*ngFor` etc. nicht aufgelöst
 * `TestBed.get()` was deprecated as of Angular version 9. To help minimize breaking changes, Angular introduces a new function called `TestBed.inject()`, which you should use instead. For information on the removal of TestBed.get(), see its entry in the Deprecations index.
 
+### Router in Testbed durch Stub ersetzten:
+* um Router und andere dependencies bereitzustellen, kann man in `TestBed.configureTestingModule({..` statt eines normalen `provider: [MyService]` auch ein oder mehrere Provider - Objekte verwenden: 
+```typescript
+TestBed.configureTestingModule({
+  providers: [{provide: Router, useClass:MyRouterStub }],
+  ...
+```
+
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
 * Componente initialisieren, dann auf die `@Output()` - Property (die ja vom Typ `EventEmitter` ist) subscriben.
