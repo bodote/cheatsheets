@@ -127,10 +127,19 @@ hTMLElement.querySelector('span, .vote-count')?.textContent
 würde den Text-inhalt `some content` finden
 * querySelectors argument ist ein String mit eine Kommaseparierte Liste von class-attributen und/oder html-tags
 * querySelector suche nach einem Element mit einer ID `<p id="demo">..` : `querySelector("#demo")`
-### mit debugElement (besser für Unittests)
+### mit debugElement (besser für Unittests) ...
+#### und query(By...)
 * verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.css('h1')` oder `By.css('.someclass')` oder kombiniere `By.css('h1.someclass')`
 * see [here](https://github.com/puddlejumper26/blogs/issues/4) oder [here](https://sodocumentation.net/de/protractor/topic/1524/css-selektoren)
+* By.css('.glyphicon, .glyphicon-menu-up')
+## benutze "nativeElement" wenn ein debugElement gefunden wurde.
+* `debugElement.nativeElement` (welches eigentlich vom Typ `HTMLElement`ist) 
+* verwende z.B. `debugElement.nativeElement.innerText` oder `.textContent`um den Text-Content zu bekommen, 
+* innerText returns the **visible** text contained in a node, while textContent returns the full text. As a result, innerText is much more performance-heavy: it requires layout information to return the result.
+innerText is defined only for HTMLElement objects, while textContent is defined for all Node objects.
 
+### ... und query(By.directive())
+* verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.directive(DirectiveComponent)` 
 ## Router testing
 
 ## Template testing
