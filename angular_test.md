@@ -130,6 +130,7 @@ würde den Text-inhalt `some content` finden
 ### mit debugElement (besser für Unittests) ...
 #### und query(By...)
 * verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.css('h1')` oder `By.css('.someclass')` oder kombiniere `By.css('h1.someclass')`
+* `By.css('.someclass, .someother')` findest elemente mit `.someclass` **oder** `.someother`
 * see [here](https://github.com/puddlejumper26/blogs/issues/4) oder [here](https://sodocumentation.net/de/protractor/topic/1524/css-selektoren)
 * By.css('.glyphicon, .glyphicon-menu-up')
 ## benutze "nativeElement" wenn ein debugElement gefunden wurde.
@@ -140,6 +141,10 @@ innerText is defined only for HTMLElement objects, while textContent is defined 
 
 ### ... und query(By.directive())
 * verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.directive(DirectiveComponent)` 
+
+## test trigger events
+* finde ein `DebugElement` , wie oben, darauf kann man dann `triggerEventHandler('eventName',$event)` aufrufen. Wobei `$event` auch null sein darf 
+ 
 ## Router testing
 
 ## Template testing
