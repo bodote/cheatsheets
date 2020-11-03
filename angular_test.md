@@ -118,6 +118,7 @@ spyOn(tape.controls(), 'rewind');
 * simuliere, dass ein Service Fehler im Observable  wirft: `spyOn(service, 'add').and.returnValue(throwError(error))`
 
 ## Finding HTML-Elements in DOM
+### mit querySelector (ist aber Browserspezifisch) 
 für z.B. "<span class="vote-count">some content</span>``: 
 ```typescript
 hTMLElement = fixture.nativeElement;
@@ -126,6 +127,9 @@ hTMLElement.querySelector('span, .vote-count')?.textContent
 würde den Text-inhalt `some content` finden
 * querySelectors argument ist ein String mit eine Kommaseparierte Liste von class-attributen und/oder html-tags
 * querySelector suche nach einem Element mit einer ID `<p id="demo">..` : `querySelector("#demo")`
+### mit debugElement (besser für Unittests)
+* verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.css('h1')` oder 
+
 
 ## Router testing
 
