@@ -124,5 +124,6 @@ spyOn(tape.controls(), 'rewind');
 ## Code Coverage
 `ng test --code-coverage`
 
-
+## async, await and Promise 
+about [async, await and Promise](https://blog.logrocket.com/async-await-in-typescript/)
 
