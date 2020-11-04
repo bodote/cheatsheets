@@ -63,6 +63,7 @@ TestBed.configureTestingModule({
   providers: [{provide: Router, useClass:MyRouterStub }],
   ...
 ```
+* Dazu muss dann im Unittest selbst 2 Stub-Classen mit den Methoden navigate (für Router) und 
 
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
