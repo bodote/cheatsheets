@@ -75,7 +75,7 @@ in `app.module.ts` wird dann noch dies hier nötig:
 `export const routes: routes : Routes...` ist nur nötig, wenn man die routes dann in einem unittest test will .
 statt nur `let routes...`
 
-### ActivatedRoute.subscribe() in  ngOnInit() testen:
+### ActivatedRoute durch Stub ersetzen um ActivatedRoute.subscribe() in  ngOnInit() testen:
 * die zu testenden Componente macht das hier:
 ```typescript
 export class UserDetailsComponent implements OnInit {
@@ -83,8 +83,8 @@ export class UserDetailsComponent implements OnInit {
   userId : string;
   ngOnInit() {
     this.route.params.subscribe(p => {
-      if (p['id'] === 0)
-        this.router.navigate(['not-found']);
+      if (p['id'] === 0)  // das hier soll getestet werden 
+        this.router.navigate(['not-found']); 
     });
   }
 ````
@@ -132,7 +132,7 @@ describe('MyComponent', () => {
 
     route.push({id: 0 }) // the "wrong" id , we want to test
 
-    expect(spy).toHaveBeenCalledWith(['users'])
+    expect(spy).toHaveBeenCalledWith(['not-found'])
   })
 })
 
