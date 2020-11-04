@@ -63,7 +63,14 @@ TestBed.configureTestingModule({
   providers: [{provide: Router, useClass:MyRouterStub }],
   ...
 ```
-* Dazu muss dann im Unittest selbst 2 Stub-Classen mit den Methoden navigate (für Router) und 
+* Dazu muss dann im Unittest selbst 2 Stub-Classen mit den Methoden `navigate` (für `Router`) und `params` (für ActivatedRouter ) erzeugen.
+* spyOn() für `navigate` erzeugen und die Methode aufrufen, die das Routing verursachen soll, dann prüfen ob der spy wirklich aufgerufen wurde:
+```typescript
+let router = TestBed.get(Router);
+let spy = spyOn(router, 'navigate')
+component.myMethod() // which should call the Routers navigate()
+```
+
 
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
