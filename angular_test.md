@@ -70,6 +70,75 @@ let router = TestBed.get(Router);
 let spy = spyOn(router, 'navigate')
 component.myMethod() // which should call the Routers navigate()
 ```
+wenn man die routes selbst testen will (z.B. in `app.routes.spec.ts`), dann
+in `app.module.ts` wird dann noch dies hier nötig:
+`export const routes: routes : Routes...` ist nur nötig, wenn man die routes dann in einem unittest test will .
+statt nur `let routes...`
+
+### ActivatedRoute.subscribe() in  ngOnInit() testen:
+* die zu testenden Componente macht das hier:
+```typescript
+export class UserDetailsComponent implements OnInit {
+  constructor(private router: Router, private route: ActivatedRoute) { }
+  userId : string;
+  ngOnInit() {
+    this.route.params.subscribe(p => {
+      if (p['id'] === 0)
+        this.router.navigate(['not-found']);
+    });
+  }
+````
+* ich will testen, ob bei "id"=0 auch wirlich die Route "not-found" navigiert wird. Dazu muss ich in this.route.params das `Observable` gegen ein `Subject` austauschen, damit ich hier einen test-Wert einspeisen kann, daher erzeuge ich Stubs für `Route` und `ActivatedRoute` 
+* der Test sieht dann so aus: 
+```typescript
+class RouterStub {
+  navigate(params){
+  }
+}
+class ActivatedRouteStub{
+  private subject =  new Subject()
+  
+  push (value){
+    this.subject.next(value)
+  }
+  get params(){ // wird in der ngOnInit() der zu testenden Componente verwendet, 
+    // hier wird jetzt ein "Subject()"" welches ja auch ein Observable ist, "untergeschoben"
+    return this.subject.asObservable()
+  }
+}
+describe('MyComponent', () => {
+  let component: MyComponent;
+  let fixture: ComponentFixture<UserDetailsComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ MyComponent ],
+      providers: [ {provide: Router, useClass: RouterStub } , 
+        {provide: ActivatedRoute, useClass: ActivatedRouteStub } 
+        ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MyComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  it('should redirekt the user to the not-found page when an invalid userID has passed',()=>{
+    let router = TestBed.inject(Router);
+    let spy = spyOn(router, 'navigate')
+    let route: ActivatedRouteStub = <ActivatedRouteStub> <any> TestBed.inject(ActivatedRoute)   
+
+    route.push({id: 0 })
+
+    expect(spy).toHaveBeenCalledWith(['users'])
+  })
+})
+
+``` 
+
+
 
 
 ## EventEmitters
