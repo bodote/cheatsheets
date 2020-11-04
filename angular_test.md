@@ -55,7 +55,7 @@ beforeEach(() => {
 * oder `fixture.debugElement`, welches ein Wrapper um `nativeElement` ist
 * in `configureTestingModule` -> `declarations` und `imports` nur das aus `@NgModule({...` abschreiben, was auch wirklich gebraucht wird, evtl ist aber **mindestens** die zu Testenden Component, sonst werden im Template die `*ngFor` etc. nicht aufgelöst
 * `TestBed.get()` was deprecated as of Angular version 9. To help minimize breaking changes, Angular introduces a new function called `TestBed.inject()`, which you should use instead. For information on the removal of TestBed.get(), see its entry in the Deprecations index.
-
+## Router testing
 ### Router in Testbed durch Stub ersetzten:
 * um Router und andere dependencies bereitzustellen, kann man in `TestBed.configureTestingModule({..` statt eines normalen `provider: [MyService]` auch ein oder mehrere Provider - Objekte verwenden: 
 ```typescript
@@ -137,6 +137,28 @@ describe('MyComponent', () => {
 })
 
 ``` 
+### RouterOutlet  oder andere Directives prüfen 
+* RouterTestingModule im TestBed importieren:
+```typescript
+TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
+``` 
+* Element mit Directive suchen: `debEle = fixture.debugElement.queryAll(By.directive(RouterOutlet))` findet **alle** elemente mit dem `router-outlet`
+* einfache prüfung ob existiert:`expect(debEle).not.toBeNull()  // korrespondiert mit <router-outlet>, import from '@angular/router';`
+### RouterLink finden
+```typescript
+let debEleArray = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref)) // alle routerLink elemente
+    let index = debEleArray.findIndex(de => 
+      de.attributes['routerLink'] === '/my-link'
+    )
+```
+* dann nur noch den Index auf `> -1` prüfen
+
+
+
+    
 
 
 
