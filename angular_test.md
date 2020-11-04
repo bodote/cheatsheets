@@ -145,7 +145,7 @@ TestBed.configureTestingModule({
         RouterTestingModule
       ],
 ``` 
-* Element mit Directive suchen: `debEle = fixture.debugElement.queryAll(By.directive(RouterOutlet))` findet **alle** elemente mit dem `router-outlet`
+* Element mit Directive suchen: `debEle = fixture.debugElement.queryAll(By.directive(RouterOutlet))` findet **alle** elemente mit dem `router-outlet` **WENN** `RouterTestingModule` auch importiert wird
 * einfache prüfung ob existiert:`expect(debEle).not.toBeNull()  // korrespondiert mit <router-outlet>, import from '@angular/router';`
 ### RouterLink finden
 ```typescript
