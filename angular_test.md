@@ -165,10 +165,15 @@ let debEleArray = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref)
 
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
-* Componente initialisieren, dann auf die `@Output()` - Property (die ja vom Typ `EventEmitter` ist) subscriben.
+* Componente initialisieren, dann auf die `@Output()` - Property (die ja vom Typ `EventEmitter` ist) subscriben. (diese Output-property mit Typ EventEmitter wird in der Componente mit `myOutputEventEmmiter.emit()`
+* wir können dann testen indem wir im testcode auf die  Output-property / Typ EventEmitter - property `subscribe()`, innerhalb des subscript und den Wert 'merken' und  ...
 * **außerhalb** der `subscribe` funktion dann testen ob das von subscribe übergebene argument (= der eigentliche Wert des Events , z.B. direkt eine Zahl oder ein String) der Erwartung entspricht 
 
-## Testing Observables
+## Test einfache Observables
+* use `EMPTY` `from 'rxjs'`
+* Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
+* simuliere, dass ein Service Fehler im Observable  wirft: `spyOn(service, 'add').and.returnValue(throwError(error))`
+## Testing innerhalb des "subscribe()" eines Observables
 * über geben statt kein Argument das Argumente `done` , subscribe das `Observable` und teste innerhalb des `subscribe` das Ergebnis. Dann rufe `done()` auf: 
 ```typescript
 it('a test', done =>  {
@@ -188,6 +193,7 @@ beforeEach(done => {
     },1000)
   });
 ```
+
 
 ## Testing Forms
 * Initialisiere :  `component= new MyComponent(new FormBuilder)` 
@@ -222,10 +228,7 @@ spyOn(tape.controls(), 'rewind');
 ## Test mit Dep-Injection und ngOnInit()
 * wenn man von einer Component das `ngOnInit()`testen will darf man `fixture.detectChanges()` **nicht** zu früh aufrufen, sondern muss zuerst den `spyOn` erzeugen und die Dep-Injektion statt finden lassen. 
 
-## Test Observables
-* use `EMPTY` `from 'rxjs'`
-* Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
-* simuliere, dass ein Service Fehler im Observable  wirft: `spyOn(service, 'add').and.returnValue(throwError(error))`
+
 
 ## Finding HTML-Elements in DOM
 ### mit querySelector (ist aber Browserspezifisch) 
@@ -254,10 +257,6 @@ innerText is defined only for HTMLElement objects, while textContent is defined 
 
 ## test trigger events
 * finde ein `DebugElement` , wie oben, darauf kann man dann `triggerEventHandler('eventName',$event)` aufrufen. Wobei `$event` auch null sein darf 
- 
-## Router testing
-
-## Template testing
 
 ## Code Coverage
 `ng test --code-coverage`
