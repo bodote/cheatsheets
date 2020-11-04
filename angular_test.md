@@ -92,13 +92,13 @@ export class UserDetailsComponent implements OnInit {
 * der Test sieht dann so aus: 
 ```typescript
 class RouterStub {
-  navigate(params){
+  navigate(params){ // muss nur existieren, macht aber nix
   }
 }
 class ActivatedRouteStub{
   private subject =  new Subject()
   
-  push (value){
+  push (value){ // helper-methode um den test-Wert einzuspeisen
     this.subject.next(value)
   }
   get params(){ // wird in der ngOnInit() der zu testenden Componente verwendet, 
@@ -108,7 +108,7 @@ class ActivatedRouteStub{
 }
 describe('MyComponent', () => {
   let component: MyComponent;
-  let fixture: ComponentFixture<UserDetailsComponent>;
+  let fixture: ComponentFixture<MyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -125,12 +125,12 @@ describe('MyComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  it('should redirekt the user to the not-found page when an invalid userID has passed',()=>{
+  it('should redirekt the user to the not-found page when an invalid ID has passed',()=>{
     let router = TestBed.inject(Router);
     let spy = spyOn(router, 'navigate')
     let route: ActivatedRouteStub = <ActivatedRouteStub> <any> TestBed.inject(ActivatedRoute)   
 
-    route.push({id: 0 })
+    route.push({id: 0 }) // the "wrong" id , we want to test
 
     expect(spy).toHaveBeenCalledWith(['users'])
   })
