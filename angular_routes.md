@@ -5,7 +5,7 @@
 ### Beispiel Routes 
 * ..die direct unterhalb der Imports und **außerhalb** der `AppModule` class definiert werden:
 ```typescript
-let routes : Routes = [
+export const routes: routes : Routes = [
   { path: 'category/:id', component:  ProductListComponent},
   { path: 'category', component:  ProductListComponent},
   { path: '', pathMatch: 'full', redirectTo: '/products'},  
@@ -21,6 +21,7 @@ imports: [
 ]
 })
 ```
+`export const routes: routes : Routes` ist nur nötig, wenn man die routes dann in einem unittest test will .
 
 
 ## Routes verwenden
