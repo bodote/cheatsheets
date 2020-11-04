@@ -2,7 +2,8 @@
 ## Routes definieren
 * im `app.module.ts` dort in `@NgModule` das `RouterModule` importieren  dabei auch gleich `.forRoot()` mit dem Array der möglichen `Routes` aufrufen.
 * `Routes` werden als Array definiert mit `path` plus `component`, oder mit `path` , `redirect` und `pathMatch`
-### Beispiel Routes:
+### Beispiel Routes 
+* ..die direct unterhalb der Imports und **außerhalb** der `AppModule` class definiert werden:
 ```typescript
 let routes : Routes = [
   { path: 'category/:id', component:  ProductListComponent},
@@ -10,6 +11,15 @@ let routes : Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/products'},  
   { path: '**', pathMatch: 'full', redirectTo: '/products'}  
 ]
+....
+@NgModule({
+...
+imports: [
+  ...
+  RouterModule.forRoot(routes,{ enableTracing: false }),
+  ...
+]
+})
 ```
 
 
