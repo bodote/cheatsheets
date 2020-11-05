@@ -193,7 +193,11 @@ beforeEach(done => {
     },1000)
   });
 ```
-
+## Asynchrones Testen 
+* siehe auch oben bei Testing innerhalb des "subscribe()" eines Observables
+* ansonsten bei [Asynchrones Testen](https://codecraft.tv/courses/angular/unit-testing/asynchronous/)
+  * **entweder** async and whenStable zusammen verwenden, was aber nur mit Promises , nicht mit Observable funktioniert
+  * **ODER**  die `done()` funktion verwenden wie oben beschrieben
 
 ## Testing Forms
 * Initialisiere :  `component= new MyComponent(new FormBuilder)` 
