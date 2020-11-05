@@ -95,8 +95,12 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 * Variante 1: Verwende [ng-bootstraps Dropdown](https://ng-bootstrap.github.io/#/components/dropdown/examples) `<div ngbDropdown placement="top-right" class="d-inline-block">...` und bei jedme Button definieren den `(click)`- Event: `(click)="updatePageSize(5)` etc.
 * Variante 2: verwende html - `<select>...<option>` und dazu den `(change)` - Event mit `(change)="updatePageSize($event.target.value)"` 
 
-
-
+# Directives vs Components
+* Components are a subclass of Directives
+* Directives haben keine eigene View , sondern können exisitierende DOM-Elemente ändern (events abfangen und aussehen verändern) 
+* es kann mehrere Directivs in einem Dom-Element geben.
+* Components sind mindestens ein Dom - Element und können noch Kind-Elemente habe.
+* [Google Directivs vs Components ](https://www.google.com/search?q=directives+vs+components+angular&oq=directivs+vs+components&aqs=chrome.2.69i57j0i19l4j0i19i22i30l3.5465j0j4&sourceid=chrome&ie=UTF-8)
 # Browser Tricks
 ## Cache problem bei statischen Inhalten vermeiden
 füge ein `?v=2` hinzu z.B. `<link rel="icon" type="image/x-icon" href="favicon.ico?v=2">` oder dann `3`, `4`etc. 
