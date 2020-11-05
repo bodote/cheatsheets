@@ -45,4 +45,7 @@ this.myFormGroup.get('myTopLevelElement').value.myControl1 //nur ein bestimmtes 
   </div>  
 </form>
 ```
-
+# Observables vs Promise
+* observable kann immer wieder date liefern, ein Promise nur einmal
+* Observable-`subscribe()`  entspricht Promise`then()`
+* [Observables vs Promise](https://www.google.com/search?q=observables+vs+promises)
