@@ -100,7 +100,7 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 * Directives haben keine eigene View , sondern können exisitierende DOM-Elemente ändern (events abfangen und aussehen verändern) 
 * es kann mehrere Directivs in einem Dom-Element geben.
 * Components sind mindestens ein Dom - Element und können noch Kind-Elemente habe.
-* [Google Directivs vs Components ](https://www.google.com/search?q=directives+vs+components+angular&oq=directivs+vs+components&aqs=chrome.2.69i57j0i19l4j0i19i22i30l3.5465j0j4&sourceid=chrome&ie=UTF-8)
+* [Google Directivs vs Components ](https://www.google.com/search?q=directives+vs+components+angular)
 # Browser Tricks
 ## Cache problem bei statischen Inhalten vermeiden
 füge ein `?v=2` hinzu z.B. `<link rel="icon" type="image/x-icon" href="favicon.ico?v=2">` oder dann `3`, `4`etc. 
