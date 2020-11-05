@@ -255,6 +255,9 @@ innerText is defined only for HTMLElement objects, while textContent is defined 
 ### ... und query(By.directive())
 * verwende `fixture.debugElement.query()` und im Query  als Argument z.b: `By.directive(DirectiveComponent)` 
 
+## Directive - Objekte von debugElement abfragen
+* `directive = mydebElement.injector.get(MyDirective)` aber findet nur MyDirective direkt im mydebElement, **NICHT** in dessen childs
+
 ## test trigger events
 * finde ein `DebugElement` , wie oben, darauf kann man dann `triggerEventHandler('eventName',$event)` aufrufen. Wobei `$event` auch null sein darf 
 
