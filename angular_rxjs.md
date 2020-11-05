@@ -1,3 +1,4 @@
+[Inhalt](angular_toc.md)
 # RXJS-Spezials
 ## Observable >>Subjects<< 
 damit kann man Properies "wrappen" damit andere Objekte sich auf deren Änderung "subscriben" können: 
