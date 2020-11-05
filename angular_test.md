@@ -267,3 +267,6 @@ innerText is defined only for HTMLElement objects, while textContent is defined 
 ## async, await and Promise 
 about [async, await and Promise](https://blog.logrocket.com/async-await-in-typescript/)
 
+## testing Promises
+* da Promises verspätet ausgeführt werden 
+
