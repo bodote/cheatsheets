@@ -161,11 +161,8 @@ let debEleArray = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref)
 * dann nur noch den Index auf `> -1` prüfen
 
 
-
-    
-
-
-
+## Service Calls testen
+Der Service muss gemocht werden mit `spyOn()`  **Vorsicht** nicht die Classe als erstes Argument sondern eine Objektinstanz der ServiceKlasse! sonst kommt die Meldung: "Das Argument vom Typ "string" kann dem Parameter vom Typ "never" nicht zugewiesen werden"
 
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
