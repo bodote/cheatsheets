@@ -19,6 +19,10 @@ describe('TodoFormComponent', () => {
 ```
 ebenso `beforeAll()` `afterEach()` und `afterAll()`
 
+## nur einige Tests ausführen 
+* wenn  `describe` oder `it` umbenannt wird in  `xdescribe` oder `xit`  werden diese **NICHT** ausgeführt
+* umgekehrt wenn  `describe` oder `it` umbenannt wird in  `fdescribe` oder `fit`  werden diese **NUR** ausgeführt
+
 ## Testbed:
 ```typescript
 import { async, TestBed } from '@angular/core/testing';
