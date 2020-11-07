@@ -46,6 +46,13 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
   </tbody>
 </table>
 ```
+* Dabei wird mit `ng-template` ein Template definiert, welches aber normalerweise **NICHT** angezeigt wird. 
+* Damit es sichtbar wird, muss es 
+  1. erstens explizit mit einem `#someMarker` markiert werden und 
+  2. über z.B. ein `*ngIf` aufgerufen werden, so wie hier oben im Beispiel
+* statt aus einem `*ngIf` kann es auch über eine Observable async-Pipe `myObservable$ | async as myValues; else myElesBlock` angesprochen werden
+## NG-CONTAINER
+`<ng-container>` kann statt einem `<div>` verwendet werden, z.B. wenn man keine class - attribute braucht aber `*ng??` direktiven verwenden will
 
 # Input Properties
 * in der zur Wiederverwendung gedachten Child-Componente: definiere eine `@Input('my-prop-name') myProperty = anyClass_or_string_or_number`
