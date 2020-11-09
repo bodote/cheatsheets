@@ -19,6 +19,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * show tags mit dem zugehörigen commit : `git show-ref --tags`. Oder nur bestimmte Tags: `git tag --sort=committerdate -l v*`  zeigt alle die mit `v` im Namen beginnen
 * shot tag details: `git show v1.0` 
 * und remote tags zeigen mit  :`git ls-remote --tags origin`
+* local tag löschen : `git tag -d v1.4`
 * remote tag löschen: `git push --delete origin <tag-name>` oder besser noch `git push  origin :refs/tags/<tag-name>` um **Verwechslungen** mit einem Branch zu vermeiden
 * tag nachträglich auf bestimmten Commit setzten: `git tag -a v1.2 -m "kommentar" 9fceb02` wobei `9fceb02` die commmit ID ist
 * remote tag: `git push origin v1.5` oder direkt alle Tags veröffentlichen: `git push origin --tags`
