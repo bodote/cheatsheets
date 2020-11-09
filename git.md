@@ -1,4 +1,5 @@
-### neues project welches local schon ein git ist, nach github oder git.office hochladen
+# git tricks:
+## neues project welches local schon ein git ist, nach github oder git.office hochladen
 * in WebGui neues Projekt 
 ```
 git remote add origin git@github.com:bodote/neuerProjektname.git
@@ -13,3 +14,9 @@ git push -u origin master
 git checkout -b newBranch
 git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 ```
+## git (remote) tags
+* alle commits anzeigen `git log --pretty=oneline`
+* show tags `git tag --sort=committerdate -l v*`  zeigt alle die mit `v` im Namen beginnen
+* und remote tags zeigen mit  :`git ls-remote --tags origin`
+* remote tag löschen: `git push --delete origin <tag-name>` oder besser noch `git push --delete origin :refs/tags/<tag-name>` um **Verwechslungen** mit einem Branch zu vermeiden
+* 
