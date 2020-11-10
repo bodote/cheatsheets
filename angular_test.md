@@ -173,6 +173,12 @@ Der Service muss gemocht werden mit `spyOn()`  **Vorsicht** nicht die Classe als
 ## Test einfache Observables
 * use `EMPTY` `from 'rxjs'`
 * Fake-Observable : entweder mit `spyOn.and.callFake(()=>{})` der noch einfacher direkt `spyOn.and.returnValue(from())` , wobei `rxjs.from()`ein Observable erzeugt.
+* beachte bei `from()` : muss als Argument eine Array sein, und wenn der Observable<Type> ohnehin schon auf einem Array basiert, braucht es hier ein Array von Array
+```typescript
+mytestArray: MyType[] = whatever
+testObs = from([mytestArray])
+```
+
 * simuliere, dass ein Service Fehler im Observable  wirft: `spyOn(service, 'add').and.returnValue(throwError(error))`
 ## Testing innerhalb des "subscribe()" eines Observables
 * über geben statt kein Argument das Argumente `done` , subscribe das `Observable` und teste innerhalb des `subscribe` das Ergebnis. Dann rufe `done()` auf: 
