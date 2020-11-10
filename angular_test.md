@@ -218,7 +218,7 @@ control.setValue('any not-ok-value')
 expect(control.valid).toBeFalsy()
 ```
 
-## Spy um Services zu testen
+## Spy um Services zu mocken und von Service abhängige Components zu testen
 * verwende `spyOn(clazz,'methodName')` um einen spy aus einer echten Klasse `clazz` zu erzeugen.
 * verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
 ```typescript
@@ -236,6 +236,12 @@ tape = jasmine.createSpyObj('tape',
 );
 spyOn(tape.controls(), 'rewind');
 ```
+## Testen von Services selbst
+* nutze `import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'`
+* import `HttpClientTestingModule`im Testbed, (und prüfe ob im app.module.ts auch `HttpClientModule` importiert wird, weil das wird die Anwendung unabhängig von den unittest benötigen ) 
+* der Testinstanz ins Testbed inizieren : `http = TestBed.inject(HttpTestingController);`
+* prüfen ob eine bestimmte URL aufgerufen wurde: `req = http.expectOne(environment.favoriteUrl)`
+
 ## Test mit Dep-Injection und ngOnInit()
 * wenn man von einer Component das `ngOnInit()`testen will darf man `fixture.detectChanges()` **nicht** zu früh aufrufen, sondern muss zuerst den `spyOn` erzeugen und die Dep-Injektion statt finden lassen. 
 
