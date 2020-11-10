@@ -114,3 +114,5 @@ füge ein `?v=2` hinzu z.B. `<link rel="icon" type="image/x-icon" href="favicon.
 
 # localen server starten
 `ng serve --open`
+# globale Variablen (z.B. für unterscheidung Prod / Test Environment)
+* in dir `environment/envirnoment.prod.ts` oder eben `environment/envirnoment.ts` für test ist eine globale Struktur `environment` definiert, in die man beliebige weitere Elemente ergänzen kann

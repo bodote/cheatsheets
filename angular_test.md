@@ -161,8 +161,6 @@ let debEleArray = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref)
 * dann nur noch den Index auf `> -1` prüfen
 
 
-## Service Calls testen
-Der Service muss gemocht werden mit `spyOn()`  **Vorsicht** nicht die Classe als erstes Argument sondern eine Objektinstanz der ServiceKlasse! sonst kommt die Meldung: "Das Argument vom Typ "string" kann dem Parameter vom Typ "never" nicht zugewiesen werden"
 
 ## EventEmitters
 * `EventEmitters` sind `Observable`s , daher kann man auf sie `subscribe`n 
@@ -219,7 +217,8 @@ expect(control.valid).toBeFalsy()
 ```
 
 ## Spy um Services zu mocken und von Service abhängige Components zu testen
-* verwende `spyOn(clazz,'methodName')` um einen spy aus einer echten Klasse `clazz` zu erzeugen.
+* Der Service muss gemockt werden mit `spyOn()`,  **Vorsicht**: nicht die Classe als erstes Argument sondern eine Objektinstanz der ServiceKlasse! sonst kommt die Meldung: "Das Argument vom Typ "string" kann dem Parameter vom Typ "never" nicht zugewiesen werden"
+* verwende `spyOn(clazz-instance,'methodName')` um einen spy aus einer Objekt-instanz einer Klasse `clazz-instance` zu erzeugen.
 * verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen 
 ```typescript
 tape = jasmine.createSpyObj('tape', 
@@ -252,8 +251,13 @@ expect(req.request.method).toEqual('GET')// check that req is the right method
 req.flush(testMovies); 
     
 http.verify();//Verify that no unmatched requests are outstanding.
+
+//check if we really get what we wanted
+expect(returnContentFromRestService).toEqual(expectedReturnContentFromRestService)
 ```
 
+## echter Testserver: 
+[beeceptor](https://beeceptor.com/console/bodote)
 
 ## Test mit Dep-Injection und ngOnInit()
 * wenn man von einer Component das `ngOnInit()`testen will darf man `fixture.detectChanges()` **nicht** zu früh aufrufen, sondern muss zuerst den `spyOn` erzeugen und die Dep-Injektion statt finden lassen. 
