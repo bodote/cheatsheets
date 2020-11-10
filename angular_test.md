@@ -240,7 +240,20 @@ spyOn(tape.controls(), 'rewind');
 * nutze `import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'`
 * import `HttpClientTestingModule`im Testbed, (und prüfe ob im app.module.ts auch `HttpClientModule` importiert wird, weil das wird die Anwendung unabhängig von den unittest benötigen ) 
 * der Testinstanz ins Testbed inizieren : `http = TestBed.inject(HttpTestingController);`
-* prüfen ob eine bestimmte URL aufgerufen wurde: `req = http.expectOne(environment.favoriteUrl)`
+* prüfen ob eine bestimmte URL aufgerufen wurde: `req = http.expectOne(environment.favoriteUrl)` weitere Details werden so in `req` gespeichert
+* prüfe weitere Details des Requests mit `req.request.method`
+```typescript  
+const req = http.expectOne(environment.favoriteUrl)// expect that the URL is called once, and get the request itself for further testing
+expect(req.request.method).toEqual('GET')// check that req is the right method
+
+//Resolve the request by returning a body plus additional HTTP information
+// (such as response headers) if provided. If the request specifies an expected body type, 
+// the body is converted into the requested type. Otherwise, the body is converted to JSON by default.
+req.flush(testMovies); 
+    
+http.verify();//Verify that no unmatched requests are outstanding.
+```
+
 
 ## Test mit Dep-Injection und ngOnInit()
 * wenn man von einer Component das `ngOnInit()`testen will darf man `fixture.detectChanges()` **nicht** zu früh aufrufen, sondern muss zuerst den `spyOn` erzeugen und die Dep-Injektion statt finden lassen. 
