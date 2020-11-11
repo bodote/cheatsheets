@@ -94,6 +94,7 @@ export class UserDetailsComponent implements OnInit {
 ````
 * ich will testen, ob bei "id"=0 auch wirlich die Route "not-found" navigiert wird. Dazu muss ich in this.route.params das `Observable` gegen ein `Subject` austauschen, damit ich hier einen test-Wert einspeisen kann, daher erzeuge ich Stubs für `Route` und `ActivatedRoute` 
 * der Test sieht dann so aus: 
+
 ```typescript
 class RouterStub {
   navigate(params){ // muss nur existieren, macht aber nix
@@ -127,7 +128,7 @@ describe('MyComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MyComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+   
   });
   it('should redirekt the user to the not-found page when an invalid ID has passed',()=>{
     let router = TestBed.inject(Router);
@@ -135,12 +136,15 @@ describe('MyComponent', () => {
     let route: ActivatedRouteStub = <ActivatedRouteStub> <any> TestBed.inject(ActivatedRoute)   
 
     route.push({id: 0 }) // the "wrong" id , we want to test
+    fixture.detectChanges();
 
     expect(spy).toHaveBeenCalledWith(['not-found'])
   })
 })
 
 ``` 
+***ACHTUNG***  `fixture.detectChanges()`  nicht zu früh aufrufen, sonst wird auch `ngOnInit()`gleich mit aufgerufen und der später hinzugefügte "spy" funktioniert nicht mehr richtig! 
+
 ### RouterOutlet  oder andere Directives prüfen 
 * RouterTestingModule im TestBed importieren:
 ```typescript
