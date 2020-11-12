@@ -11,7 +11,7 @@ actualNumbervalue= 5 // neue Wert
 this.mynumber.next(actualNumbervalue) // an alle Subscriber versendet
 ```
 so bekommen alle subscriber von "actualNumbervalue" den neuen Wert mitgeteilt
-# Reactive Forms
+## Reactive Forms
 * Installation, Configuration: in `apps.module.ts` hinzufügen: `imports: [.., FormsModule, ReacitveFormsModule, ..]`
 * `FormGroup` in Component als non-private Field, im constructor einen `FormBuilder` injecten und im `ngOnInit()` mit  `FormBuilder.group()` eine oder mehrere `FormGroup`s hierarchisch als "anonyme" Json-Structuren definieren, auf unterster Ebene dann die eigentlichen `FormControl`s :
 ```typescript
@@ -46,9 +46,24 @@ this.myFormGroup.get('myTopLevelElement').value.myControl1 //nur ein bestimmtes 
   </div>  
 </form>
 ```
-# Observables vs Promise
+## Observables vs Promise
 * observable kann immer wieder date liefern, ein Promise nur einmal
 * Observable-`subscribe()`  entspricht Promise`then()`
 * [Observables vs Promise](https://www.google.com/search?q=observables+vs+promises)
 * Promises werden auch in Unittests verspätet ausgeführt
+
+## Observable und Fehlerbehandlung
+Siehe auch [hier](https://blog.angular-university.io/rxjs-error-handling/).
+Let's remember that the subscribe call takes three optional arguments:
+1. a success handler function, which is called each time that the stream emits a value
+2. an **optional** error handler function, that gets called only if an error occurs. This handler receives the error itself
+3. an **optional** completion handler function, that gets called only if the stream completes
+```typescript
+myObservable$.subscribe(
+            data => console.log('normal data response', data),
+            err => console.log('Error', err),
+            () => console.log('completed.')
+        );
+``` 
+
 

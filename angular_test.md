@@ -246,19 +246,31 @@ spyOn(tape.controls(), 'rewind');
 * prüfen ob eine bestimmte URL aufgerufen wurde: `req = http.expectOne(environment.favoriteUrl)` weitere Details werden so in `req` gespeichert
 * prüfe weitere Details des Requests mit `req.request.method`
 ```typescript  
-const req = http.expectOne(environment.favoriteUrl)// expect that the URL is called once, and get the request itself for further testing
+const req:TestRequest = http.expectOne(environment.myUrl)// expect that the URL is called once, and get the request itself for further testing
 expect(req.request.method).toEqual('GET')// check that req is the right method
 
 //Resolve the request by returning a body plus additional HTTP information
 // (such as response headers) if provided. If the request specifies an expected body type, 
 // the body is converted into the requested type. Otherwise, the body is converted to JSON by default.
-req.flush(testMovies); 
+req.flush(testContent); 
     
 http.verify();//Verify that no unmatched requests are outstanding.
 
 //check if we really get what we wanted
 expect(returnContentFromRestService).toEqual(expectedReturnContentFromRestService)
 ```
+* dabei kann die `flush()` methode des `TestRequest` eine große Zahl unterschiedlicher Argumentkombinationen verarbeiten, details siehe [hier](https://angular.io/api/common/http/testing/TestRequest). Beispiele:
+```typescript
+testRequest.flush(anyObjekt)
+testRequest.flush(anyObjekt[]) // or Array of any
+testRequest.flush(msg, { status: 404, statusText: 'Not Found' }); //Return error
+testRequest.flush(msg, { status: 500, statusText: 'Internal Server Error' }); //Return error
+testRequest.flush({}, { status: 500, statusText: 'Internal Server Error' });
+``` 
+* mehrfache hintereinander folgende Restaufrufe lassen sich simulieren, in dem man immer wieder einen **neuen** `TestRequest` erzeugt und auf diesem wieder `flush()` oder eben `error()` aufruft.
+* ein einmal ge`flush`-ter `TestRequest` lässt sich **NICHT** wieder verwenden.
+
+
 
 ## echter Testserver: 
 [beeceptor](https://beeceptor.com/console/bodote)
