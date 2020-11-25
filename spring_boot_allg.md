@@ -29,15 +29,9 @@ Da `@Configuration` auch `@Component` einschließt , kann letzteres auch funktio
 # Logging
 private static final Logger LOGGER = LoggerFactory.getLogger(MyCurrentClass.class)
 
-<div hidden>
-```
-@startuml firstDiagram
-
-Alice -> Bob: Hello
-Bob -> Alice: Hi!
-		
+```plantuml
+@startuml
+    Alice -> Bob    :Hi Bob!
+    Bob   -> Alice  :Oh, Hi Alice!
 @enduml
-```
-</div>
-
-![](firstDiagram.svg)
+```    
