@@ -31,7 +31,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(MyCurrentClass.clas
 
 ```plantuml
 @startuml
-    Alice -> Bob    :Hi Bob!
-    Bob   -> Alice  :Oh, Hi Alice!
+Alice -> Bob    :Hi Bob!
+Bob   -> Alice  :Oh, Hi Alice!
 @enduml
 ```    
