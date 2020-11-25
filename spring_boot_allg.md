@@ -27,4 +27,17 @@ wobei `(args) ->` hier die `args` von `main(args)` sind
 `@Configuration` kann man jeder Klasse geben, damit es von SpringBoot beim Startup gescannt wird. 
 Da `@Configuration` auch `@Component` einschließt , kann letzteres auch funktionieren, insb. wenn dessen Methoden auch noch mit `@Bean` markiert sind, muss aber nicht.
 # Logging
-private static final Logger LOGGER = LoggerFactory.getLogger(MyCurrentClass.class);
+private static final Logger LOGGER = LoggerFactory.getLogger(MyCurrentClass.class)
+
+<div hidden>
+```
+@startuml firstDiagram
+
+Alice -> Bob: Hello
+Bob -> Alice: Hi!
+		
+@enduml
+```
+</div>
+
+![](firstDiagram.svg)
