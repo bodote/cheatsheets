@@ -19,7 +19,7 @@ console.log(`The size is ${ value }`);
 ```typescript
 const foundItem = myArray.find(item => { return item.property === whatever })
 //or
-cons foundItem = myArray.find(item => item.property === whatever )
+const foundItem = myArray.find(item => item.property === whatever )
 ``` 
 `fundItem`is the first match  or `unfefined` if nothing found
 
