@@ -24,3 +24,9 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * tag nachträglich auf bestimmten Commit setzten: `git tag -a v1.2 -m "kommentar" 9fceb02` wobei `9fceb02` die commmit ID ist
 * remote tag: `git push origin v1.5` oder direkt alle Tags veröffentlichen: `git push origin --tags`
 * 
+## git (remote) branches
+* neue branch: `git checkout -b local_backend_setup`
+* push to server: `git push origin local_backend_setup`
+
+## git last commit message:
+`git log -1 --pretty=%B`
