@@ -30,3 +30,5 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 
 ## git last commit message:
 `git log -1 --pretty=%B`
+## changes by author
+`git log --stat --author="Bodo"`
