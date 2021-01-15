@@ -25,10 +25,12 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * remote tag: `git push origin v1.5` oder direkt alle Tags veröffentlichen: `git push origin --tags`
 * 
 ## git (remote) branches
+* show all remote branches : `git branch -r`
 * neue branch: `git checkout -b local_backend_setup`
 * push to server: `git push origin local_backend_setup`
+* checkout remote  branch; `git checkout -t <name of remote>/test` 
 
-## git last commit message:
-`git log -1 --pretty=%B`
-## changes by author
-`git log --stat --author="Bodo"`
+
+## git logs :
+* last commit message `git log -1 --pretty=%B`
+* changes by author `git log --stat --author="Bodo"`
