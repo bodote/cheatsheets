@@ -59,9 +59,12 @@ public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKl
 wobei der primary key hier ein im Beispiel ein `Long` ist.
 ## Json und api-url-link ändern : 
 ```java
-@RepositoryRestResource(collectionResourceRel = "<JsonName>", path = "<api-url-pfad name>")
+@RepositoryRestResource(collectionResourceRel = "jsonName", path = "api-url-pfad-name")
 public interface MeineEntityKlasseRepository extends JpaRepository<MeineEntityKlasse,Long> {}
 ```
+* wobei `path = "<api-url-pfad name>"` der aufrufpfad für den rest-call ist , also z.B. `/api-url-pfad-name`
+* Dagegen ist `jsonName` der name den das Feld im zurückgegebenen JSON Dokument hat. 
+* meist gild: `collectionResourceRel.equals(path)` muss aber nicht so sein.
 ## findBy ergänzen
 * das Interface wird einfach mit einer Method-Signature ergänzt: 
 `public Page<MyActualClass> findByMySelectionID (@RequestParameter("id") Long id, Pageable pageble);`

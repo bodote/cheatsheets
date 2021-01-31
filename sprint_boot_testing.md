@@ -4,8 +4,38 @@
 * `@SprinBootTest` 
   * tells Spring Boot to look for a main configuration class (one with @SpringBootApplication, for instance) and use that to start a Spring application context.
   * Includiert bereits `@ExtendWith(SpringExtension.class)`
-* `@Autowired MockMvc mockMvc;` ersetzt einen echten SpringBoot - Server durch einen Mock server, in dem man aber alle Schickten unterhalb des echten Servers wie in echt zur Verfügung hat.
-  * To do that, use Spring’s `@MockMvc` and ask for that to be injected for you by using the @AutoConfigureMockMvc annotation on the test case.
+  * ist für Integrationstest, da ein vollständiger Webcontainer gestartet wird
+* `@WebMvcTest` testet dagegen nur den Weblayer **OHNE** vollständigen Webcontainer. ist also schneller als `@SprinBootTest`
+* `@Autowired MockMvc mockMvc;` ersetzt einen echten SpringBoot - Server durch einen Mock server, in dem man aber alle Schichten unterhalb des echten Servers wie in echt zur Verfügung hat.
+  * To do that, use Spring’s `@MockMvc` and ask for that to be injected for you by using the `@AutoConfigureMockMvc` annotation on the test case.
+  * `@AutoConfigureMockMvc`: Annotation that can be applied to a test class to enable and configure auto-configuration of MockMvc.
+* Spring only pick up and registers beans with `@Component`  and doesn't look for `@Service` and `@Repository` in general.
+  * `@Component` is a generic stereotype for any Spring-managed component
+  * `@Service` annotates classes at the service layer for **business logic**
+  * `@Repository` annotates classes at the persistence layer, which will act as a database repository
+* `@Entity` JPA-Entity , DB-Classe entspricht oft einer DB-Table
+
+### Testing slices 
+..of the application Sometimes you would like to test a simple “slice” of the application instead of auto-configuring the whole application. Test Slices are a Spring Boot feature introduced in the 1.4. The idea is fairly simple, Spring will create a reduced application context for a specific slice of your app.
+Also, the framework will take care of configuring the very minimum. Spring Boot 1.4 introduces 4 new test annotations:
+* @WebMvcTest - for testing the controller/Web layer,  mock MVC testing slice without the rest of the app, Also auch `@Configuration` und `@Services` werden **NICHT** automatisch mit initialisiert. (WorkAround: `@ContextConfiguration()` siehe unten)
+* @JsonTest - for testing the JSON marshalling and unmarshalling
+* @DataJpaTest - for testing the repository layer
+* @RestClientTests - for testing REST clients
+* @JdbcTest: Useful for raw JDBC tests, takes care of the data source and in memory DBs without ORM frills
+* @DataMongoTest: Tries to provide an in-memory mongo testing setup
+* @SpringBootTest: Kompletter Integrationtest: hier kann man im TestCode auch `@Autowired` verwenden !
+As of Spring Boot >= 2.1, we no longer need to load the `@ExtendWith(SpringExtension.class)` because it's included as a meta annotation in the Spring Boot test annotations like `@DataJpaTest`, `@WebMvcTest`, and `@SpringBootTest`.
+## Testing with JsonPath
+* `mockMvc.perform(MockMvcRequestBuilders.get("/todos").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$", hasSize(2)))`
+* [JsonPath docu](https://github.com/json-path/JsonPath)
+* `MockMvcResultMatchers.jsonPath();` erwartet als 2.Argument einen `org.hamcrest.Matchers`, z.B.: `hasSize(2)`
+## Testing with MockMvc
+*  `mockMvc.perform().andDo(MockMvcResultHandlers.print())` `MockMvcResultHandlers.print()` das Ergebniss übersichtlich ausdruckt oder mit  `MockMvcResultHandlers.print()` im logger `"org.springframework.test.web.servlet.result", DEBUG` ausgibt, siehe auch [Logback in SpringBoot](logback.md)
+
+## Assertions and Matchers
+* org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath: Evaluate the given [JsonPath](https://github.com/jayway/JsonPath)  expression against the response body and assert the resulting value with the given  `org.hamcrest.Matcher.*`.
+
 ## Use of **InjectMocks**
 * [Vorsicht beim Verwenden](https://tedvinke.wordpress.com/2014/02/13/mockito-why-you-should-not-use-injectmocks-annotation-to-autowire-fields/) von `@InjectMocks`! 
   * bei manchen Mocks schlägt das fehl, statt dessen wird die Properity innerhalb von der Klasse die mit `@InjectMocks` annotiert ist, auf null gesetzt und es kommt KEINE Fehlermeldung!
@@ -20,3 +50,20 @@
         myComponent = new Component( arg1, arg2,...)
     }
 ```      
+
+## Use of @Autowired for logger
+`@Autowired Logger log;` funktioniert nur wenn man folgendes definiert und konfiguriert:
+* LoggingConfiguration klasse: 
+```java
+@Configuration
+public class LoggingConfiguration {
+
+    @Bean
+    @Scope("prototype")
+    public Logger produceLogger(InjectionPoint injectionPoint) {
+        Class<?> classOnWired = injectionPoint.getMember().getDeclaringClass();
+        return LoggerFactory.getLogger(classOnWired);
+    }
+}
+```
+* Die Test-KLASSE  mit `@ContextConfiguration(classes = { LoggingConfiguration.class, ...  })` zusätzlich annotieren. **ACHTUNG** : dabei muss aber nach `LoggingConfiguration.class,` auch alle weiteren Classen, die getestet werden sollen mit angegeben werden. 
