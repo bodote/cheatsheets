@@ -18,15 +18,48 @@
 ### Testing slices 
 ..of the application Sometimes you would like to test a simple “slice” of the application instead of auto-configuring the whole application. Test Slices are a Spring Boot feature introduced in the 1.4. The idea is fairly simple, Spring will create a reduced application context for a specific slice of your app.
 Also, the framework will take care of configuring the very minimum. Spring Boot 1.4 introduces 4 new test annotations:
-* @WebMvcTest - for testing the controller/Web layer,  mock MVC testing slice without the rest of the app, Also auch `@Configuration` und `@Services` werden **NICHT** automatisch mit initialisiert. (WorkAround: `@ContextConfiguration()` siehe unten)
-* @JsonTest - for testing the JSON marshalling and unmarshalling
-* @DataJpaTest - for testing the repository layer
-* @RestClientTests - for testing REST clients
-* @JdbcTest: Useful for raw JDBC tests, takes care of the data source and in memory DBs without ORM frills
-* @DataMongoTest: Tries to provide an in-memory mongo testing setup
-* @SpringBootTest: Kompletter Integrationtest: hier kann man im TestCode auch `@Autowired` verwenden !
+* @WebMvcTest - for testing the controller/Web layer,  mock MVC testing slice without the rest of the app, Also auch `@Configuration` und `@Services` werden **NICHT** automatisch mit initialisiert. (WorkAround: `@ContextConfiguration()` siehe unten). Auch JPA Repositories funktionieren hier nicht.
+* `@JsonTest` - for testing the JSON marshalling and unmarshalling
+* `@DataJpaTest` - for testing the repository layer
+* `@RestClientTests` - for testing REST clients
+* `@JdbcTest`: Useful for raw JDBC tests, takes care of the data source and in memory DBs without ORM frills
+* `@DataMongoTest`: Tries to provide an in-memory mongo testing setup
+* `@SpringBootTest`: Kompletter Integrationtest: hier kann man im TestCode auch `@Autowired` verwenden !
 As of Spring Boot >= 2.1, we no longer need to load the `@ExtendWith(SpringExtension.class)` because it's included as a meta annotation in the Spring Boot test annotations like `@DataJpaTest`, `@WebMvcTest`, and `@SpringBootTest`.
-## Testing with JsonPath
+## SpringBootTest arguments
+By default, `@SpringBootTest` will not start a server.
+* `@SpringBootTest(args = "--spring.main.banner-mode=off")`
+* `@SpringBootTest(properties = "spring.main.web-application-type=reactive")`
+* `@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT )` will also start the management server on a separate random port if your application uses a different port for the management server.
+* [SpringBoot Doku](https://docs.spring.io/spring-boot/docs/2.4.2/reference/html/spring-boot-features.html#boot-features-testing-spring-boot-applications)
+
+## Testing with @WebMvcTest
+* [@TestConfiguration](https://www.logicbig.com/tutorials/spring-framework/spring-boot/test-configuration.html)
+* [@TestConfiguration In static nested class](https://www.logicbig.com/tutorials/spring-framework/spring-boot/test-configuration-in-nested-class.html)
+```Java
+@WebMvcTest(controllers = AccountRedirectionController.class, excludeFilters = {
+        @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class) })
+@AutoConfigureMockMvc(addFilters = false)
+@TestPropertySource(properties = { "pkce.auth-endpoint=/oauth2/login", "pkce.token-endpoint=/oauth2/token" })
+@Import({ JWTKeyUtil.class, AesGcmSecretService.class, CookieService.class }) 
+...
+// innerhalb der TestKlasse:
+    // @Configuration // does also work
+    @TestConfiguration // does also work
+    static class MyTestConfig {
+        @Bean // ersetzt ein @MockBean weiter oben, aber hier mit ner echte Bean und der möglichkeit einzelne methoden zu ueberschreiben
+        public SomeServiceOrStuff mygetterMethod() {
+            return new SomeServiceOrStuff() {
+                @Override
+                public String getwhatever() {
+                    return "something";
+                }
+            };
+        }
+
+```
+
+## Testing RestServices with JsonPath
 * `mockMvc.perform(MockMvcRequestBuilders.get("/todos").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$", hasSize(2)))`
 * [JsonPath docu](https://github.com/json-path/JsonPath)
 * `MockMvcResultMatchers.jsonPath();` erwartet als 2.Argument einen `org.hamcrest.Matchers`, z.B.: `hasSize(2)`
