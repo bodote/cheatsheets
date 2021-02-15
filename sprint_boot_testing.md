@@ -58,17 +58,19 @@ By default, `@SpringBootTest` will not start a server.
         }
 
 ```
+siehe auch :[Auto-configured Spring MVC Tests](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests)
 
 ### Testing RestServices with JsonPath
 * `mockMvc.perform(MockMvcRequestBuilders.get("/todos").contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$", hasSize(2)))`
 * [JsonPath docu](https://github.com/json-path/JsonPath)
 * `MockMvcResultMatchers.jsonPath();` erwartet als 2.Argument einen `org.hamcrest.Matchers`, z.B.: `hasSize(2)`
+### Assertions and Matchers
+* org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath: Evaluate the given [JsonPath](https://github.com/jayway/JsonPath)  expression against the response body and assert the resulting value with the given  `org.hamcrest.Matcher.*`. wobei die `org.assertj.core.api.Assertions` eigentlich mehr **fluent** sind.
+
 ### Testing with MockMvc
 *  `mockMvc.perform().andDo(MockMvcResultHandlers.print())` `MockMvcResultHandlers.print()` das Ergebniss übersichtlich ausdruckt oder mit  `MockMvcResultHandlers.print()` im logger `"org.springframework.test.web.servlet.result", DEBUG` ausgibt, siehe auch [Logback in SpringBoot](logback.md)
 
-### Assertions and Matchers
-* org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath: Evaluate the given [JsonPath](https://github.com/jayway/JsonPath)  expression against the response body and assert the resulting value with the given  `org.hamcrest.Matcher.*`. wobei die `org.assertj.core.api.Assertions` eigentlich mehr **fluent** sind.
-* 
+
 
 ## Use of **InjectMocks**
 * [Vorsicht beim Verwenden](https://tedvinke.wordpress.com/2014/02/13/mockito-why-you-should-not-use-injectmocks-annotation-to-autowire-fields/) von `@InjectMocks`! 
