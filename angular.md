@@ -116,3 +116,10 @@ füge ein `?v=2` hinzu z.B. `<link rel="icon" type="image/x-icon" href="favicon.
 `ng serve --open`
 # globale Variablen (z.B. für unterscheidung Prod / Test Environment)
 * in dir `environment/envirnoment.prod.ts` oder eben `environment/envirnoment.ts` für test ist eine globale Struktur `environment` definiert, in die man beliebige weitere Elemente ergänzen kann
+
+# update packages
+* `rm packages-lock.json`
+* `npm cache verify`
+* `npm install --force protractor` um ein bestimmtes Packet neu zu installiern und den rest zu updaten 
+## Perform a basic update to the current stable release of the core framework and CLI by running the following command.
+*  `ng update @angular/cli @angular/core`
