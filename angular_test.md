@@ -320,3 +320,6 @@ about [async, await and Promise](https://blog.logrocket.com/async-await-in-types
 ## testing Promises
 * da Promises verspätet ausgeführt werden 
 
+# Integration tests mit selenium und protractor
+ist eingebaut. einfach `ng e2e` starten
+
