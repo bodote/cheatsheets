@@ -30,3 +30,8 @@ Da `@Configuration` auch `@Component` einschließt , kann letzteres auch funktio
 private static final Logger LOGGER = LoggerFactory.getLogger(MyCurrentClass.class)
 
 
+# Configuration
+```java
+@Configuration
+@PropertySource(value = "classpath:build.properties", ignoreResourceNotFound = false)
+```

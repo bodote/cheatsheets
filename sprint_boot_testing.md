@@ -1,4 +1,5 @@
 # Testing in Sprinboot mit Junit5 und Mockito
+siehe auch [hier](java_junit5.md)
 ## Initialisierung
 * `@ExtendWith(MockitoExtension.class)`vor der Klasse (Extension that initializes mocks and handles strict stubbings. This extension is the JUnit Jupiter equivalent of our JUnit4 MockitoJUnitRunner, `@ExtendWith(SpringExtension.class)`. It replaces the deprecated JUnit4 `@RunWith(SpringJUnit4ClassRunner.class)`)
 * `@SprinBootTest` 
@@ -18,7 +19,7 @@
 ### Testing slices 
 ..of the application Sometimes you would like to test a simple “slice” of the application instead of auto-configuring the whole application. Test Slices are a Spring Boot feature introduced in the 1.4. The idea is fairly simple, Spring will create a reduced application context for a specific slice of your app.
 Also, the framework will take care of configuring the very minimum. Spring Boot 1.4 introduces 4 new test annotations:
-* @WebMvcTest - for testing the controller/Web layer,  mock MVC testing slice without the rest of the app, Also auch `@Configuration` und `@Services` werden **NICHT** automatisch mit initialisiert. (WorkAround: `@ContextConfiguration()` siehe unten). Auch JPA Repositories funktionieren hier nicht.
+* `@WebMvcTest` - for testing the controller/Web layer,  mock MVC testing slice without the rest of the app, Also auch `@Configuration` und `@Services` werden **NICHT** automatisch mit initialisiert. (WorkAround: `@ContextConfiguration()` siehe unten). Auch JPA Repositories funktionieren hier nicht.
 * `@JsonTest` - for testing the JSON marshalling and unmarshalling
 * `@DataJpaTest` - for testing the repository layer
 * `@RestClientTests` - for testing REST clients
@@ -103,3 +104,30 @@ public class LoggingConfiguration {
 }
 ```
 * Die Test-KLASSE  mit `@ContextConfiguration(classes = { LoggingConfiguration.class, ...  })` zusätzlich annotieren. **ACHTUNG** : dabei muss aber nach `LoggingConfiguration.class,` auch alle weiteren Classen, die getestet werden sollen mit angegeben werden. 
+
+## @SpyBean 
+geht nicht ohneweiteres. statt dessen machs , wie oben unter "Testing with **@WebMvcTest** -> **@TestConfiguration In static nested class** beschrieben und dann: 
+```java 
+@Bean
+public SomeServiceOrStuff mygetterMethod() {
+    return Mockito.spy(new SomeServiceOrStuff() {
+      ...
+    })
+```
+
+## Maven and Testing
+### maven integration tests auch laufen lassen:
+* `mvn verify `  ABER : alle unittests müssen erst **grün** sein 
+* EINzelnen Test ausführen: `mvn -Dtest=FinApiProviderTestIT test` oder alle Integration-tests:  `mvn -Dtest=*TestIT test` oder besser `mvn -Dit.test=AccountControllerTestIT -Dskip.surefire.tests verify` (skipt dann die Unittest und macht direkt den integrationtest)
+geht nur wenn :
+```xml
+<plugin>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.14</version>
+    <configuration>
+        <!-- skips surefire tests without skipping failsafe tests.
+                 Property value seems to magically default to false -->
+        <skipTests>${skip.surefire.tests}</skipTests>
+    </configuration>
+</plugin>
+```
