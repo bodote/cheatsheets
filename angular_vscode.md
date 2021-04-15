@@ -4,3 +4,6 @@
 ## Extension: Auto Import
 ## Extension: VisualStudio IntelliCode
 ## Extension:
+# VSCode für Angular npm-scrips-tab anpassen
+* OSX : change Settings: `"terminal.integrated.inheritEnv": true,
+"terminal.integrated.shell.osx": "/bin/bash"`

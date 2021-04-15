@@ -29,6 +29,20 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * neue branch: `git checkout -b local_backend_setup`
 * push to server: `git push origin local_backend_setup`
 * checkout remote  branch; `git checkout -t <name of remote>/test` 
+* THIS DOES NOT WORK: on a feature branch, but want to update the master: `git pull origin develop:develop ` besser ohne `--rebase`  if `develop` is the name of you main/master-branch.
+* ODER Besser ? ? `git fetch origin develop:develop `
+* git delete local branch `git branch -d name`
+* checkout remote branch `git checkout --track origin/newsletter`
+* show connection local<->remote branches `git branch -vv`
+
+## git merge
+
+## git stash oder reset
+* `git stash list`  `git stash  push -m "name" `
+* `git reset --hard HEAD ` plus ggf. `git rebase --abort` resettet alles auf den aktuellen HEAD
+* `git reset --hard HEAD^ ` löscht den letzten (localen) commit und   resettet alles auf den aktuellen HEAD
+
+
 
 
 ## git logs :

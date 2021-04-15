@@ -82,3 +82,20 @@ public void testTerribleCase() throws ModuleException {
  org.mockito.ArgumentMatchers benutzen, achtung: Normale Argumente lassen sich nicht mit  ArgumentMatchers mischen !
 `doReturn(userResource).when(usersResource).get(ArgumentMatchers.any());`
 
+# ArgumentCaptor vs ArgumentMatcher
+
+```java
+@Captor
+ArgumentCaptor<Email> emailCaptor;
+// oder: ArgumentCaptor.forClass(Email.class);
+Mockito.verify(platform).deliver(emailCaptor.capture());
+Email emailCaptorValue = emailCaptor.getValue();
+assertEquals("correkt@mail.com", emailCaptorValue);
+```
+oder 
+```java
+Credentials credentials = new Credentials("baeldung", "correct_password", "correct_key");
+Mockito.when(platform.authenticate(Mockito.eq(credentials)))
+  .thenReturn(AuthenticationStatus.AUTHENTICATED);
+assertTrue(emailService.authenticatedSuccessfully(credentials));
+```

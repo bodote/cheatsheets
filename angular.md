@@ -1,5 +1,6 @@
 [Inhalt](angular_toc.md)
 
+
 # Dependency Injection
 ```TypeScript
 @Injectable({})
@@ -69,6 +70,17 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 <someothertag ..... (othereventname)="method(refMarker.value) " >
 ```
 * wichtige [events](https://developer.mozilla.org/en-US/docs/Web/Events) `keyUp.enter` oder `keyDown.enter` , `click`, `focus` und sein Gegenteil: `blur` , letzeres wir ausgelöst , wenn der User eine anderes Element hinklickt also gerade noch der Focus war. Weiterhin `dblclick`
+## Observable von Eventquelle:
+statt `<button class="mat-raised-button mat-primary" #saveButton (click)="clickHappend(saveButton)">`
+```html
+<button class="mat-raised-button mat-primary" #saveButton >
+```
+```typescript
+@ViewChild('saveButton', { static: true }) saveButton: ElementRef;
+....
+fromEvent(this.saveButton.nativeElement,'click').subscribe(do something)
+```
+
 
 ## Event Emitters und Output Properties
 * in der zur Wiederverwendung gedachten Child-Componente: definiere eine `@Output('my-event-name') myoutput = new EventEmitter()` Property.  
@@ -123,3 +135,47 @@ füge ein `?v=2` hinzu z.B. `<link rel="icon" type="image/x-icon" href="favicon.
 * `npm install --force protractor` um ein bestimmtes Packet neu zu installiern und den rest zu updaten 
 ## Perform a basic update to the current stable release of the core framework and CLI by running the following command.
 *  `ng update @angular/cli @angular/core`
+
+# Livecycle Hooks
+
+* A lifecycle hook that is called after Angular has fully initialized a component's view. Define an `ngAfterViewInit()` method to handle any additional initialization tasks.
+* A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. Define an `ngOnInit()` method to handle any additional initialization tasks.
+
+# Query Parameter
+```typescript
+//Example: /app?param1=hallo&param2=123
+param1: string;
+param2: string;
+constructor(private route: ActivatedRoute) {
+    console.log('Called Constructor');
+    
+}
+ngOnInit() {
+  this.route.queryParams.subscribe(params => {// für die query params
+        this.param1 = params['param1'];
+        this.param2 = params['param2'];
+    });
+  this.route.paramMap.subscribe .. // für die route params
+}
+```
+
+# @ViewChild()
+* inject a child component used in the template of this class in this class in order to call methods on it:
+```html
+<color-sample>..</color-sample>
+```
+when `color-sample` is the component selector for component "ColorSampleComponent"
+```typescript
+@ViewChild(ColorSampleComponent)
+primarySampleComponent: ColorSampleComponent;
+```
+to be mostly used in the "ngAfterViewInit" Lifecycle Hook
+* works also with plain html element using the '#'-Tag :
+```html
+<h2 #title>bla</h2>
+``` 
+```typescript
+@ViewChild('title')
+titleHeader: ElementRef;
+```
+

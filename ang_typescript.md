@@ -33,3 +33,31 @@ this.checkoutForm = this.formBuilder.group({
         email: ['']
       })
 ```
+## filtering arrays (plain JavaScipt)
+* `Array.prototype.filter()`
+```javascript
+const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+const result = words.filter(word => word.length > 6);
+console.log(result);
+// expected output: Array ["exuberant", "destruction", "present"]
+```
+
+## Javascript spread operator / 3 dots operator
+```typescript
+const bill = {
+    ...adrian,
+    fullName: 'Bill Gates',
+    website: 'https://microsoft.com'
+};
+``` 
+* nimmt das `adrian` object, welches die gleich Struktur haben sollte wie das `bill` object , kopiert zuerst `adrian` nach `bill` und ersetzt dann noch `fullName` und `website`mit den angegebenen werten.
+* oder auch : 
+```typescript
+ courses[id] = {
+        ...courses[id],
+        ...changes 
+    };
+```  
+wenn z.B. id=1 wäre nimmt es das `courses[1]`- objekt und copiert es , dannach kopiert es dann noch die einzelnen werte von  `changes` 
+# Event von HTML-Elementen type-sicher verarbeiten:
+`(event.target as HTMLInputElement).value` statt `event.target.value`

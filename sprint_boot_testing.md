@@ -131,3 +131,8 @@ geht nur wenn :
     </configuration>
 </plugin>
 ```
+* skip maven code gen: `mvn -Dcodegen.skip test`
+* alles zusammen um eine Integrationtest schneller auszuführen: 
+* `mvn -Dcodegen.skip -Dit.test=InfoControllerTestIT -Dskip.surefire.tests verify`
+* `mvn -Dcodegen.skip  -DfailIfNoTests=false -Dskip.surefire.tests verify`
+* `mvn -Dcodegen.skip  -DfailIfNoTests=false -Dskip.surefire.tests -Dit.test=*InfoControllerTestIT verify`
