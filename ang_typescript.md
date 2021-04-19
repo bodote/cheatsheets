@@ -53,11 +53,19 @@ const bill = {
 * nimmt das `adrian` object, welches die gleich Struktur haben sollte wie das `bill` object , kopiert zuerst `adrian` nach `bill` und ersetzt dann noch `fullName` und `website`mit den angegebenen werten.
 * oder auch : 
 ```typescript
- courses[id] = {
-        ...courses[id],
+const courses[id2] = {
+        ...courses[id1],
         ...changes 
     };
 ```  
-wenn z.B. id=1 wäre nimmt es das `courses[1]`- objekt und copiert es , dannach kopiert es dann noch die einzelnen werte von  `changes` 
+wenn z.B. id1=1 wäre nimmt es das `courses[1]`- objekt und copiert es , dannach kopiert es dann noch die einzelnen werte von  `changes` 
 # Event von HTML-Elementen type-sicher verarbeiten:
 `(event.target as HTMLInputElement).value` statt `event.target.value`
+
+# funktional programming
+## reduce for arrays
+```typescript
+const courses=[1,2];
+const initialValue = 0;
+const result = courses.reduce((val,init)=>val+init, initialValue);
+```

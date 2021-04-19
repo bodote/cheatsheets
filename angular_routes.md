@@ -1,9 +1,9 @@
 # Routing
 ## Routes definieren
 * im `app.module.ts` dort in `@NgModule` das `RouterModule` importieren  dabei auch gleich `.forRoot()` mit dem Array der möglichen `Routes` aufrufen.
-* `Routes` werden als Array definiert mit `path` plus `component`, oder mit `path` , `redirect` und `pathMatch`
+* `Routes` werden **außerhalb** `export class AppModul` aber innerhalb von `app.module.ts`  als Array definiert mit `path` plus `component`, oder mit `path` , `redirect` und `pathMatch`, oder per `path` + `loadChildren:` für **Lazy-Loading**
 ### Beispiel Routes 
-* ..die direct unterhalb der Imports und **außerhalb** der `AppModule` class definiert werden:
+* ..die direct in `app.modules.ts` (oder einem anderen Modul) bei den  `Imports` und **außerhalb** der `AppModule` class definiert werden:
 ```typescript
 export const routes: routes : Routes = [
   { path: 'category/:id', component:  ProductListComponent},
@@ -53,3 +53,17 @@ wenn man nicht direkt einen Link auf die Route hat, dann kann man auch einen Eve
 
 ## Debug Routing
 in `app.module.ts` einfügen: ` RouterModule.forRoot(routes, { enableTracing: true }) ],`
+
+# Eager vs lazy Loading
+* Default: Eager Loading
+* To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes configuration as follows:
+```typescript
+const routes: Routes = [
+  {
+    path: 'items',
+    loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
+  }
+];
+``` 
+Also be sure to remove the `ItemsModule` from the `AppModule`. For step-by-step instructions on lazy loading modules, continue with the following sections of this page.
+* And do **NOT** include this Module in `app.modules.ts->@NgModule->imports:`

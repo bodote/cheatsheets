@@ -27,9 +27,15 @@ ngOnInit(){
 }
 ```
 * `onSubmit()` methode definieren
+* falls es ein benanntes top-Level FormGroupName gibt: 
 ```typescript
 this.myFormGroup.get('myTopLevelElement').value // alle Felder der Gruppe
 this.myFormGroup.get('myTopLevelElement').value.myControl1 //nur ein bestimmtes Feld
+```
+* falld nicht , dann einfach: 
+```typescript
+this.myFormGroup.value // alle Felder der Gruppe
+this.myFormGroup.value.myControl1 //nur ein bestimmtes Feld
 ```
 
 * HTML-Template bildet die hierarchische Groupierung 1:1 ab :
@@ -76,7 +82,15 @@ new Observable(observer => {
 * in der `pipe()` ein `shareReplay()` einfügen : `...pipe(map(...),shareReplay())` ; beachte das **Komma** in der `pipe()`
 
 ## .pipe() debuggen mit tap()
-`...pipe(tap(()=>console.log("something"),...,...)`
+* `...pipe(tap(()=>console.log("something"),...,...)`
+* `tap()`kann aber auch für andere Side-Effects verwendet werden, z.B. fürs Routing:
+```typescript
+   tap(val => {
+          console.log("login tap passed:", val);
+          this.router.navigateByUrl('/courses')
+        })
+```
+
 
 ## Observable und Fehlerbehandlung
 Siehe auch [hier](https://blog.angular-university.io/rxjs-error-handling/).
