@@ -114,8 +114,8 @@ myObservable$.subscribe(
 * `of(1,2,3,).pipe(concatMap(item => of(item).pipe(delay(1000))))` verzögert JEDES elemet für sich um 1000ms 
 * im Gegensatz zu `of(1,2,3,).pipe(delay(1000))` welches alle 3 Elemeter später, dann aber sehr schnell hintereinander ausliefert
 
-# combining Observable 
-## observable pipe(concatMap())
+## combining Observable 
+### observable pipe(concatMap())
 ```typescript
 obs1$.pipe(concatMap(itemFromObs1 => {
       obs2$ = this.saveCourse(itemFromObs1)
@@ -124,7 +124,7 @@ obs1$.pipe(concatMap(itemFromObs1 => {
     .subscribe((itemFromObs2) => console.log("itemFromObs2"+itemFromObs2))
 ```
 hängt leitet itemFromObs2 von itemFromObs1 ab und serialisiert alles, d.h. beide callbacks werden nacheinandern ausgeführt und überholen sich nicht. also alle Observables warten aufeinandern und überlappen sich nicht
-##  observable pipe(mergeMap())
+###  observable pipe(mergeMap())
 ```typescript
 obs1$.pipe(mergeMap(itemFromObs1 => {
       obs2$ = this.saveCourse(itemFromObs1)
@@ -133,7 +133,7 @@ obs1$.pipe(mergeMap(itemFromObs1 => {
     .subscribe((itemFromObs2) => console.log("itemFromObs2"+itemFromObs2))
 ```
 alle callbacks für alle Observable werden kombiniert zu einem Observable und alle so schnell wie möglich ausgeführt, können sich also überlappen , warten NICHT aufeinander.
-##  observable pipe(exhaustMap())
+###  observable pipe(exhaustMap())
 ```typescript
 obs1$.pipe(mergeMap(itemFromObs1 => {
       obs2$ = this.saveCourse(itemFromObs1)
@@ -142,7 +142,7 @@ obs1$.pipe(mergeMap(itemFromObs1 => {
     .subscribe((itemFromObs2) => console.log("itemFromObs2"+itemFromObs2))
 ```
 alle callbacks für alle Observable , die kommen befor das erste Observable beendet ist werden ignoriert, können sich also NICHT überlappen , warten auch NICHT aufeinander, sonder alles was zu schnell vorn reinkommt bevor es hinten fertig ist , wird einfach ignoriert.
-##  observable pipe(switchMap())
+###  observable pipe(switchMap())
 ```typescript
   this.lessons$ = searchTerms$.pipe(
       switchMap(searchTerm => this.loadLessons(searchTerm))
@@ -150,28 +150,28 @@ alle callbacks für alle Observable , die kommen befor das erste Observable been
 ```
 wenn neue `searchTerms` in der pipe erscheinen, werden der laufende `loadLessons()`-request sofort gecancelt (also unsubscribed) und sofort ein neuer `loadLessons()`-request erzeugt. 
 
-## concat Observables
+### concat Observables
 wenn inital zuerst ein Observable verwendet werden soll, dannach aber ein anders (was z.b auf Userinput reagiert) , beide aber den gleich Output haben und ein Element der UI befüllen sollen , dann kann man die einfach zusammenhängen mit: 
 `this.lessons$ = concat(initialLessons$,searchedLessons$)`
 wobei in `this.lessons$` zuerst die Elemente aus `initialLessons$` erscheinen, und dannach die aus `searchedLessons$`
 
-## startWith
+### startWith
 um einen Stream (z.B. von einer Eventquelle) zu initialisieren mit einem einzelnen startwert
 
-## throttle and throttleTime
+### throttle and throttleTime
 `throttle(()=>intervall(500))`==`throttleTime(500)` limitiert die events pro zeit und lässt z.B. nur den ersten Event pro 500ms durch , alle folgenden werden  wird ignoriert bis 500ms vergangen sind.
 ## debounceTime
 im Gegensatz zu `throttleTime(500)` , wartet `debounceTime(500)` ob 500ms lang KEIN Event mehr reinkommt, erst dann wird der letzte Event ausgegeben. Alle events vorher, die schneller als 500ms Abstand hatten werden ignoriert.
-## throttleTime vs debounceTime
+### throttleTime vs debounceTime
 * `throttleTime` gives the **first** value of many that are send too fast. but sends values at the requested min-speed, even if the origial stream is still too fast. 
 * `debounceTime` gives the **last** value **after** the sending of values has slowed down enough.
 
 
-## delay und delayWhen()
+### delay und delayWhen()
 verzögert die Eventweitergabe einfach, bei delayWhen() abhängig von einem 2. Observable. z.B. : 
 `delayWhen(()=>intervall(500))`. delayWhen time shifts each emitted value from the source Observable by a time span determined by another Observable. 
 
-# Observable von einer Eventquelle (clicks, tastatur)
+## Observable von einer Eventquelle (clicks, tastatur)
 * events from parameters of the Route:
 ```typescript
 constructor(private route: ActivatedRoute) { }
@@ -182,15 +182,15 @@ const paramMap$ = this.route.paramMap
 * from mouse events: `fromEvent(this.saveButton.nativeElement,'click')`
 * from Keyboard: `fromEvent(this.searchInput.nativeElement, 'keyup')`
 
-# Error Handling
-## catchError()
+## Error Handling
+### catchError()
 3 Möglichkeiten:
 * catchError in the pipe(..., catchError()) and emit some sort of static predefined replacement/alternativ instead of the real thing.
 * catchError in the pipe, log to console and then rethrow it
 * do nothing.
-## finalize()
+### finalize()
 wird in jedem Fall ausgeführt.
 
-## retry()
+### retry()
 innerhalb einer `.pipe(...,shareReplay())` mit z.B. einem , am Schluss ein : 
  `.pipe(...,shareReplay(),retryWhen(error => error.pipe(delayWhen(()=>timer(500)))))`

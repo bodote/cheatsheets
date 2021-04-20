@@ -54,7 +54,7 @@ wenn man nicht direkt einen Link auf die Route hat, dann kann man auch einen Eve
 ## Debug Routing
 in `app.module.ts` einfügen: ` RouterModule.forRoot(routes, { enableTracing: true }) ],`
 
-# Eager vs lazy Loading
+## Eager vs lazy Loading for Routes
 * Default: Eager Loading
 * To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes configuration as follows:
 ```typescript

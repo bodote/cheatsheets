@@ -36,7 +36,23 @@ export const login = createAction(
 for some reason, Actions are imported and re-exportet in `app/auth/action-types.ts`. Seems to be merily a typescript - trick to get command-line - completion . 
 
 ## Reducer
-* defines, what the store should do in response to Actions the are dispached to it.
+* defines a function, what the store should do in response to Actions the are dispached to it.
+* this function can be created from  a factory-function called `createReducer()` from `@ngrx/store`, possibly using the `on()` function :
+```typescript
+export const authReducer = createReducer(
+  initialState,
+  on(AuthAction.login,(state,action) => {
+    return {
+      user: action.user
+    }
+  })
+);
+```
+* this `authReducer` then must be added to the *.module.ts - file for this module, in the `@NgModules` -> `imports:` -> `StoreModule.forFeature('auth', authReducer)`
+## Use state for deciding on what to show in the UI
+* inject the ~~state~~ **store** (Type `private store : Store<AppState>`) in the component via constructor, the type parameter either the root of the state or some child state. the root State is usually exportet in `./reducers/index.ts` as a plain interface
+
+
 
 
 
