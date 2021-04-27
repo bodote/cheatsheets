@@ -67,3 +67,43 @@ const routes: Routes = [
 ``` 
 Also be sure to remove the `ItemsModule` from the `AppModule`. For step-by-step instructions on lazy loading modules, continue with the following sections of this page.
 * And do **NOT** include this Module in `app.modules.ts->@NgModule->imports:`
+
+## route guards: CanActivate
+see [here](https://angular.io/guide/router#preventing-unauthorized-access)
+* `export class MyGuard implements CanActivate` definieren
+* add  new parameter to existing route:  `canActivate:[MyGuard]` e.g. in `app.module.ts` (if this is where the route is defined)  : 
+```typescript
+const routes: Routes = [
+  {
+    path: 'courses',
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+    canActivate:[MyGuard] // new parameter for the route 
+  },
+...
+```
+* the `MyGuard` must be  defined as a Provider (just like a Service) either in `app.module.ts` or one of its sub-modules
+* the Guard itself mus be `@Injectable()` and must implement `CanActivate`
+  * its canActivate can return and `Observable<boolean>` , if the `Observable` emits `true` then the route can be activated, if not , the route is blocked. 
+  * **ATTENTION** if you return `of(false)`  then at the same time you need to change the route. Otherwise you get stuck in an endless loop: the route checks, if its ok, but if its not, it will check again and again.
+  * therefore you need to `pipe()` the `Observable<boolean>` and add a `tap()` which changes the route as a side effect like this:
+```typescript
+tap(loggedIn => {
+        console.log("tap in canActivate after map:",loggedIn)
+        if (!loggedIn){
+          this.router.navigateByUrl('/login');// redirect to some route , where no Guard is set.
+        }
+      })
+```
+## Router Resolver 
+* should implement `Resolve<T>` (ohne "r")
+* The router waits for the data (e.g. for the AppStore) to be resolved before the route is finally activated. 
+* The router therefore wants to subscribe to the Observable of the data that 
+* Basic idea: EmptyStore-> Resolve.pipe(tap())->Router continues.
+* hook for executing something before the route is resolved.
+* filename: `xxx.resolve.ts`
+* must return an `Observable<T>`
+* actual action can be triggered by a `tap()`, inside which you may want to store.dispatch() the action, which itself should trigger the actual doing.
+* since this is a one-time thing , you need to have a `first()` operatior at the end of the `pipe()`
+* needs to be added to the router in  `xxx.module.ts` : `resolve:{myresolv:MyResolver}` as additional parameter
+* avoid multiple triggers (from multipel threads)of the resolvers , make a semaphore into the resolver service . AND don't forget to `finalize()` the semaphore at the end of  the `pipe()`
+## Effects für loadAllCourses

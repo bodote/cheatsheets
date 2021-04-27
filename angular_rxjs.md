@@ -114,7 +114,7 @@ myObservable$.subscribe(
 * `of(1,2,3,).pipe(concatMap(item => of(item).pipe(delay(1000))))` verzögert JEDES elemet für sich um 1000ms 
 * im Gegensatz zu `of(1,2,3,).pipe(delay(1000))` welches alle 3 Elemeter später, dann aber sehr schnell hintereinander ausliefert
 
-## combining Observable 
+## Operators for Observables
 ### observable pipe(concatMap())
 ```typescript
 obs1$.pipe(concatMap(itemFromObs1 => {
@@ -170,6 +170,9 @@ im Gegensatz zu `throttleTime(500)` , wartet `debounceTime(500)` ob 500ms lang K
 ### delay und delayWhen()
 verzögert die Eventweitergabe einfach, bei delayWhen() abhängig von einem 2. Observable. z.B. : 
 `delayWhen(()=>intervall(500))`. delayWhen time shifts each emitted value from the source Observable by a time span determined by another Observable. 
+
+### Custom Operators from ngRx
+* select() =  same as map(),distinctUntilChanged()
 
 ## Observable von einer Eventquelle (clicks, tastatur)
 * events from parameters of the Route:

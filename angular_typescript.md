@@ -59,13 +59,43 @@ const courses[id2] = {
     };
 ```  
 wenn z.B. id1=1 wäre nimmt es das `courses[1]`- objekt und copiert es , dannach kopiert es dann noch die einzelnen werte von  `changes` 
-# Event von HTML-Elementen type-sicher verarbeiten:
+## Event von HTML-Elementen type-sicher verarbeiten:
 `(event.target as HTMLInputElement).value` statt `event.target.value`
 
-# funktional programming
-## reduce for arrays
+## funktional programming
+### reduce for arrays
 ```typescript
 const courses=[1,2];
 const initialValue = 0;
 const result = courses.reduce((val,init)=>val+init, initialValue);
 ```
+## getting a boolean from any type by double negating it
+```typescript
+const myarray = "somevalue"
+if (!!myarray) console.log("its true")
+const myother : string
+if (!!myother) console.log("its false")
+``` 
+##  Brower localstorage
+* only strings, so to save objects : `JSON.stringify(myObject)`
+* `localstorage.setItem('myKey',JSON.stringify(myObject))`
+
+## constructor vs inline declaration of member variables
+```typescript
+export class myClass{
+  myVar:string
+  constructor(){
+    this.myVar="hello"
+  }
+}
+```
+seems just identical to : 
+```typescript
+export class myClass{
+  myVar="hello"
+  constructor(){}
+}
+```
+except the latter is just shorter
+## import as:
+`import * as myThing from 'whatever'` -> imports funktions defined in "whatever" and makes them accessable by using `myThing.function1()`
