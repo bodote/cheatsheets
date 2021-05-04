@@ -20,7 +20,7 @@ imports: [
   ...
 ]
 })
-```
+``` 
 `export const routes: routes : Routes` ist nur nötig, wenn man die routes dann in einem unittest test will .
 
 
@@ -95,15 +95,24 @@ tap(loggedIn => {
       })
 ```
 ## Router Resolver 
-* should implement `Resolve<T>` (ohne "r")
+* MyResolverService should implement `Resolve<T>` (ohne "r") or simply `Resolve<boolean>`
 * The router waits for the data (e.g. for the AppStore) to be resolved before the route is finally activated. 
 * The router therefore wants to subscribe to the Observable of the data that 
 * Basic idea: EmptyStore-> Resolve.pipe(tap())->Router continues.
 * hook for executing something before the route is resolved.
 * filename: `xxx.resolve.ts`
-* must return an `Observable<T>`
+* must return an `Observable<T>` or `Observable<boolean>`
 * actual action can be triggered by a `tap()`, inside which you may want to store.dispatch() the action, which itself should trigger the actual doing.
 * since this is a one-time thing , you need to have a `first()` operatior at the end of the `pipe()`
-* needs to be added to the router in  `xxx.module.ts` : `resolve:{myresolv:MyResolver}` as additional parameter
+* needs to be added to the router in  `xxx.module.ts` : `resolve:{myresolv:MyResolver}` as additional parameter to one or more routes.
+* define this as a `provider` und `xxx.module.ts` 
 * avoid multiple triggers (from multipel threads)of the resolvers , make a semaphore into the resolver service . AND don't forget to `finalize()` the semaphore at the end of  the `pipe()`
+### Resolver with ngRx Data
+* inject the MyClassEntityService that extends `EntityCollectionServiceBase` into the ResolverService via its constructor
+* the `resolve()` method then uses the EntityService to get data from the backend.
+* `map()` the Data from the backend to a Observable<boolean> , which return "true" if the data-fetch is complete
+
+
+
+
 ## Effects für loadAllCourses

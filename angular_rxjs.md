@@ -158,6 +158,9 @@ wobei in `this.lessons$` zuerst die Elemente aus `initialLessons$` erscheinen, u
 ### startWith
 um einen Stream (z.B. von einer Eventquelle) zu initialisieren mit einem einzelnen startwert
 
+## withLatestFrom(obs2$)
+combines `obs$1` and `obs2$` : `obs$1.pipe(withLatestFrom(obs2$),map(([ent1,ent2])=>...),..` so that the next operator after will deliver pairs of observable-entities 
+
 ### throttle and throttleTime
 `throttle(()=>intervall(500))`==`throttleTime(500)` limitiert die events pro zeit und lässt z.B. nur den ersten Event pro 500ms durch , alle folgenden werden  wird ignoriert bis 500ms vergangen sind.
 ## debounceTime

@@ -129,7 +129,7 @@ export class AuthEffects {
 maps one action to another action , while possibly doing some side effect
 ```
 effectName$ = createEffect(
-  () => this.actions$.pipe(
+ () => this.actions$.pipe(
     ofType(FeatureActions.actionOne),
     map((myObject) => FeatureActions.actionTwo(myObject))
   )
@@ -164,20 +164,84 @@ StoreModule.forRoot(reducers, { metaReducers,
 * for easy search using the key
 * additional indices possible using `myIndex:number[]`
 ### better using ngrx EntitieState<MyClass>
-* define a MyClassStore interface that extends `EntitieState<MyClass>`
+* define a MyClassStore interface that extends `EntitieState<MyClass>` in *myclass.reducers.ts*
+* optional add additional fields, eg.: a "loaded"-Flag if needed
 * use  `EntityAdapter<MyClass>` by `adapter = createEntityAdapter<MyClass>()`
+* `export` the adapter as a `const` (no Class required)
 * use adapters methods, e.g. : `adapter.getInitialState()` and `adapter.addAll()` to get or add data.
+* add the new reducer to xxx.module.ts to `imports`:  `StoreModule.forFeature('myClassName', myReducer)`
+### optional arguments for createEntityAdapter<MyClass>()
+* [Docu](https://ngrx.io/guide/entity/adapter)
+* `{sortComparer:mySortFunction,...}`comparer for sorting (only the primary index table "ids", **not** the "entities" gets sortet)
+* `{selectId:myId,...}` replacement for the "id:" - default property , if we want to use "courseId:" instead for just "id:"
+### Update<MyEntity>
+ use `Update<T>`  from '@ngrx/entity' as an argument to the action that changes the store.
+
+
 
 ## rgrx Selectors
 * own file courses.selector.ts
 * create a `selectMyClassState` for  the "MyClass" feature by `createFeatureSelector<EntityState<MyClass>>` as a **BASE** for alle other selectors
 * create the actual selectors (using `selectMyClassState`) by using `createSelector()`
   * **either** use the `EntityAdapter<MyClass>`-select-methods-(pointer!) , we can get from `adapter.getSelectors()` in `createSelector()` 
-  *  **OR** : first arg of `createSelector()` is another  Selector for Pre-Selection, 2nd arg is the actual selector, which is a lambda or another method-pointer.
+  *  **OR** : first arg of `createSelector()` is another  Selector for Pre-Selection, 2nd arg is the actual selector, which is a lambda or another method-pointer (which can be derived from `EntityAdapter<MyClass>.getSelectors())`.
 * selectors can be stacked on each other : a new selector uses existing selectors as pre-selectors
 ### getting observable from the store using selectors
-`this.store.pipe(select())`
+* inject the `Store<MyState>` into a class constructor (the Store is already a Injectable instantiatet automaticaly by StoreModule)
+* `obs$ = this.store.pipe(select(ngrx-selector-defined-previousely))`  wheras `pipe(select())` is equal to `pipe(map(),distinctUnitilChanged())` 
 
-
+## NgRx Data
+* add `EntityDataModule.forRoot({})` to `app.module.ts` -> `imports:` Config `{}` empty, if no entities are directly associated with app.module but with a child-module
+* im child-module: define "const" - configurationVariable of Type `EntityMetadataMap` , with at least one element "MyEntity" (singular)
+* inject  the `EntityDefinitionService` to  constructor of the ChildModule class and `register()` this `EntityMetadataMap`- object defined before as a config to the `EntityDefinitionService`
+* all entities need to be configured in the `EntityMetadataMap`
+* create an MyClassEntityService that extends `EntityCollectionServiceBase` as a *.service.ts file and make it `@Injectable()` 
+* its constructor needs a `EntityCollectionServiceElementsFactory` and pass this to `super()`
+as 2nd arg, together with the name of the entity `MyClass` as a string as its 1st arg.
+* this service needs to be defined as a `provider` and  injected  in `ChildModule`s `constructor()`  
+### using MyClassEntityService in the Router Resolver
+* the loading from backend and storing in the local store still needs to be plugged in somewhere. Good place is the route - resolver, just like with see [Router Resolver](angular_routes.md#router-resolver)
+* inject the `MyClassEntityService` in to the MyResolverService which should implement `Resolve<T>`
+* use the "loaded" and the "loading" - flags via `MyClassEntityService.loaded$` Observable  to decide whether the data are already in the store. only if they are not , get the data from the backend via `MyClassEntityService.getAll()` 
+* the overwritten `resolve()` - method should return the `MyClassEntityService.loaded$`. In additon , we pipe the Observable and `tap(loaded => ...)` it. In the `tap()` , we get the data from the backend, only if loaded was false
+* after the `tap()` , we need to filter for `loaded==true` and then we only interested in the  `first()` element
+* first() is mandatory, since the Router otherwise would wait indefinitely , until the Observable is completed
+### customize ngrx Data
+* to adapt rgrx Data to non-standard-convention data-structure from the backend 
+* for this ngrx Data uses another Service: `myclass-data.service.ts` as `@Injectable()`
+* create a new **MyDataSerivce** class that extends the `DefaultDataService<MyClass>` 
+* inject the `HttpClient` via its `constructor()`
+* inject also a HttpUrlGenerator 
+* pass them to the `super()` constuctor in addition to to the 'MyClass' -String 
+* plug **MyDataSerivce** in to the xxx.module.ts as a provider AND inject it in the ModuleClass constructor AND inject also the generic `EntityDataService` (import from ngrx data) AND inject the **MyDataSerivce** AND register **MyDataSerivce** to `EntityDataService` , 1st arg: 'MyEntityName' (eg. 'Courses') end arg instance of **MyDataSerivce**
+* the actual customization is done in the **MyDataSerivce** by overwriting some methods from its base class.
+* overwriting the `getAll()`method , we can change the URL and the data-mapping from the default behaviour.
+### defining a sort criterium in EntityMetadataMap
+* add a `sortComparar` to `EntityMetadataMap`
+### CRUD operations
+* works via `MyClassEntityService extends EntityCollectionServiceBase<MyClass>` 
+* default behaviour for `update()` is "pessimisic" , can be changes in `EntityMetadataMap` config
+* new Entities via `add()`; add should be kept pessimistic because IDs might be generated on the backend only. -> therefore the `dialogue.close()` should be performed **after** the data are saved
+* `delete()`: is optimistic by default 
+### loading entitys with query Params
+* use `EntityCollectionServiceBase<MyClass>.entity$.getWithQueriy()`
+* `getWithQuery()` args are a json depending on the backend: 
+```typescript
+getWithQuery({
+  'myarg1':whatever.toString(),
+  'myarg2':whatever2.toString()
+})
+```
+##  changeDetection: ChangeDetectionStrategy.OnPush
+```typescript
+@Component({
+    selector: 'home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush // should work out of the box
+    // with ngrx data , as long as in the html template only async pipes are used for the data
+})
+export class HomeComponent 
+``` 
 
 
