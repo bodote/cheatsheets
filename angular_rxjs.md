@@ -11,6 +11,17 @@ actualNumbervalue= 5 // neue Wert
 this.mynumber.next(actualNumbervalue) // an alle Subscriber versendet
 ```
 so bekommen alle subscriber von "actualNumbervalue" den neuen Wert mitgeteilt
+## Rules for Subjects
+* do not share Subjects outsite the file , where it is created.
+* instead share the `Subject.asObservable()` 
+* but Subjects have not unsubscribe logic.
+
+## other Subject Types
+* `BehaviorSubject(initVal)` emits always its initial value. And emits also the last value to late subscribers.
+* `AsyncSubject` does **not** emit anything until it calles `complete()` but late subscribers also get the last value **even after** `complete()`
+* `ReplaySubject` does **replay** all values **even after** `complete()`
+
+
 ## Reactive Forms
 * Installation, Configuration: in `apps.module.ts` hinzufügen: `imports: [.., FormsModule, ReacitveFormsModule, ..]`
 * `FormGroup` in Component als non-private Field, im constructor einen `FormBuilder` injecten und im `ngOnInit()` mit  `FormBuilder.group()` eine oder mehrere `FormGroup`s hierarchisch als "anonyme" Json-Structuren definieren, auf unterster Ebene dann die eigentlichen `FormControl`s :
@@ -158,12 +169,14 @@ wobei in `this.lessons$` zuerst die Elemente aus `initialLessons$` erscheinen, u
 ### startWith
 um einen Stream (z.B. von einer Eventquelle) zu initialisieren mit einem einzelnen startwert
 
-## withLatestFrom(obs2$)
+### withLatestFrom(obs2$)
 combines `obs$1` and `obs2$` : `obs$1.pipe(withLatestFrom(obs2$),map(([ent1,ent2])=>...),..` so that the next operator after will deliver pairs of observable-entities 
+### forkjoin(obs1$,obs2$,..)
+* last value from all the observables, but not before all observable have been completed.
 
 ### throttle and throttleTime
 `throttle(()=>intervall(500))`==`throttleTime(500)` limitiert die events pro zeit und lässt z.B. nur den ersten Event pro 500ms durch , alle folgenden werden  wird ignoriert bis 500ms vergangen sind.
-## debounceTime
+### debounceTime
 im Gegensatz zu `throttleTime(500)` , wartet `debounceTime(500)` ob 500ms lang KEIN Event mehr reinkommt, erst dann wird der letzte Event ausgegeben. Alle events vorher, die schneller als 500ms Abstand hatten werden ignoriert.
 ### throttleTime vs debounceTime
 * `throttleTime` gives the **first** value of many that are send too fast. but sends values at the requested min-speed, even if the origial stream is still too fast. 

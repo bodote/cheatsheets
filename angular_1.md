@@ -2,9 +2,9 @@
 
 # Angular basic building blocks
 ## Dependency Injection
-```TypeScript
-@Injectable({})
-```
+* `@Injectable()`
+* optional arg:` { providedIn: 'root',}` : The application-level injector in most apps.
+
 ## Services as Providers
 * einen `my.service.ts` muss man entweder im `app.modules.ts` der `providers` Liste hinzufügen (Singleton) oder direkt in der Componente , dort dann in `@Component({ providers: [],...` wo er gebraucht wird (Nicht-Singleton ) 
 
