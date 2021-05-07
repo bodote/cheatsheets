@@ -6,10 +6,19 @@
   * If you would do exactly what is describe in the blog , npx jest would fail
 * https://github.com/ahasall/angular-jest-demo.git
 * https://github.com/thymikee/jest-preset-angular.git
+* https://github.com/briebug/jest-schematic
 ## Debug jest errors: 
 * Run jest with `--detectOpenHandles`. This will show you what is actually wrong with your test spec. For me, there were missing Angular Material imports and service mocks. You may be prompted to add the BrowserAnimationsModule, as Nambi eluded to in his answer
 
 ## Differences to karma/jasemine
-* `TestBed.configureTestingModule()` needs to have everything the app.module.ts has , that is more then jasemine needs
+* for `jest` `TestBed.configureTestingModule()` needs to have everything the `app.module.ts` has , that is more then jasemine needs
 * run test with `npx jest` or even `npx jest --detectOpenHandles`
+
+## jest CLI:
+* `jest  --collect-coverage` (see `./coverage/my-app/index.html` after running), `jest --watch`
+* add `export PATH=$PATH:./node_modules/.bin` to `~/.bash_profile`  or `~/.bashrc`  (or wherever your `PATH` is defined) 
+
+## VisualCode and jest:
+in Order to make VSCode recognice `expect()` as jest.Expect instead of jasemin.Expect and to make` toMatchSnapshot' does not exist on type 'Matchers'.` - error go away:
+* place in `src/global.d.ts`: `import '@types/jest';`
 
