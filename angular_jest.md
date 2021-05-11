@@ -21,7 +21,14 @@
 
 ## VisualCode and jest:
 in Order to make VSCode recognice `expect()` as jest.Expect instead of jasemin.Expect and to make` toMatchSnapshot' does not exist on type 'Matchers'.` - error go away:
-* place in `src/global.d.ts`: `import '@types/jest';`
+* place in `src/global.d.ts`: `import '@types/jest';` 
+* or, if `src/global.d.ts` does not work , add `import '@types/jest';` in your `.spec.ts` file directly
+* .vscode/settings.json:
+```typescript
+{
+    "jest.jestCommandLine": "/opt/homebrew/bin/node ./node_modules/@angular/cli/bin/ng test --runInBand --"
+}
+```
 
 ## Snapshot Testing
 * https://izifortune.com/snapshot-testing-angular-applications/
@@ -58,6 +65,7 @@ jest.mock('./../services/my.service', () => {
   };
 ```
 * or just `jest.mock('./../services/my.service')` in the `*.spec.ts` and the actual mock in subdir called *\_\_mocks\_\_* just like the actual object, but returning whats needed for the test
+* to get the mock-object, call `const mockedmyService = mocked(my.service, true)` , by using `import { mocked } from 'ts-jest/utils'`)
 ## Spying on methods
 ```typescript
 const mockGetMyObjects = jest.fn().mockImplementation(()=>{
@@ -76,4 +84,6 @@ jest.mock('../services/my.service', () => {
   expect(mockGetMyObjects).toHaveBeenCalledTimes(1)
 ```
 
+## root/angular.json
+contains definitions for "ng test" in "test"->"builder" 
 
