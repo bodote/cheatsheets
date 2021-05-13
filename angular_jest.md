@@ -7,7 +7,20 @@
 * https://github.com/ahasall/angular-jest-demo.git
 * https://github.com/thymikee/jest-preset-angular.git
 * https://github.com/briebug/jest-schematic
-## Debug jest errors: 
+
+## new Angular Project with jest:
+```bash
+ng new angular-jest-tutorial
+cd angular-jest-tutorial
+ng add @briebug/jest-schematic
+```
+**IMPORTANT:** add in `./tsconfig.json`: `"types":[ "jest"],` , only then , the *vscode* will use `jest.expect()` instead of `jasmine.expect()`
+### remarks:
+[@briebug/jest-schematic](https://github.com/briebug/jest-schematic)  includes [@angular-builders/jest](https://github.com/just-jeb/angular-builders/tree/master/packages/jest) which in turn uses `jest-preset-angular`
+*  @angular-builders/jest makes "ng test" work with *jest*
+* change in `./setup-jest.ts` `import 'jest-preset-angular/setup-jest';`
+
+## Debug jests own errors: 
 * Run jest with `--detectOpenHandles`. This will show you what is actually wrong with your test spec. For me, there were missing Angular Material imports and service mocks. You may be prompted to add the BrowserAnimationsModule, as Nambi eluded to in his answer
 
 ## Differences to karma/jasemine
@@ -19,16 +32,62 @@
 * `jest  --collect-coverage` (see `./coverage/my-app/index.html` after running), `jest --watch`
 * add `export PATH=$PATH:./node_modules/.bin` to `~/.bash_profile`  or `~/.bashrc`  (or wherever your `PATH` is defined) 
 
-## VisualCode and jest:
-in Order to make VSCode recognice `expect()` as jest.Expect instead of jasemin.Expect and to make` toMatchSnapshot' does not exist on type 'Matchers'.` - error go away:
-* place in `src/global.d.ts`: `import '@types/jest';` 
-* or, if `src/global.d.ts` does not work , add `import '@types/jest';` in your `.spec.ts` file directly
-* .vscode/settings.json:
+ 
+## Jest config
+* which jest config to use (especially in which path or subpath from the root of your project) is not really clear from the official jest docu.
+* I found out that in monorepos / multiproject repos it can work as follows:
+  * in `<proj-root>/angular.json` you typicaly have all your subproject defined in 
 ```typescript
-{
-    "jest.jestCommandLine": "/opt/homebrew/bin/node ./node_modules/@angular/cli/bin/ng test --runInBand --"
-}
+  { projects: {
+    myProj1:{
+      architect:{
+        test:{
+          "builder": "@angular-builders/jest:run", // to make  "ng test"  work with jest in addition to just "jest"
+          "options": {
+            "configPath": "./src/jest.config.js",
+            "tsConfig": "./src/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+    myProj2:{
+      architect:{
+        test:{
+          "builder": "@angular-builders/jest:run",// to make  "ng test"  work with jest in addition to just "jest"
+          "options": {
+            "configPath": "./someotherpath/jest.config.js",
+            "tsConfig": "./someotherpath/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  }} 
 ```
+ 
+
+
+## VisualCode and jest-plugin:
+* see https://github.com/jest-community/vscode-jest
+* in Order to make VSCode recognice `expect()` as jest.Expect instead of jasemin.Expect and to make `toMatchSnapshot` does not exist on type 'Matchers'.` - error go away:
+  * add in `./tsconfig.json`: `"types":[ "jest"],` , only then , the *vscode* will use `jest.expect()` instead of `jasmine.expect()` as stated above
+* in vscode global settings:  `jest.disabledWorkspaceFolders": ["bodote.github.io","cheatsheets","docs","bodo.data"]`
+* All settings are prefixed with jest and saved in standard .vscode/settings.json:
+```json
+{ "jest.autoRun": {
+        "watch": true, 
+        "onStartup": ["all-tests"] } }
+```
+* debug vscode-jest plugin: add   `"jest.debugMode": true` to `.vscode/settings.json`
+### only if that does not work:
+* place in `src/global.d.ts`: `import '@types/jest';` 
+* or, if `src/global.d.ts` does not work eather, add `import '@types/jest';` in your `.spec.ts` file directly
+* tsconfig.json: remove alles mit `cypress*/**` , does not help
+* single line fix : `const exp1 = ((expect as any) as typeof import('@jest/globals').expect); exp1('').toMatchSnapshot();`
+* or for each `*.spec.ts` - file:  from  https://jestjs.io/docs/api and https://github.com/jest-community/vscode-jest/issues/440#issuecomment-828294712 `import { describe, expect } from '@jest/globals';`
+* or maybe `injectGlobals` in package.json ->"jest": {  injectGlobals: true }
+* **not** needed: .vscode/settings.json: `typescript{ "jest.jestCommandLine": "ng test --runInBand --"}`
+* does **NOT** help eather: `src/tsconfig.spec.ts` : `{ ..  , "typeAcquisition": { "include": [ "jest" ] }, .. ,"exclude": [ "jasmine" , "cypress"] }` 
+
 
 ## Snapshot Testing
 * https://izifortune.com/snapshot-testing-angular-applications/
@@ -84,6 +143,5 @@ jest.mock('../services/my.service', () => {
   expect(mockGetMyObjects).toHaveBeenCalledTimes(1)
 ```
 
-## root/angular.json
-contains definitions for "ng test" in "test"->"builder" 
 
+## end-to-end mit jest/cucumber
