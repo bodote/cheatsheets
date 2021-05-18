@@ -31,6 +31,7 @@ ng add @briebug/jest-schematic
 ## jest CLI:
 * `jest  --collect-coverage` (see `./coverage/my-app/index.html` after running), `jest --watch`
 * add `export PATH=$PATH:./node_modules/.bin` to `~/.bash_profile`  or `~/.bashrc`  (or wherever your `PATH` is defined) 
+* --testNamePattern=
 
  
 ## Jest config
@@ -78,9 +79,30 @@ ng add @briebug/jest-schematic
         "onStartup": ["all-tests"] } }
 ```
 * debug vscode-jest plugin: add   `"jest.debugMode": true` to `.vscode/settings.json`
+* .vscode/launch.json: 
+```json
+{
+      "name": "Debug jest.io",
+      "type": "node",
+      "resolveSourceMapLocations":[
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229
+    }
+```
+
 ### only if that does not work:
-* place in `src/global.d.ts`: `import '@types/jest';` 
-* or, if `src/global.d.ts` does not work eather, add `import '@types/jest';` in your `.spec.ts` file directly
+* place in `src/global.d.ts`: `import { describe, expect } from '@jest/globals';` 
+* or, if `src/global.d.ts` does not work eather, add `import { describe, expect } from '@jest/globals';` in your `.spec.ts` file directly
 * tsconfig.json: remove alles mit `cypress*/**` , does not help
 * single line fix : `const exp1 = ((expect as any) as typeof import('@jest/globals').expect); exp1('').toMatchSnapshot();`
 * or for each `*.spec.ts` - file:  from  https://jestjs.io/docs/api and https://github.com/jest-community/vscode-jest/issues/440#issuecomment-828294712 `import { describe, expect } from '@jest/globals';`

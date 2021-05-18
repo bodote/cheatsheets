@@ -30,10 +30,19 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * push to server: `git push origin local_backend_setup`
 * checkout remote  branch; `git checkout -t <name of remote>/test` 
 * THIS DOES NOT WORK: on a feature branch, but want to update the master: `git pull origin develop:develop ` besser ohne `--rebase`  if `develop` is the name of you main/master-branch.
-* ODER Besser ? ? `git fetch origin develop:develop `
+* on a feature branch: `git fetch origin` gets the remote changes, but DOES NOT yet apply those changes to the local copies of these branches. 
+* on a feature branch, but want to update the master:   `git fetch origin develop:develop ` does also apply the changes to the local copies of this particular remote branch (this has worked for me already)
 * git delete local branch `git branch -d name`
 * checkout remote branch `git checkout --track origin/newsletter`
 * show connection local<->remote branches `git branch -vv`
+### rebase vs merge:
+* see : https://www.atlassian.com/de/git/tutorials/merging-vs-rebasing
+* use rebase if possible, merge if necessary, but only on local feature branch that only you and nobody else has, never on   branches that other people use.
+* because "rebase" changes historic commits that other people might have checked out already
+* Rebase:  Der gesamte feature--Branch wird zur Spitze des master-Branch verschoben :![rebase](./assets/rebase.svg  )
+* Merge Der Änderungen seit der Abzweigung werden in den  feature--Branch als neuer zusätzlicher Commit hinzugefügt :![rebase](./assets/merge.svg  )
+* fast-forward-merge: if there is already a linear history, but the master-pointer points to an older commit, then the fast-forward points the masterpointer now to the most recent commit, which will be the head of the master now.
+
 
 ## git merge
 
@@ -48,3 +57,9 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 ## git logs :
 * last commit message `git log -1 --pretty=%B`
 * changes by author `git log --stat --author="Bodo"`
+
+
+git --no-optional-locks -c color.branch=false -c color.diff=false -c color.status=false -c diff.mnemonicprefix=false -c core.quotepath=false -c credential.helper=sourcetree fetch origin 
+From git.adorsys.de:datev/klartax/klartax
+   cecf977d71..5fc06704f0  DK-31      -> origin/DK-31
+Completed successfully
