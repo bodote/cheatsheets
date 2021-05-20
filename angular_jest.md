@@ -164,6 +164,8 @@ jest.mock('../services/my.service', () => {
 ...
   expect(mockGetMyObjects).toHaveBeenCalledTimes(1)
 ```
-
+## run only a view tests:
+--testPathPattern:
+ `ng test -- --testPathPattern=bookmarks-container`
 
 ## end-to-end mit jest/cucumber

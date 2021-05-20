@@ -48,6 +48,10 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 
 ## git stash oder reset
 * `git stash list`  `git stash  push -m "name" `
+* `git reset  HEAD ; git restore *`
+   * --soft: uncommit changes, changes are left staged (index).
+   * --mixed (default): uncommit + unstage changes, changes are left in working tree.
+   * --hard: uncommit + unstage + delete changes, nothing left.
 * `git reset --hard HEAD ` plus ggf. `git rebase --abort` resettet alles auf den aktuellen HEAD
 * `git reset --hard HEAD^ ` löscht den letzten (localen) commit und   resettet alles auf den aktuellen HEAD
 
@@ -59,7 +63,3 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * changes by author `git log --stat --author="Bodo"`
 
 
-git --no-optional-locks -c color.branch=false -c color.diff=false -c color.status=false -c diff.mnemonicprefix=false -c core.quotepath=false -c credential.helper=sourcetree fetch origin 
-From git.adorsys.de:datev/klartax/klartax
-   cecf977d71..5fc06704f0  DK-31      -> origin/DK-31
-Completed successfully
