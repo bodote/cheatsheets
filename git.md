@@ -55,11 +55,11 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * `git reset --hard HEAD ` plus ggf. `git rebase --abort` resettet alles auf den aktuellen HEAD
 * `git reset --hard HEAD^ ` löscht den letzten (localen) commit und   resettet alles auf den aktuellen HEAD
 
-
+* `git reset --hard HEAD~2` reset last 2 commits ein `git push --force` resettet dann dementsprechend auch den remote  branch
 
 
 ## git logs :
 * last commit message `git log -1 --pretty=%B`
 * changes by author `git log --stat --author="Bodo"`
-
+* `git log --oneline --graph`
 
