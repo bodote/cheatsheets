@@ -10,7 +10,6 @@ setzte weißen hintergrund / schwarze schrift
 ## debug
 ```bash
 #!/bin/bash
-
 set -x
 ..code to debug...
 set +x
