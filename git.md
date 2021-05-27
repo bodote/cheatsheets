@@ -29,15 +29,16 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * neue branch: `git checkout -b local_backend_setup`
 * push to server: `git push origin local_backend_setup`
 * checkout remote  branch; `git checkout -t <name of remote>/test` 
-* THIS DOES NOT WORK: on a feature branch, but want to update the master: `git pull origin develop:develop ` besser ohne `--rebase`  if `develop` is the name of you main/master-branch.
-* on a feature branch: `git fetch origin` gets the remote changes, but DOES NOT yet apply those changes to the local copies of these branches. 
+* **THIS DOES NOT WORK** as expected: on a feature branch, but want to update the master: `git pull origin develop:develop ` auf KEINEN FALL mit `--rebase`  if `develop` is the name of you main/master-branch.
+* on a feature branch: `git fetch origin` gets **NOT** the remote changes either, only get new branches or tags
+* instead: to **merge AND pull** from a remote branch , just use `git merge origin/develop` to merge the latest changes from remote-"develop" in your feature branch 
 * on a feature branch, but want to update the master:   `git fetch origin develop:develop ` does also apply the changes to the local copies of this particular remote branch (this has worked for me already)
 * git delete local branch `git branch -d name`
 * checkout remote branch `git checkout --track origin/newsletter`
 * show connection local<->remote branches `git branch -vv`
 ### rebase vs merge:
 * see : https://www.atlassian.com/de/git/tutorials/merging-vs-rebasing
-* use rebase if possible, merge if necessary, but only on local feature branch that only you and nobody else has, never on   branches that other people use.
+* use rebase if possible but **ONLY** on **LOCAL CHANGES**, but only on local feature branch that only you and nobody else has, never on   branches that other people use!  Use `git merge origin/develop` for public feature branches,
 * because "rebase" changes historic commits that other people might have checked out already
 * Rebase:  Der gesamte feature--Branch wird zur Spitze des master-Branch verschoben :![rebase](./assets/rebase.svg  )
 * Merge Der Änderungen seit der Abzweigung werden in den  feature--Branch als neuer zusätzlicher Commit hinzugefügt :![rebase](./assets/merge.svg  )
