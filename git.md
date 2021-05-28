@@ -28,7 +28,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 * show all remote branches : `git branch -r`
 * neue branch: `git checkout -b local_backend_setup`
 * push to server: `git push origin local_backend_setup`
-* checkout remote  branch; `git checkout -t <name of remote>/test` 
+* checkout existing remote  branch; `git checkout --track <name of remote>/<branch name>` 
 * **THIS DOES NOT WORK** as expected: on a feature branch, but want to update the master: `git pull origin develop:develop ` auf KEINEN FALL mit `--rebase`  if `develop` is the name of you main/master-branch.
 * on a feature branch: `git fetch origin` gets **NOT** the remote changes either, only get new branches or tags
 * instead: to **merge AND pull** from a remote branch , just use `git merge origin/develop` to merge the latest changes from remote-"develop" in your feature branch 
