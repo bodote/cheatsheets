@@ -88,6 +88,26 @@ fromEvent(this.saveButton.nativeElement,'click').subscribe(do something)
 * in der Parent-Componente kann man jetzt im html-Template `<my-child-component (my-event-name)="callMethodInParent($event)">` wobei `$event` gleich `any_Object_or_Number` aus der `emit()`methode ist.
 * **Interessant:** Event Emitters sind gleichzeitig auch Observables, auf die `subscribe`en kann
 
+## Attribute Directives
+`<p appHighlight>Highlight me!</p>` can be used if you have **EITHER**:
+```typescript
+import { Directive, ElementRef } from '@angular/core';
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+    constructor(el: ElementRef) {
+       el.nativeElement.style.backgroundColor = 'yellow';
+    }
+}
+```
+**OR**: 
+```html
+<div [ngClass]="{ deactiv: disabled }" (click)="onClick()">
+    <ng-content select="[accordion-header-slot]"></ng-content>
+</div>
+```
+
 
 ## Pagination
 ### Installation

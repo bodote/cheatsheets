@@ -81,23 +81,27 @@ ng add @briebug/jest-schematic
 * debug vscode-jest plugin: add   `"jest.debugMode": true` to `.vscode/settings.json`
 * .vscode/launch.json: 
 ```json
-{
-      "name": "Debug jest.io",
+ {
       "type": "node",
-      "resolveSourceMapLocations":[
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-      ],
+      "name": "vscode-jest-tests",
       "request": "launch",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "${workspaceRoot}/node_modules/.bin/jest",
-        "--runInBand"
-      ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "port": 9229
+      "disableOptimisticBPs": true,
+      "program": "${workspaceFolder}/node_modules/.bin/ng",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "test",
+        "--",
+        "--testPathPattern=${fileBasenameNoExtension}",
+        "--runInBand",
+        "--watchAll=false"
+      ]
     }
+```
+* add in framework/projects an additional setup-jest.ts to avoid vscode-jest - plugin errors:
+```
+import '../setup-jest';
 ```
 
 ### only if that does not work:
