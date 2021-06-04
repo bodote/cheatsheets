@@ -146,7 +146,7 @@ obs1$.pipe(mergeMap(itemFromObs1 => {
 alle callbacks für alle Observable werden kombiniert zu einem Observable und alle so schnell wie möglich ausgeführt, können sich also überlappen , warten NICHT aufeinander.
 ###  observable pipe(exhaustMap())
 ```typescript
-obs1$.pipe(mergeMap(itemFromObs1 => {
+obs1$.pipe(exhaustMap(itemFromObs1 => {
       obs2$ = this.saveCourse(itemFromObs1)
       return obs2$ 
     }))
@@ -166,11 +166,13 @@ wenn inital zuerst ein Observable verwendet werden soll, dannach aber ein anders
 `this.lessons$ = concat(initialLessons$,searchedLessons$)`
 wobei in `this.lessons$` zuerst die Elemente aus `initialLessons$` erscheinen, und dannach die aus `searchedLessons$`
 
+### combineLatest(obs1$,obs2$)
+When any observable emits a value, emit the last emitted value from each
 ### startWith
 um einen Stream (z.B. von einer Eventquelle) zu initialisieren mit einem einzelnen startwert
 
 ### withLatestFrom(obs2$)
-combines `obs$1` and `obs2$` : `obs$1.pipe(withLatestFrom(obs2$),map(([ent1,ent2])=>...),..` so that the next operator after will deliver pairs of observable-entities 
+combines `obs$1` and `obs2$` : `obs$1.pipe(withLatestFrom(obs2$),map(([ent1,ent2])=>...),..` so that the `next` operator after will deliver pairs of observable-entities 
 ### forkjoin(obs1$,obs2$,..)
 * last value from all the observables, but not before all observable have been completed.
 
