@@ -103,6 +103,7 @@ ng add @briebug/jest-schematic
 ```
 import '../setup-jest';
 ```
+* make sure the `ng test --listTests` runs without errors
 
 ### only if that does not work:
 * place in `src/global.d.ts`: `import { describe, expect } from '@jest/globals';` 

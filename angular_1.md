@@ -60,6 +60,14 @@ dazu muss `index.html` den Tag  `<app-root/>` verwenden und `app.component.ts` m
 * in der Parent-Componenten verwende : `<my-child-component [my-prop-name]="anything_from_Parent_class">`
 * auf diese weise kann man von der Parent-Componente Werte an die Child-Componente übergeben.
 
+### Input properties über mehrere (ananoyme/generische) angular  componenten hinweg übermitteln
+```html
+ <parent-comp #myparent> <!-- parent-component hat eine (public) property 'opened'  -->
+          <child-comp 
+            [opened]="myparent.opened" > <!-- parent-component prop kann hier an child-input-parameter übergeben werden   -->
+```
+
+
 ## Events
 ### Binding
 * Browser/Mouse/Tastatur-Event ruft Methode in zugehöriger Componente: `<sometag (eventname)="typescript-Method-call"></..>`:
