@@ -43,6 +43,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 - git delete local branch `git branch -d name`
 - checkout remote branch `git checkout --track origin/newsletter`
 - show connection local<->remote branches `git branch -vv`
+- checkout tag `git checkout tags/<tag>` oder `git checkout tags/<tag> -b <branch>`
 
 ## git merge
 
