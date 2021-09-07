@@ -106,6 +106,22 @@ MemoryAppender:
 - test starten:
   `mvn org.pitest:pitest-maven:mutationCoverage`
   `mvn -DtargetTests=*CustomUserAttributesHelperTest org.pitest:pitest-maven:mutationCoverage`
+  `mvn -dtargetTests=my.package.Foo*Test org.pitest:pitest-maven:mutationCoverage`
+  `mvn -dtargetTests=*EmailChangeControllerTest,*StateTreeEmailChangeTest org.pitest:pitest-maven:mutationCoverage`
+- execute only some tests:
+  `mvn -Dtest=TestSquare,TestCi*le test`
+
+- skip unittests und code recompile
+  `<skipTests>${skip.surefire.tests}</skipTests>` in pom.xml beim surefire - Configuration einbauen, dann:
+  `mvn -Dskip.surefire.tests=true -Dcodegen.skip=true verify`
+  siehe [sprint_boot_testing](/Users/bodo/swe_projects/cheatsheets/sprint_boot_testing.md)
+  `mvn -Dtest=*EmailChangeController* -Dcodegen.skip=true test`
+  `mvn -Dskip.surefire.tests=true -Dcodegen.skip=true -Dswagger.skip=true -Dit.test=*AccountControllerTestIT verify`
+
+- set additional environment
+  `mvn -Dskip.surefire.tests=true -Dcodegen.skip=true -Dswagger.skip=true -Dit.test=*AccountControllerTestIT verify`
+
+`mvn -DmyVariable=someValue verify`
 
 ## Arguments
 
