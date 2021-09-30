@@ -204,3 +204,12 @@ jest.mock('../services/my.service', () => {
 oder besser noch : `npm run test:src -- --testPathPattern=tax-consultant-contact-form` denn dann werden die tax und integraion tests gar nicht erst durchsucht.
 
 ## end-to-end mit jest/cucumber
+
+## Automatic Mock for Classes
+```typescript
+jest.mock("./address-validator", () => ({
+    AddressValidator: jest.fn<AddressValidator, []>().mockImplementation(() => ({
+        isValidAddress: jest.fn<boolean, [AddressSource]>((as) => true),
+    })),
+}))
+``` 
