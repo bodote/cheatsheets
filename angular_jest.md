@@ -213,3 +213,11 @@ jest.mock("./address-validator", () => ({
     })),
 }))
 ``` 
+wenn der `AddressValidator`  so aussieht
+```typescript
+class AddressValidator {
+  isValidAddress(addressSource: AddressSource): boolean {
+    return isPast(addressSource.expiryDate);
+  }
+}
+``` 
