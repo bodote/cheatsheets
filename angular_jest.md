@@ -205,7 +205,8 @@ oder besser noch : `npm run test:src -- --testPathPattern=tax-consultant-contact
 
 ## end-to-end mit jest/cucumber
 
-## Automatic Mock for Classes
+## Jest Class Mocking
+### Automatic Mock for Classes
 ```typescript
 jest.mock("./address-validator", () => ({
     AddressValidator: jest.fn<AddressValidator, []>().mockImplementation(() => ({
@@ -220,4 +221,51 @@ class AddressValidator {
     return isPast(addressSource.expiryDate);
   }
 }
+``` 
+
+### Pragmatic mocking
+```typescript
+const addressValidator: Partial<AddressValidator> = {
+     isValidAddress: jest.fn<boolean, [AddressSource]>((addressSource) => true),
+};
+``` 
+### direkt jest.fn
+```typescript
+it('should mock validator', () => {
+const validator = { isValidAddress: jest.fn(() => true) };
+const lookuper = new ValidAddressLookuper(
+() => [
+{
+value: 'Domgasse 5',
+expiryDate: new Date(2000, 0, 1)
+}
+],
+(validator as unknown) as AddressValidatorService
+);
+expect(lookuper.lookup('Domgasse 5')).toBe(true);
+});
+No Verification of mock's behaviour
+```
+### direkt jest.fn 2
+```typescript
+
+it('should mock validator', () => {
+const validator = { isValidAddress: jest.fn<boolean, [AddressSource]>(() => true) };
+const lookuper = new ValidAddressLookuper(
+() => [
+{
+value: 'Domgasse 5',
+expiryDate: new Date(2000, 0, 1)
+}
+],
+validator as AddressValidatorService
+);
+expect(lookuper.lookup('Domgasse 5')).toBe(true);
+expect(validator.isValidAddress).toBeCalled();
+expect(validator.isValidAddress).toBeCalledWith({
+value: 'Domgasse 5',
+expiryDate: new Date(2000, 0, 1)
+});
+expect(validator.isValidAddress.mock.calls[0][0].value).toBe('Domgasse 5');
+});
 ``` 
