@@ -203,6 +203,8 @@ oder besser noch : `npm run test:src -- --testPathPattern=tax-consultant-contact
 
 ### Automatic Mock for Classes
 
+Das besondere hier ist, dass die komplette Classe gemockt wird plus eine Funktion der Classe, statt nur einen Funktion.
+
 ```typescript
 jest.mock("./address-validator", () => ({
   AddressValidator: jest.fn<AddressValidator, []>().mockImplementation(() => ({
@@ -229,7 +231,7 @@ const addressValidator: Partial<AddressValidator> = {
 };
 ```
 
-### direkt jest.fn
+### direkt jest.fn 1/2
 
 ```typescript
 it("should mock validator", () => {
@@ -248,7 +250,7 @@ it("should mock validator", () => {
 //No Verification of mock's behaviour
 ```
 
-### direkt jest.fn 2
+### direkt jest.fn 2/2
 
 ```typescript
 it("should mock validator", () => {
