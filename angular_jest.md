@@ -225,6 +225,8 @@ class AddressValidator {
 
 ### Pragmatic mocking
 
+hier wird nicht die Classe mit jest gemockt. Statt dessen wird einfach eine neues Object als `Partial<AddressValidator>` definiert und nur dort drin die funktion mit jest gemockt.
+
 ```typescript
 const addressValidator: Partial<AddressValidator> = {
   isValidAddress: jest.fn<boolean, [AddressSource]>((addressSource) => true),
@@ -232,6 +234,8 @@ const addressValidator: Partial<AddressValidator> = {
 ```
 
 ### direkt jest.fn 1/2
+
+hier andere Schreibweise ohne verwendung von `Partial`, statt dessen verwendung von `validator as unknown as AddressValidatorService`
 
 ```typescript
 it("should mock validator", () => {
@@ -251,6 +255,8 @@ it("should mock validator", () => {
 ```
 
 ### direkt jest.fn 2/2
+
+nochmal etwas andere Schreibweise, zusätzlich wird geprüft ob `isValidAddress` überhaupt aufgerufen wurde und wenn ja mit welchen Parametern :
 
 ```typescript
 it("should mock validator", () => {
