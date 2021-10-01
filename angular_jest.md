@@ -105,13 +105,7 @@ ng add @briebug/jest-schematic
   "disableOptimisticBPs": true,
   "program": "${workspaceFolder}/node_modules/.bin/ng",
   "cwd": "${workspaceFolder}",
-  "args": [
-    "test",
-    "--",
-    "--testPathPattern=${fileBasenameNoExtension}",
-    "--runInBand",
-    "--watchAll=false"
-  ]
+  "args": ["test", "--", "--testPathPattern=${fileBasenameNoExtension}", "--runInBand", "--watchAll=false"]
 }
 ```
 
@@ -143,7 +137,7 @@ import '../setup-jest';
   - in both cases , the snapshot in _./\_\_snapshots\_\_/my.component.spec.ts.snap_ contains a text representation of the object under test
   - will be created if not yet there
   - will be compared if already there, and the test will fail, if different from the initial run
-  - directrys ./_\_\_snapshots\_\__/ need to be commited to git
+  - directrys ./\_\_\_snapshots\_\_\_/ need to be commited to git
 - matchig any Date or Number with arg to `toMatchSnapshot()` using `expect.any(Date|Number|..)`:
 
 ```typescript
@@ -158,7 +152,7 @@ expect(user).toMatchSnapshot({
 ## Manual Mocks
 
 - https://dev.to/codedivoire/how-to-mock-an-imported-typescript-class-with-jest-2g7j
-- either do it in the `*.spec.ts` or in a subdir called _\_\_mocks\_\__:
+- either do it in the `*.spec.ts` or in a subdir called \_\_\_mocks\_\_\_:
 - in `*.spec.ts` :
 
 ```typescript
@@ -175,7 +169,7 @@ jest.mock('./../services/my.service', () => {
   };
 ```
 
-- or just `jest.mock('./../services/my.service')` in the `*.spec.ts` and the actual mock in subdir called _\_\_mocks\_\__ just like the actual object, but returning whats needed for the test
+- or just `jest.mock('./../services/my.service')` in the `*.spec.ts` and the actual mock in subdir called \_\_\_mocks\_\_\_ just like the actual object, but returning whats needed for the test
 - to get the mock-object, call `const mockedmyService = mocked(my.service, true)` , by using `import { mocked } from 'ts-jest/utils'`)
 
 ## Spying on methods
@@ -206,66 +200,74 @@ oder besser noch : `npm run test:src -- --testPathPattern=tax-consultant-contact
 ## end-to-end mit jest/cucumber
 
 ## Jest Class Mocking
+
 ### Automatic Mock for Classes
+
 ```typescript
 jest.mock("./address-validator", () => ({
-    AddressValidator: jest.fn<AddressValidator, []>().mockImplementation(() => ({
-        isValidAddress: jest.fn<boolean, [AddressSource]>((as) => true),
-    })),
-}))
-``` 
-wenn der `AddressValidator`  so aussieht
+  AddressValidator: jest.fn<AddressValidator, []>().mockImplementation(() => ({
+    isValidAddress: jest.fn<boolean, [AddressSource]>((as) => true),
+  })),
+}));
+```
+
+wenn der `AddressValidator` so aussieht
+
 ```typescript
 class AddressValidator {
   isValidAddress(addressSource: AddressSource): boolean {
     return isPast(addressSource.expiryDate);
   }
 }
-``` 
+```
 
 ### Pragmatic mocking
+
 ```typescript
 const addressValidator: Partial<AddressValidator> = {
-     isValidAddress: jest.fn<boolean, [AddressSource]>((addressSource) => true),
+  isValidAddress: jest.fn<boolean, [AddressSource]>((addressSource) => true),
 };
-``` 
-### direkt jest.fn
-```typescript
-it('should mock validator', () => {
-const validator = { isValidAddress: jest.fn(() => true) };
-const lookuper = new ValidAddressLookuper(
-() => [
-{
-value: 'Domgasse 5',
-expiryDate: new Date(2000, 0, 1)
-}
-],
-(validator as unknown) as AddressValidatorService
-);
-expect(lookuper.lookup('Domgasse 5')).toBe(true);
-});
-No Verification of mock's behaviour
 ```
-### direkt jest.fn 2
-```typescript
 
-it('should mock validator', () => {
-const validator = { isValidAddress: jest.fn<boolean, [AddressSource]>(() => true) };
-const lookuper = new ValidAddressLookuper(
-() => [
-{
-value: 'Domgasse 5',
-expiryDate: new Date(2000, 0, 1)
-}
-],
-validator as AddressValidatorService
-);
-expect(lookuper.lookup('Domgasse 5')).toBe(true);
-expect(validator.isValidAddress).toBeCalled();
-expect(validator.isValidAddress).toBeCalledWith({
-value: 'Domgasse 5',
-expiryDate: new Date(2000, 0, 1)
+### direkt jest.fn
+
+```typescript
+it("should mock validator", () => {
+  const validator = { isValidAddress: jest.fn(() => true) };
+  const lookuper = new ValidAddressLookuper(
+    () => [
+      {
+        value: "Domgasse 5",
+        expiryDate: new Date(2000, 0, 1),
+      },
+    ],
+    validator as unknown as AddressValidatorService
+  );
+  expect(lookuper.lookup("Domgasse 5")).toBe(true);
 });
-expect(validator.isValidAddress.mock.calls[0][0].value).toBe('Domgasse 5');
+//No Verification of mock's behaviour
+```
+
+### direkt jest.fn 2
+
+```typescript
+it("should mock validator", () => {
+  const validator = { isValidAddress: jest.fn<boolean, [AddressSource]>(() => true) };
+  const lookuper = new ValidAddressLookuper(
+    () => [
+      {
+        value: "Domgasse 5",
+        expiryDate: new Date(2000, 0, 1),
+      },
+    ],
+    validator as AddressValidatorService
+  );
+  expect(lookuper.lookup("Domgasse 5")).toBe(true);
+  expect(validator.isValidAddress).toBeCalled();
+  expect(validator.isValidAddress).toBeCalledWith({
+    value: "Domgasse 5",
+    expiryDate: new Date(2000, 0, 1),
+  });
+  expect(validator.isValidAddress.mock.calls[0][0].value).toBe("Domgasse 5");
 });
-``` 
+```
