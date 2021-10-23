@@ -18,4 +18,11 @@ https://medium.com/nextfaze/debug-angular-10-karma-tests-in-vscode-9685b0565e8
 
 ## Angular debug direkt in VSCode:
 
-https://youtu.be/tC91t9OvVHA
+see: https://youtu.be/tC91t9OvVHA
+
+- no debugger in chrome extension necessary
+- start the app via npm script "start" (or `ng serve`)
+- open vscode debug panel, wenn app.component.ts im editor offen ist
+- klick auf "Ausführen und Debuggen"
+- editiere den port auf "4200" in der `launch.json` wenn nötig.
+- klicke oben auf den grünen Pfeil zum starten
