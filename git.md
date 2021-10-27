@@ -47,7 +47,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 
 ## git merge
 
-- instead: to **merge AND pull** from a remote branch , just use `git merge origin/develop` to merge the latest changes from remote-"develop" in your feature branch
+- instead: to **merge AND pull** from a remote branch , just use `git merge origin/develop` (wenn dein master-branch "develop" heißt) to merge the latest changes from remote-"develop" in your feature branch
 - **THIS DOES NOT WORK** as expected: on a feature branch, but want to update the master: `git pull origin develop:develop ` auf KEINEN FALL mit `--rebase` if `develop` is the name of you main/master-branch.
 
 ### rebase vs merge:
@@ -71,8 +71,26 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 
 - `git reset --hard HEAD~2` reset last 2 commits ein `git push --force` resettet dann dementsprechend auch den remote branch
 
+### wenn schon gemerged (und evtl. gepusht):
+
+- `git revert -m 1 08b3783` This will create a new commit which undoes the last merge commit.
+- Prüfe mit `git log`, nimm die letzten und die 3-letzte commit id , und mache dann damit ein `git diff <aktuellster-commit> <3-letzter-commit>` und es sollte KEINE Differenz sein.
+
 ## git logs :
 
 - last commit message `git log -1 --pretty=%B`
 - changes by author `git log --stat --author="Bodo"`
 - `git log --oneline --graph`
+
+## git diff
+
+- änderungen eines einzelnen commits `git diff --stat idDesCommits^..idDesCommits` das `^` gibt den direkten vorläufer der idDesCommits zurück und `..` markiert, dass man nur die differenz dazwischen sehen will und NICHT die differenz zum gerade ausgechecken stand.
+- also immer zuerste <oldId> dann <newId>
+
+## git patch
+
+ist gleich `git diff .... > patch.file`
+
+## git apply
+
+um ein mit `git diff` erzeugtes patch file anzuwenden: `git apply --exclude=*package-lock.json --exclude=*package.json ../mychanges.patch `
