@@ -67,7 +67,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
   - --mixed (default): uncommit + unstage changes, changes are left in working tree.
   - --hard: uncommit + unstage + delete changes, nothing left.
 - `git reset --hard HEAD ` plus ggf. `git rebase --abort` resettet alles auf den aktuellen HEAD
-- `git reset --hard HEAD^ ` löscht den letzten (localen) commit und resettet alles auf den aktuellen HEAD
+- `git reset --hard HEAD^ ` löscht den letzten (localen) commit und resettet alles auf den direkten vorläufer des HEAD
 
 - `git reset --hard HEAD~2` reset last 2 commits ein `git push --force` resettet dann dementsprechend auch den remote branch
 
