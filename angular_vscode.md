@@ -26,3 +26,18 @@ see: https://youtu.be/tC91t9OvVHA
 - klick auf "Ausführen und Debuggen"
 - editiere den port auf "4200" in der `launch.json` wenn nötig.
 - klicke oben auf den grünen Pfeil zum starten
+- see : https://github.com/microsoft/vscode-js-debug/blob/main/OPTIONS.md for more options
+- make sure that webpack.config.js does NOT use  `config.devtool = 'eval-cheap-source-map';` but  `config.devtool = 'eval-source-map';`
+- evtl muss man den ersten Breakpoint noch im Browser setzten, dannach sollte es auch in vscode funktionieren , oder man fügt den quellen ein "debugger;" an zentraler stelle hinzu .
+- verwende im vscode zum debuggen:
+```json
+{
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "PWA-Chrome localhost",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "~/chrome-debug-profile",
+      "_comment": "userDataDir=\"mydir\" ->  verwendet immer gleiches Chrome-Profil incl der installierte debug-extensions "
+    },
+```
