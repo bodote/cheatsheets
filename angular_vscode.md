@@ -41,3 +41,5 @@ see: https://youtu.be/tC91t9OvVHA
       "_comment": "userDataDir=\"mydir\" ->  verwendet immer gleiches Chrome-Profil incl der installierte debug-extensions "
     },
 ```
+## Log Messages for Breakpoints
+den Breakpoint - Log-message editieren : `sinnDesLebens= {meine_expression}` , wenn `meine_expression = 42` wäre würde in der console bei jedem durchlauf des debuggers ergeben `sinnDesLebens= 42`
