@@ -94,3 +94,6 @@ ist gleich `git diff .... > patch.file`
 ## git apply
 
 um ein mit `git diff` erzeugtes patch file anzuwenden: `git apply --exclude=*package-lock.json --exclude=*package.json ../mychanges.patch `
+
+## git checkout file specifig commit
+`git checkout mycommitid myfile`

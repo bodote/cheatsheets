@@ -105,9 +105,10 @@ ng add @briebug/jest-schematic
   "disableOptimisticBPs": true,
   "program": "${workspaceFolder}/node_modules/.bin/ng",
   "cwd": "${workspaceFolder}",
-  "args": ["test", "--", "--testPathPattern=${fileBasenameNoExtension}", "--runInBand", "--watchAll=false"]
+  "args": ["test", "--", "--testPathPattern=${fileBasenameNoExtension}", "--testPathIgnorePatterns=asdasfasfsdgsdgadg", "--runInBand", "--watchAll=false"]
 }
 ```
+**ACHTUNG**: das `"--testPathIgnorePatterns=asdasfasfsdgsdgadg",` ist nur drin , weil in machen Projekten das standardmäßig (falsch) befüllt mitgegeben wird, und dann würden gar keine Tests mehr gefunden. Wenn man das mit einem zufälligen Pattern überschreibt wird das unschädlich gemacht. 
 
 - add in framework/projects an additional setup-jest.ts to avoid vscode-jest - plugin errors:
 
@@ -191,7 +192,7 @@ jest.mock('../services/my.service', () => {
   expect(mockGetMyObjects).toHaveBeenCalledTimes(1)
 ```
 
-## run only a view tests:
+## run only a few tests:
 
 --testPathPattern:
 `ng test -- --testPathPattern=bookmarks-container`
