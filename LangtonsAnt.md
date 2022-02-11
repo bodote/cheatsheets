@@ -2,8 +2,7 @@
 This is an exercice in Test Driven Development
 
 ## Implementation Rules:
-- Implement a `LangtonsAnt` class, according to 
-  -  these rules [here](https://en.wikipedia.org/wiki/Langton%27s_ant)
+The goal is to implement a `LangtonsAnt` class, according to these rules [here](https://en.wikipedia.org/wiki/Langton%27s_ant).
 - Start with `LangtonsAntTest` unit test
 - break down all the functionality you will need into small chunks/methods **not** longer then 9-11 lines for each method, so that they can be easily unit-tested.
 - write **all** the tests **before** its implementation. 
