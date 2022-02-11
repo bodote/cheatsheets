@@ -2,12 +2,12 @@
 This is an exercice in Test Driven Development
 
 ## Implementation Rules:
-- Implement a `LangtonsAnt.java` class, according to 
+- Implement a `LangtonsAnt` class, according to 
   -  these rules [here](https://en.wikipedia.org/wiki/Langton%27s_ant)
-- Start with `LangtonsAntTest.java` unit test
-- brake down all the functionality you will need into small chunks i.e. methods **not** longer then 9-11 lines for each method, so that they can be easily unit-tested.
+- Start with `LangtonsAntTest` unit test
+- break down all the functionality you will need into small chunks/methods **not** longer then 9-11 lines for each method, so that they can be easily unit-tested.
 - write **all** the tests **before** its implementation. 
-- but write an **empty** class of `LangtonsAnt.java` with  the **empty** methods you plan **even before** the tests
+- but write an **empty** class of `LangtonsAnt` with  the **empty** methods you plan **even before** the tests
 - the board should be a simple `char[][]` array, prefilled with your test data, which is given in the constructor.
 - also provide the ant's `x` and `y` position as an `int` and it's direction ('north','east','south','west') as an `string` or `enum`
 - `LangtonsAnt` class should have a method (`getNextBoardState()`) , which returns the new state of the board after the Ant's rules are applied once. 
