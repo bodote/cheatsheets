@@ -39,7 +39,7 @@ By default, `@SpringBootTest` will not start a server.
 * [@TestConfiguration In static nested class](https://www.logicbig.com/tutorials/spring-framework/spring-boot/test-configuration-in-nested-class.html)
 ```Java
 @WebMvcTest(controllers = AccountRedirectionController.class, excludeFilters = {
-        @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class) })
+        @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = { SecurityConfig.class, MyFilter.class }) })
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource(properties = { "pkce.auth-endpoint=/oauth2/login", "pkce.token-endpoint=/oauth2/token" })
 @Import({ JWTKeyUtil.class, AesGcmSecretService.class, CookieService.class }) 
