@@ -21,8 +21,11 @@ Gegeben ist eine Tabelle `COFFEE` mit Kaffeesorten und deren Preis in deiner SQL
 
 - Wie kann man alle Einträge der Tabelle mit Spring Data auslesen?
 
+## Aufgabe 4:  Spring Data erweitertes Beispiel
+- wie kann man in Spring Data trotzdem spezielle Abfragen in sql-(ähnlicher) Syntax (JPQL)  machen ? hier z.B. alle coffees die billiger als 10 Euro sind
 
-## Aufgabe 4: Vergleiche JDBC, JPA und Spring Data JPA : 
+
+## Aufgabe 5: Vergleiche JDBC, JPA und Spring Data JPA : 
 was sind die Vorteile und Nachteile der 3 Arten auf DB-Daten zuzugreifen? z.B. (aber nicht nur) hinsichtlich diese Punkte:
 
 - Transaction management
@@ -31,6 +34,6 @@ was sind die Vorteile und Nachteile der 3 Arten auf DB-Daten zuzugreifen? z.B. (
 - Entwicklungsaufwand für DB-to-Object Mapping
 - ...?
 
-## Aufgabe 5:
+## Aufgabe 6:
 - Wozu dient  eigentlich 'Spring Data REST'?
 - Wie kann man Spring Data oder JPA Debuggen und sich die SQL - Statements die Spring Data oder JPA generiert auf der Console ausgeben lassen? (Hinweis: per application.properties )
