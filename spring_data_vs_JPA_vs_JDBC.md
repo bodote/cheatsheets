@@ -22,7 +22,7 @@ Gegeben ist eine Tabelle `COFFEE` mit Kaffeesorten und deren Preis in deiner SQL
 - Wie kann man alle Einträge der Tabelle mit Spring Data auslesen?
 
 ## Aufgabe 4:  Spring Data erweitertes Beispiel
-- wie kann man in Spring Data trotzdem spezielle Abfragen in sql-(ähnlicher) Syntax (JPQL)  machen ? hier z.B. alle coffees die billiger als 10 Euro sind
+- wie kann man in Spring Data JPA spezielle Abfragen in SQL-(ähnlicher) Syntax (JPQL)  machen ?  z.B. alle Coffees die billiger als 10 Euro sind, auslesen ?
 
 
 ## Aufgabe 5: Vergleiche JDBC, JPA und Spring Data JPA : 
