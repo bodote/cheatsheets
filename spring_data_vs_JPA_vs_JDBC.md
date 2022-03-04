@@ -32,6 +32,7 @@ was sind die Vorteile und Nachteile der 3 Arten auf DB-Daten zuzugreifen? z.B. (
 - Verständlichkeit der API
 - Entwicklungsgeschwindigkeit für den SW-Entwickler je API
 - Entwicklungsaufwand für DB-to-Object Mapping
+- in welcher Beziehung stehen Spring Data, Spring Data JPA, CrudRepository, MongoRepository, JPA und JDBC? Graphische Lösung! 
 - ...?
 
 ## Aufgabe 6:
