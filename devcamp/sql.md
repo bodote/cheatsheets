@@ -24,4 +24,4 @@ https://www.linkedin.com/learning/search?keywords=sql
 - [Spring Data JPA Master Class](https://amigoscode.com/p/spring-data-jpa) ( > 2 h , $40 )
 - https://www.udemy.com/course/hibernate-jpa-tutorial-for-beginners-in-100-steps/ (8 h , wobei einiges an Grundlagen wiederholt wird, die ihr schon kennt, geht aber dann noch tiefer )
 - [Spring Data JPA Using Hibernate](https://www.udemy.com/course/spring-data-jpa-using-hibernate/) (13 h )
-
+- Buch https://www.manning.com/books/java-persistence-with-spring-data-and-hibernate?query=spring%20data (wird noch beschafft)
