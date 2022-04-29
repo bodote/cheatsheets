@@ -51,6 +51,9 @@ das Gegenstück zu `@RequestBody` nur für die Rückgabe des Ergebnisses
 ### @RestController
 `@RestController`’s source code shows that it actually is a `@Controller`, with the added `@ResponseBody` annotation. Which is equivalent to writing `@Controllers` which have `@ResponseBody` annotated on **every single method**.
 
+## mit Lombok
+### @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+ergänzt den `@RequiredArgsConstructor` um eine `@Autowired` Annotation
 # Json Object Mapping
 Passiert ja im RestController unter Umständen komplett implizit, daher [hier](https://attacomsian.com/blog/processing-json-spring-boot) nochmal zur Erinnerung , wie es explizit geht:
 ```java

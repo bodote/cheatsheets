@@ -27,12 +27,53 @@ Also, the framework will take care of configuring the very minimum. Spring Boot 
 * `@DataMongoTest`: Tries to provide an in-memory mongo testing setup
 * `@SpringBootTest`: Kompletter Integrationtest: hier kann man im TestCode auch `@Autowired` verwenden !
 As of Spring Boot >= 2.1, we no longer need to load the `@ExtendWith(SpringExtension.class)` because it's included as a meta annotation in the Spring Boot test annotations like `@DataJpaTest`, `@WebMvcTest`, and `@SpringBootTest`.
-## SpringBootTest arguments
+## SpringBootTest (Integrationtest)
+### arguments
 By default, `@SpringBootTest` will not start a server.
 * `@SpringBootTest(args = "--spring.main.banner-mode=off")`
 * `@SpringBootTest(properties = "spring.main.web-application-type=reactive")`
 * `@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT )` will also start the management server on a separate random port if your application uses a different port for the management server.
 * [SpringBoot Doku](https://docs.spring.io/spring-boot/docs/2.4.2/reference/html/spring-boot-features.html#boot-features-testing-spring-boot-applications)
+### SpringBootTest using random port 
+```java
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class QuearnApplicationTests {
+    @LocalServerPort
+    private int port;
+```
+### RestTemplate vs. TestRestTemplate
+
+```java
+  @Test
+    @DisplayName("test our api on the full blown spring-boot server")
+    public void springApiEnd2End() {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        Exception thrown = Assertions.assertThrows(HttpClientErrorException.class, () -> {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    createURLWithPort("/api/users"),
+                    HttpMethod.GET, entity, String.class);
+        }, "org.springframework.web.client.HttpClientErrorException$Unauthorized: 401  expected");
+
+
+        //not needed: assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    @DisplayName("same as before but with TestRestTemplate ")
+    public void springApiEnd2EndWTestRestTemplate() {
+        TestRestTemplate restTemplate = new TestRestTemplate();
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                    createURLWithPort("/api/users"),
+                    HttpMethod.GET, entity, String.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+```
+
+
 
 ## Testing with @WebMvcTest
 * [@TestConfiguration](https://www.logicbig.com/tutorials/spring-framework/spring-boot/test-configuration.html)
@@ -117,7 +158,7 @@ public SomeServiceOrStuff mygetterMethod() {
 
 ## Maven and Testing
 ### maven integration tests auch laufen lassen:
-* `mvn verify `  ABER : alle unittests müssen erst **grün** sein 
+* `mvn test` nur unittest und `mvn verify `  ABER : alle unittests müssen erst **grün** sein 
 * EINzelnen Test ausführen: `mvn -Dtest=FinApiProviderTestIT test` oder alle Integration-tests:  `mvn -Dtest=*TestIT test` oder besser `mvn -Dit.test=AccountControllerTestIT -Dskip.surefire.tests verify` (skipt dann die Unittest und macht direkt den integrationtest)
 geht nur wenn :
 ```xml
