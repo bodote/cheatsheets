@@ -1,4 +1,11 @@
 # Angular ngrx
+
+## Zusammenfassung: 
+* Actions
+* Reducer : action  -> new state
+* Selectors: get state info
+* Effects : **SIDE** - Effects von actions , die nicht den state beeinflussen
+* Entity State: ? 
 ## Installation:
 ```bash
 ng add @ngrx/store

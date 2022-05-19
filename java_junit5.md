@@ -16,7 +16,7 @@ Exception exception = assertThrows(NumberFormatException.class, () -> {
 
 ### Variante B: logback TurboFilter
 
-### Variante A: Appender Filter
+### Variante A: Appender Filter (log4j 2.x)
 
 ```java
    @MockBean
@@ -149,3 +149,34 @@ Mockito.when(platform.authenticate(Mockito.eq(credentials)))
   .thenReturn(AuthenticationStatus.AUTHENTICATED);
 assertTrue(emailService.authenticatedSuccessfully(credentials));
 ```
+# Method references as parameters
+If in 2 or more tests, most code lines are dublicates, except a method call,
+eg. in the first test you want to call `put()` and in the 2nd test you want to call `post()` but with all other parameters are the same , you can do this: 
+```java
+  //...
+  {
+   Function<String, MockHttpServletRequestBuilder> putMethod = (String uri) ->  put(uri);
+   Function<String, MockHttpServletRequestBuilder> postMethod = (String uri) ->  post(uri);
+   // not possible here: 
+   // Function<String, MockHttpServletRequestBuilder> postMethod = MockHttpServletRequestBuilder::post;
+   // because MockHttpServletRequestBuilder::post is ambigous / overloaded with different sets of parameters.
+    
+    // Act;
+    assertMvcResult(journeyUpdateDTO,expectedJourneyDTO, postMethod, "");
+    assertMvcResult(journeyUpdateDTO,expectedJourneyDTO, putMethod, "/1234");
+  }
+
+  private void assertMvcResult(JourneyCreateDTO journeyUpdateDTO, JourneyDTO expectedJourneyDTO,Function<String, MockHttpServletRequestBuilder> method, String id) throws Exception {
+    MvcResult mvcResult = mockMvc.perform(method.apply(API_URI + id)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(journeyUpdateDTO)))
+            .andExpect(status().isCreated()).andReturn();
+
+    String contentString = mvcResult.getResponse().getContentAsString();
+    JourneyDTO actualDTO = objectMapper.readValue(contentString, JourneyDTO.class);
+
+    assertEquals(expectedJourneyDTO, actualDTO);
+  }
+  ```
+
+  using the "FunctionalInterface" `Function<T, R>` with its `apply()`- method call . 
