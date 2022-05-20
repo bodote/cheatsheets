@@ -34,3 +34,23 @@ grant_type=refresh_token&client_id=login-app&username=user1&refresh_token={{refr
 
 
 ```
+
+## other examples:
+```
+### changing debug level
+POST http://localhost:8080/actuator/loggers/ROOT
+Content-Type: application/json
+
+{
+  "configuredLevel": "DEBUG"
+}
+
+### changing debug level
+POST http://localhost:8080/actuator/loggers/org.apache.http.wire
+Content-Type: application/json
+
+{
+  "configuredLevel": "INFO"
+}
+
+```
