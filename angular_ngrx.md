@@ -5,7 +5,7 @@
 * Reducer : action  -> new state
 * Selectors: get state info
 * Effects : **SIDE** - Effects von actions , die nicht den state beeinflussen
-* Entity State: ? 
+* EntityState<T>: handles collections  of entities that are saved in the store as state.
 ## Installation:
 ```bash
 ng add @ngrx/store

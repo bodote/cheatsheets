@@ -1,3 +1,4 @@
+# SpringData vs JPA vs JDBC Aufgaben
 ## Aufgabe 1: JPA vs Spring Data vs JDBC
 - JDBC minimal Beispiel Daten aus DB lesen
 Gegeben ist eine Tabelle `COFFEE` mit Kaffeesorten und deren Preis in deiner SQL - Datebank deiner Wahl (Mysql, Postgresql, H2, ...).
