@@ -1,4 +1,4 @@
-# Docu fix for minimal-mistakes theme 
+# Docu fix for jekyll + minimal-mistakes theme 
 https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
 ## 1st Trail (not working)
 ### Start with:

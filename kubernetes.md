@@ -1,5 +1,6 @@
 [Back to Table of Contents](README.md)
-# wichtige minikube commandos
+# Kubernetes
+## wichtige minikube commandos
 `minikube start`
 
 `minikube dashboard &`: startet im background das dashboard-server und öffnet zugehörige URL im Browser
@@ -10,7 +11,7 @@
 
 `minikube delete` : delete the cluster
 
-# wichtige kubectl commandos
+## wichtige kubectl commandos
 
 `kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10`: create a deplyment
 
@@ -52,10 +53,10 @@ oder
 
 `kubectl delete deployment hello-minikube` delete deployment
 
-## config maps
+### config maps
 `kubectl create configmap <map-name> <data-source>`  : erstellt eine config map aus einem directory (alle files darin werden verwendet) mit <data-source> = `--from-file=configure-pod-container/configmap/` oder einzelnen Dateien mit `--from-file=configure-pod-container/configmap/game.properties`
 
-# About container runtime
+## About container runtime
 * docker (uses internally containerd)
 * containerd without docker
 * kata containers (VMs on OpenStack) using Dockerfiles (hypervisor: QEMU), better isolation for containers
@@ -65,12 +66,12 @@ oder
 * Trend: eliminate Docker from Kubernetes installations, but still using Dockerfile and docker compatible images
 * Conclusion: **kata** might be more secure
 
-# add-ons
+## add-ons
 `minikube addons list`: dashboard, storage-provisioner etc.
 
-# Anmerkungen zum Tutorial
+## Anmerkungen zum Tutorial
 https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-interactive/
-## Module 3: 
+### Module 3: 
 siehe https://github.com/kubernetes/website/issues/18079
 
 Wenn das Kommando 

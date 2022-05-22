@@ -1,4 +1,5 @@
-# Exceptions
+# Junit5
+## Exceptions
 
 ```java
 Exception exception = assertThrows(NumberFormatException.class, () -> {
@@ -6,17 +7,17 @@ Exception exception = assertThrows(NumberFormatException.class, () -> {
     });
 ```
 
-# matchers
+## matchers
 
 - entweder `org.hamcrest.Matcher.*` oder
 - die `org.assertj.core.api.Assertions` , die eigentlich mehr **fluent** sind.
 - `org.junit.jupiter.api.Assertions.*` sind nicht so gut
 
-## filter logmessages in a test case
+### filter logmessages in a test case
 
-### Variante B: logback TurboFilter
+#### Variante B: logback TurboFilter
 
-### Variante A: Appender Filter (log4j 2.x)
+#### Variante A: Appender Filter (log4j 2.x)
 
 ```java
    @MockBean
@@ -37,7 +38,7 @@ Exception exception = assertThrows(NumberFormatException.class, () -> {
    }
 ```
 
-### Variante B: logback TurboFilter
+#### Variante B: logback TurboFilter
 
 ```java
 @Test
@@ -64,7 +65,7 @@ public void testTerribleCase() throws ModuleException {
 }
 ```
 
-## Variante C
+### Variante C
 
 https://www.baeldung.com/junit-asserting-logs
 MemoryAppender:
@@ -82,7 +83,7 @@ MemoryAppender:
     assertThat(memoryAppender.contains(MSG, Level.TRACE)).isFalse();
 ```
 
-## Pitest
+### Pitest
 
 - plugin nötig für junit5
 
@@ -123,12 +124,12 @@ MemoryAppender:
 
 `mvn -DmyVariable=someValue verify`
 
-## Arguments
+### Arguments
 
 org.mockito.ArgumentMatchers benutzen, achtung: Normale Argumente lassen sich nicht mit ArgumentMatchers mischen !
 `doReturn(userResource).when(usersResource).get(ArgumentMatchers.any());`
 
-# ArgumentCaptor vs ArgumentMatcher
+## ArgumentCaptor vs ArgumentMatcher
 
 from https://www.baeldung.com/mockito-argumentcaptor :
 
@@ -149,7 +150,7 @@ Mockito.when(platform.authenticate(Mockito.eq(credentials)))
   .thenReturn(AuthenticationStatus.AUTHENTICATED);
 assertTrue(emailService.authenticatedSuccessfully(credentials));
 ```
-# Method references as parameters
+## Method references as parameters
 If in 2 or more tests, most code lines are dublicates, except a method call,
 eg. in the first test you want to call `put()` and in the 2nd test you want to call `post()` but with all other parameters are the same , you can do this: 
 ```java

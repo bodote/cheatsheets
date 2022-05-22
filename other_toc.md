@@ -1,11 +1,12 @@
 
-* [wichtige minikube commandos](./kubernetes.md#wichtige-minikube-commandos)
-* [wichtige kubectl commandos](./kubernetes.md#wichtige-kubectl-commandos)
-   * [config maps](./kubernetes.md#config-maps)
-* [About container runtime](./kubernetes.md#about-container-runtime)
-* [add-ons](./kubernetes.md#add-ons)
-* [Anmerkungen zum Tutorial](./kubernetes.md#anmerkungen-zum-tutorial)
-   * [Module 3:](./kubernetes.md#module-3)
+* [Kubernetes](./kubernetes.md#kubernetes)
+   * [wichtige minikube commandos](./kubernetes.md#wichtige-minikube-commandos)
+   * [wichtige kubectl commandos](./kubernetes.md#wichtige-kubectl-commandos)
+      * [config maps](./kubernetes.md#config-maps)
+   * [About container runtime](./kubernetes.md#about-container-runtime)
+   * [add-ons](./kubernetes.md#add-ons)
+   * [Anmerkungen zum Tutorial](./kubernetes.md#anmerkungen-zum-tutorial)
+      * [Module 3:](./kubernetes.md#module-3)
 
 
 
@@ -31,12 +32,13 @@
 * [Maven tricks](./maven.md#maven-tricks)
    * [Filtering resources](./maven.md#filtering-resources)
 
-* [ruby , gem](./unix.md#ruby--gem)
-* [find](./unix.md#find)
+* [Unix based OS](./unix.md#unix-based-os)
+   * [ruby , gem](./unix.md#ruby--gem)
+   * [find](./unix.md#find)
 
 
 
-* [Docu fix for minimal-mistakes theme](./jekyll.md#docu-fix-for-minimal-mistakes-theme)
+* [Docu fix for jekyll + minimal-mistakes theme](./jekyll.md#docu-fix-for-jekyll--minimal-mistakes-theme)
    * [1st Trail (not working)](./jekyll.md#1st-trail-not-working)
       * [Start with:](./jekyll.md#start-with)
       * [Using "Remote theme methodPermalink":](./jekyll.md#using-remote-theme-methodpermalink)
@@ -56,30 +58,32 @@
    * [git apply](./git.md#git-apply)
    * [git checkout file specifig commit](./git.md#git-checkout-file-specifig-commit)
 
-* [Exceptions](./java_junit5.md#exceptions)
-* [matchers](./java_junit5.md#matchers)
-   * [filter logmessages in a test case](./java_junit5.md#filter-logmessages-in-a-test-case)
-      * [Variante B: logback TurboFilter](./java_junit5.md#variante-b-logback-turbofilter)
-      * [Variante A: Appender Filter (log4j 2.x)](./java_junit5.md#variante-a-appender-filter-log4j-2x)
-      * [Variante B: logback TurboFilter](./java_junit5.md#variante-b-logback-turbofilter-1)
-   * [Variante C](./java_junit5.md#variante-c)
-   * [Pitest](./java_junit5.md#pitest)
-   * [Arguments](./java_junit5.md#arguments)
-* [ArgumentCaptor vs ArgumentMatcher](./java_junit5.md#argumentcaptor-vs-argumentmatcher)
-* [Method references as parameters](./java_junit5.md#method-references-as-parameters)
+* [Junit5](./java_junit5.md#junit5)
+   * [Exceptions](./java_junit5.md#exceptions)
+   * [matchers](./java_junit5.md#matchers)
+      * [filter logmessages in a test case](./java_junit5.md#filter-logmessages-in-a-test-case)
+         * [Variante B: logback TurboFilter](./java_junit5.md#variante-b-logback-turbofilter)
+         * [Variante A: Appender Filter (log4j 2.x)](./java_junit5.md#variante-a-appender-filter-log4j-2x)
+         * [Variante B: logback TurboFilter](./java_junit5.md#variante-b-logback-turbofilter-1)
+      * [Variante C](./java_junit5.md#variante-c)
+      * [Pitest](./java_junit5.md#pitest)
+      * [Arguments](./java_junit5.md#arguments)
+   * [ArgumentCaptor vs ArgumentMatcher](./java_junit5.md#argumentcaptor-vs-argumentmatcher)
+   * [Method references as parameters](./java_junit5.md#method-references-as-parameters)
 
-      * [Ansible](./ansible.md#ansible)
-         * [humen readable output:](./ansible.md#humen-readable-output)
-
-
-
+* [Ansible](./ansible.md#ansible)
+   * [humen readable output:](./ansible.md#humen-readable-output)
 
 
-* [auf Mac, (python27 geht nicht):](./openstack.md#auf-mac-python27-geht-nicht)
-* [besser mit python3 und vscode:](./openstack.md#besser-mit-python3-und-vscode)
-   * [Links](./openstack.md#links)
-   * [Netways OpenStack  nutzen, einmalige Installation](./openstack.md#netways-openstack--nutzen-einmalige-installation)
-   * [Netways nutzten , nach der Installation](./openstack.md#netways-nutzten--nach-der-installation)
+
+
+
+* [OpenStack](./openstack.md#openstack)
+   * [auf Mac, (python27 geht nicht):](./openstack.md#auf-mac-python27-geht-nicht)
+   * [besser mit python3 und vscode:](./openstack.md#besser-mit-python3-und-vscode)
+      * [Links](./openstack.md#links)
+      * [Netways OpenStack  nutzen, einmalige Installation](./openstack.md#netways-openstack--nutzen-einmalige-installation)
+      * [Netways nutzten , nach der Installation](./openstack.md#netways-nutzten--nach-der-installation)
 
 
 

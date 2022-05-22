@@ -1,4 +1,4 @@
-### Ansible
+# Ansible
 
 `ansible-playbook foo.yml --check --diff --limit <only.one.host>` 
 
@@ -21,7 +21,7 @@ or as  environment variable:
 `ANSIBLE_ENABLE_TASK_DEBUGGER=True; ansible-playbook -i hosts site.yml`
 
 
-#### humen readable output: 
+## humen readable output: 
 `export ANSIBLE_STDOUT_CALLBACK=debug `
 oder in ansible.cfg:
 `human-readable` 
