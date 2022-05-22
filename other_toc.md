@@ -92,8 +92,8 @@
    * [Manifest.yml](./cloud_foundry.md#manifestyml)
 
 * [bash allgemein](./bash.md#bash-allgemein)
-      * [bash farben](./bash.md#bash-farben)
-      * [kill mehrere Prozesse mit grep gefunden](./bash.md#kill-mehrere-prozesse-mit-grep-gefunden)
+   * [bash farben](./bash.md#bash-farben)
+   * [kill mehrere Prozesse mit grep gefunden](./bash.md#kill-mehrere-prozesse-mit-grep-gefunden)
    * [debug](./bash.md#debug)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
