@@ -1,8 +1,10 @@
-# Intellij Http-Client
-## View "Endpoints" 
+# Intellij 
+
+## Http-Client
+### View "Endpoints" 
 right tab "HTTP Client" -> "open in Editor"
 
-## Examples for getting Keycloak tokens:
+### Examples for getting Keycloak tokens:
 ```
 ### Authorization by token, part 1. Retrieve and save token.
 POST http://localhost:8180/auth/realms/bodo/protocol/openid-connect/token
@@ -35,7 +37,7 @@ grant_type=refresh_token&client_id=login-app&username=user1&refresh_token={{refr
 
 ```
 
-## other examples:
+### other examples:
 ```
 ### changing debug level
 POST http://localhost:8080/actuator/loggers/ROOT
@@ -54,3 +56,8 @@ Content-Type: application/json
 }
 
 ```
+
+## DEBUG Log output
+* in Intellij, to force spring debug logging use : ![assets/Intellij_debug_log.png](assets/Intellij_debug_log.png)
+* or (even without Intellij), add `logging.level.root=INFO` to `src/test/resources/application.properties` or `src/main/resources/application.properties`
+* open  *"View->Tools Windows->Service"* in Intellij

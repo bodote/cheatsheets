@@ -29,6 +29,32 @@ Da `@Configuration` auch `@Component` einschließt , kann letzteres auch funktio
 # Logging
 private static final Logger LOGGER = LoggerFactory.getLogger(MyCurrentClass.class)
 
+## H2-Database console access:
+* [http://localhost:9090/h2-console/](http://localhost:9090/h2-console/) 
+* user/password: see [src/main/resources/application.properties](src/main/resources/application.properties)
+* add `http.headers().frameOptions().disable()`;
+
+```java
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
+@EnableConfigurationProperties(KeycloakSpringBootProperties.class)
+public class ResourceServerConfig extends KeycloakWebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+        http.authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();//just for /h2-console
+    }
+//....
+```
+
+## DEBUG Log output
+* in Intellij, to force spring debug logging use : ![assets/Intellij_debug_log.png](assets/Intellij_debug_log.png)
+* or (even without Intellij), add `logging.level.root=INFO` to `src/test/resources/application.properties` or `src/main/resources/application.properties`
+* open  *"View->Tools Windows->Service"* in Intellij
+
 
 # Configuration
 ```java

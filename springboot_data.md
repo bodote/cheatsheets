@@ -1,10 +1,19 @@
 # JPA/Hibernate  
 
 ## Debug:
-```
+
+add  to `src/test/resources/application.properties` or `src/main/resources/application.properties`
+```properties
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
+
 
 ## Cascading OneToMany
 * JPA translates entity state transitions to database DML statements. Because it’s common to operate on entity graphs, 
