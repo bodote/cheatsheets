@@ -55,6 +55,14 @@ public class ResourceServerConfig extends KeycloakWebSecurityConfigurerAdapter {
 * or (even without Intellij), add `logging.level.root=INFO` to `src/test/resources/application.properties` or `src/main/resources/application.properties`
 * open  *"View->Tools Windows->Service"* in Intellij
 
+## debug WebMCV oder webmvc tests
+### Debug log for webmvc rest calls:
+add  to `src/test/resources/application.properties` or `src/main/resources/application.properties`
+```properties
+logging.level.org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping=trace
+logging.level.org.springframework.test.web.servlet.TestDispatcherServlet=trace
+```
+
 
 # Configuration
 ```java
