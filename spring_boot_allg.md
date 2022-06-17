@@ -63,6 +63,15 @@ logging.level.org.springframework.web.servlet.mvc.method.annotation.RequestMappi
 logging.level.org.springframework.test.web.servlet.TestDispatcherServlet=trace
 ```
 
+### Actuator Endpoints:
+in `pom.xml` : add `<artifactId>spring-boot-starter-actuator</artifactId>`
+```properties
+#management.endpoints.enabled-by-default=true
+management.endpoint.mappings.enabled=true
+management.endpoints.web.exposure.include=info, health, mappings
+```
+call `http://localhost:9090/actuator/` oder direkt `http://localhost:9090/actuator/mappings` to show the REST (and other ) enpoints 
+
 
 # Configuration
 ```java

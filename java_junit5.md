@@ -88,20 +88,23 @@ MemoryAppender:
 - plugin nötig für junit5
 
 ```xml
-<plugins>
-      <plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <version>1.6.7</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-junit5-plugin</artifactId>
-            <version>0.12</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-   </plugins>
+<plugins>   
+   <groupId>org.pitest</groupId>
+   <artifactId>pitest-maven</artifactId>
+   <version>1.8.1</version>
+   <configuration>
+     <jvmArgs>
+       <jvmArg>--enable-preview</jvmArg>
+     </jvmArgs>
+   </configuration>
+   <dependencies>
+       <dependency>
+           <groupId>org.pitest</groupId>
+           <artifactId>pitest-junit5-plugin</artifactId>
+           <version>0.16</version>
+       </dependency>
+   </dependencies>  
+</plugins>
 ```
 
 - test starten:

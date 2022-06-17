@@ -12,6 +12,8 @@ spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
+logging.level.org.hibernate.SQL=INFO
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=INFO
 ```
 
 
