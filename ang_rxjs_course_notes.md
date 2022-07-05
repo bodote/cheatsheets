@@ -1,4 +1,4 @@
-# Course Notes rxjs
+# Course Notes ngjs
 ## Subjects
 ### Implment a Store Service
 * src/app/common/store.service.ts make the service injectable
