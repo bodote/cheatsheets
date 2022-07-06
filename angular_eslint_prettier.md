@@ -30,7 +30,7 @@ add ` "plugin:prettier/recommended"`to .eslintrc.json in `"overrides": [.."exten
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-         "plugin:prettier/recommended" //this line is important!
+        "plugin:prettier/recommended" //this line is important!
       ]
 ```
 
@@ -41,6 +41,9 @@ for more details
 ## VisualCode eslint und prettier
 * ESLint-Microsoft plugin
 * Prettier Eslint plugin
-* Disable normal Pettier Code Formatter
+* Disable normal Pettier Code Formatter, Shift-Command-P -> "Format Document with..."->"Configure Default Formatter"->"Eslint-Prettier"
 * VSCode restart ESLint server with CommandPalette: `ESLint: restart ESLint server`
 
+## command line 
+run on all files: 
+`npx eslint --fix "src/**/*.ts"`
