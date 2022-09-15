@@ -108,6 +108,12 @@ export const selectorFunctionB = createSelector(
 }
 ```
 * result can be used as the first argument to `createSelector(..,..)`
+### get the complete state:
+```typescript
+this.store
+    .select<any>((state: any) => state) // the complete state this time!!!
+    .subscribe((completeState: any) => console.log(completeState));
+```
 
 ## Effects Module
 * an Effect is a Service that gets all Actions, just like Reducers,  and makes a side - effect from some of the Actions (so Actions are normaly filtered first).
@@ -116,7 +122,7 @@ export const selectorFunctionB = createSelector(
 * a Effect is a Service class, so you need `@Injectable()`
 * the important part here is the `constructor(private actions$:Actions)` 
   * here you filter for the relevant actions [see Action Filter above](#filter-for-ngrx-actions)
-  * you _could_ `subscribe()` and perform your code in the subscribe, but better use `tap()` in the `pipe()` after the `ofType()`-filter, **BECAUSE** the you get type-information for the action (from the `ofType()`-filter before the `tap()`)
+  * you _could_ `subscribe()` and perform your code in the subscribe, but better use `tap()` in the `pipe()` after the `ofType()`-filter, **BECAUSE** then you get type-information for the action (from the `ofType()`-filter before the `tap()`)
 ### using createEffect() instead of constructor
 * using `createEffect()` from `@ngrx/effects` instead of constructor is even better, e.g. because of error handling.
 * instead for deriving a new observable from the action$ and subscribe to it, `createEffect()` takes the observable and subscribe to it automaticaly
@@ -250,5 +256,16 @@ getWithQuery({
 })
 export class HomeComponent 
 ``` 
+
+# Architecture
+* All reducers that potentially change the state or the (feature-) slice of the state need to be together in one module/feature
+* but you can **read** not only the state of the local feature-slice but alway also the whole global state. You just can not **WRITE** from an external/another module/feature. **BUT** lazy loaded modules could not be loaded yet, so the corresponding state/slice could not exist yet.
+* you can dispatch action in another module, can you really ? be aware of violating dependeny cycles to other modules!
+## effect vs Route Guard
+to load data 2 possibilities:
+1. trigger a "Load" - Action on ngOnInit of the Component to be displayed now, and let an effect then load the data, then the effect triggers another action to store the new data in the store. -> needs 2 actions: one for tigger loading from backend, one for trigger loading data into the store
+2. or: make a Route Guard for the Components route and load the data in the `canActivate` function and then trigger an event to push these data into the store -> needs only 1 action plus one route guard.
+
+atvantage of route guard: if there is an error , the browser does not show the Component matching the route but stays on the current route because the route guard is false. so if we want to show the error message to the user , we need to show in on the current (old) route instead in the Component matching the target route.
 
 
