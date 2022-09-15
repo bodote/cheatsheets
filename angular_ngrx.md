@@ -259,8 +259,9 @@ export class HomeComponent
 
 # Architecture
 * All reducers that potentially change the state or the (feature-) slice of the state need to be together in one module/feature
-* but you can **read** not only the state of the local feature-slice but alway also the whole global state. You just can not **WRITE** from an external/another module/feature. **BUT** lazy loaded modules could not be loaded yet, so the corresponding state/slice could not exist yet.
+* but you can **read** not only the state of the local feature-slice but always also the whole global state. You just can not **WRITE** from an external/another module/feature. **BUT** lazy loaded modules could not be loaded yet, so the corresponding state/slice could not exist yet.
 * you can dispatch action in another module, can you really ? be aware of violating dependeny cycles to other modules!
+
 ## effect vs Route Guard
 to load data 2 possibilities:
 1. trigger a "Load" - Action on ngOnInit of the Component to be displayed now, and let an effect then load the data, then the effect triggers another action to store the new data in the store. -> needs 2 actions: one for tigger loading from backend, one for trigger loading data into the store
@@ -268,4 +269,17 @@ to load data 2 possibilities:
 
 atvantage of route guard: if there is an error , the browser does not show the Component matching the route but stays on the current route because the route guard is false. so if we want to show the error message to the user , we need to show in on the current (old) route instead in the Component matching the target route.
 
+## Router effects
+### success case
+* After a asynchronos "save" data effect you can either just fire a "save success" event that set a "success flag" in the state, which you can use to show a "success" Snackbar.
+
+OR
+
+* you can send a "redirect" action , which in turn should trigger a Router - Event , that inturn redirects the user back to a overview page and only then optionally in addition show a success if necessary. 
+### error case
+* same for errors: a asynchronos "save" data effect you can either just fire a "save erro" event that set a "error flag" in the state, which you can use to show a "error" Snackbar.
+
+OR
+
+* you can send a "redirect" action , which in turn should trigger a Router - Event , that inturn redirects the user back to a error page.
 
