@@ -27,6 +27,11 @@ ebenso `beforeAll()` `afterEach()` und `afterAll()`
 
 - wenn `describe` oder `it` umbenannt wird in `xdescribe` oder `xit` werden diese **NICHT** ausgeführt
 - umgekehrt wenn `describe` oder `it` umbenannt wird in `fdescribe` oder `fit` werden **NUR** dieseausgeführt
+- `ng test --include='**/search*.ts'` **or**
+- `ng test --include relative_or_absolute_path_here`
+
+
+
 
 ## Testbed:
 
@@ -245,6 +250,18 @@ beforeEach((done) => {
 - ansonsten bei [Asynchrones Testen](https://codecraft.tv/courses/angular/unit-testing/asynchronous/)
   - **entweder** async and whenStable zusammen verwenden, was aber nur mit Promises , nicht mit Observable funktioniert
   - **ODER** die `done()` funktion verwenden wie oben beschrieben
+  - **oder** mit `.pipe(toArray()).subscribe(... done() )` arbeiten z.B:
+```typescript
+      it('should be get a book as the search result on loadSearchs-action', (done) => {
+      effects.searchBooks$.pipe(toArray()).subscribe((actions) => {
+        expect(actions.length).toBe(1);
+        expect(actions).toEqual([
+          loadSearchsSuccess({ searchResults: [bookEntity] })
+        ]);
+        done();
+      });
+    });
+```
 
 ## Testing Forms
 
@@ -265,7 +282,7 @@ expect(control.valid).toBeFalsy();
 - Der Service muss gemockt werden mit `spyOn()`, **Vorsicht**: nicht die Classe als erstes Argument sondern eine Objektinstanz der ServiceKlasse! sonst kommt die Meldung: "Das Argument vom Typ "string" kann dem Parameter vom Typ "never" nicht zugewiesen werden"
 - verwende `spyOn(clazz-instance,'methodName')` um einen spy aus einer Objekt-instanz einer Klasse `clazz-instance` zu erzeugen.
 - verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen
-
+**wichtig** "tape" ist nur ein name für das spy-objekt, hat nix mit dem klassennamen zu tun !
 ```typescript
 tape = jasmine.createSpyObj("tape", {
   controls: {
@@ -350,6 +367,18 @@ würde den Text-inhalt `some content` finden
 - `By.css('.someclass, .someother')` findest elemente mit `.someclass` **oder** `.someother`
 - see [here](https://github.com/puddlejumper26/blogs/issues/4) oder [here](https://sodocumentation.net/de/protractor/topic/1524/css-selektoren)
 - By.css('.glyphicon, .glyphicon-menu-up')
+- verwende statt `.myclazz` oder `id` besser : [data-* attribute](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) , kann auch für integrationstests verwendet werden
+- verwendet in `*ngFor` loops: 
+```html
+<ng-container *ngFor="let book of foundBooks; let i = index">
+            <tr
+              [attr.data-id]="'foundBook-' + i"
+```
+```typescript
+bookFound0 = fixture.debugElement.query(
+        By.css('[data-id="foundBook-0"]')
+      );
+```
 
 ## benutze "nativeElement" wenn ein debugElement gefunden wurde.
 

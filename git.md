@@ -101,3 +101,17 @@ um ein mit `git diff` erzeugtes patch file anzuwenden: `git apply --exclude=*pac
 
 ## git checkout file specifig commit
 `git checkout mycommitid myfile`
+
+# working with forks and pull requests on github:
+- `git remote show origin``
+## sync fork with master
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-web-ui
+## configure (local checked out ) fork with upstream repo:
+- `git remote add upstream git@github.com:stryker-mutator/stryker-js.git`
+- check with `git remote -v`
+### dannach synch mit:
+- https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line
+- `git fetch upstream` `git checkout master`
+- `git merge upstream/master`  to get upstreams changes without loosing local changes
+  - resolve conflicts , if there are any
+- or : `git fetch upstream && git merge upstream/master && git push`

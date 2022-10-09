@@ -269,17 +269,15 @@ to load data 2 possibilities:
 
 atvantage of route guard: if there is an error , the browser does not show the Component matching the route but stays on the current route because the route guard is false. so if we want to show the error message to the user , we need to show in on the current (old) route instead in the Component matching the target route.
 
+see : [preloading-ngrx-store-route-guards](https://ultimatecourses.com/blog/preloading-ngrx-store-route-guards)
+
 ## Router effects
 ### success case
 * After a asynchronos "save" data effect you can either just fire a "save success" event that set a "success flag" in the state, which you can use to show a "success" Snackbar.
-
-OR
-
+#### or
 * you can send a "redirect" action , which in turn should trigger a Router - Event , that inturn redirects the user back to a overview page and only then optionally in addition show a success if necessary. 
 ### error case
 * same for errors: a asynchronos "save" data effect you can either just fire a "save erro" event that set a "error flag" in the state, which you can use to show a "error" Snackbar.
-
-OR
-
+#### or
 * you can send a "redirect" action , which in turn should trigger a Router - Event , that inturn redirects the user back to a error page.
 
