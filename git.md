@@ -114,4 +114,4 @@ https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/workin
 - `git fetch upstream` `git checkout master`
 - `git merge upstream/master`  to get upstreams changes without loosing local changes
   - resolve conflicts , if there are any
-- or : `git fetch upstream && git merge upstream/master && git push`
+- or : `git fetch upstream && git merge upstream/master && git push && npm i`

@@ -342,3 +342,12 @@ wird in jedem Fall ausgeführt.
 
 innerhalb einer `.pipe(...,shareReplay())` mit z.B. einem , am Schluss ein :
 `.pipe(...,shareReplay(),retryWhen(error => error.pipe(delayWhen(()=>timer(500)))))`
+
+# Unittesting mit marble
+Die Consolenausgabe , wenn die Observables nicht gleich sind bedeutet: 
+- `Expected $.length = 3 to equal 4` heißt: actualResult hat 3 Observable-Items, erwartet wurde aber 4 (also fehlt eines) 
+- `Expected $[0].frame ...` im  nicht-leeren Zeitslot "0" der ein Observable-Item enthält ....
+- `Expected $[1].frame = 4 to equal 2.` im  nicht-leeren Zeitslot "1" ist ein expected item (welches im expected-Marble-String-Pos "2" steht) , welches dem gleicht , das im actual Marble-String erstman Position  "4"  erscheint 
+- `Expected $[1].notification.value.myPropA = 'a message' to equal 'nix'.`  Observalbe Item an Pos 1 (von 0 gezählt) sind e Objecte, bei denen die property "myPropA" unterschiedlich ist. (Andere Properties des 2 Objekte können gleich sein)
+- `Expected $[1].notification.kind = 'C' to equal 'N'.` in nichtleeren Zeitslot 1 emittet das actual observalbe schon ein "complete" (='C'), während eigentlich ein normales (='N') item erwartet wurde.
+- use https://www.kimsereylam.com/angular/ngrx/2021/05/14/testing-rxjs-observable-with-marble-testing.html
