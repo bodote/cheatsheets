@@ -281,3 +281,51 @@ see : [preloading-ngrx-store-route-guards](https://ultimatecourses.com/blog/prel
 #### or
 * you can send a "redirect" action , which in turn should trigger a Router - Event , that inturn redirects the user back to a error page.
 
+# Testing ngrx Store 
+## with Mock-Store
+```typescript
+beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [BookListComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        provideMockStore<AppState>({
+          initialState: mockStateWithBooksEntities()
+        })
+      ]
+    }).compileComponents();
+    fixture = TestBed.createComponent(BookListComponent);
+    component = fixture.componentInstance;
+    store = TestBed.inject(MockStore);
+    dispatchSpy = spyOn(store, 'dispatch');
+  });
+``` 
+## with real ngrx store:
+```typescript
+beforeEach(() => {
+      @NgModule({
+        imports: [
+          StoreModule.forFeature('cars', carsReducer, { initialState }),
+          EffectsModule.forFeature([CarsEffects])
+        ],
+        providers: [CarsComponent]
+      })
+      class CustomFeatureModule {}
+
+      @NgModule({
+        imports: [
+          NxModule.forRoot(),
+          StoreModule.forRoot({}),
+          EffectsModule.forRoot([]),
+          CustomFeatureModule,
+        ]
+      })
+      class RootModule {}
+      TestBed.configureTestingModule({ imports: [RootModule] });
+
+      store = TestBed.get(Store);
+``` 
+from : https://thomasburlesonia.medium.com/ngrx-facades-better-state-management-82a04b9a1e39
+
+
+
