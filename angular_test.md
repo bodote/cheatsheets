@@ -94,6 +94,21 @@ let spy = spyOn(router, "navigate");
 component.myMethod(); // which should call the Routers navigate()
 ```
 
+- um zu testen ob die links im html template stimmen , wenn geklickt wurde kann man folgendes testen :
+```typescript
+import { Location } from '@angular/common';
+//...
+let location: Location;
+location = TestBed.inject(Location);
+//... im test dann:
+fixture.whenStable().then(() => {
+  expect(location.path()).toEqual('/admin/edit/' + firstB.isbn);
+  done();
+});
+// ACHTUNG bei 'Location'  besteht verwechslungsgefahr, daher prüfen ob der import da ist.
+´´´
+
+
 wenn man die routes selbst testen will (z.B. in `app.routes.spec.ts`), dann
 in `app.module.ts` wird dann noch dies hier nötig:
 `export const routes: routes : Routes...` ist nur nötig, wenn man die routes dann in einem unittest test will .
@@ -397,7 +412,22 @@ bookFound0 = fixture.debugElement.query(
 
 ## test trigger events
 
-- finde ein `DebugElement` , wie oben, darauf kann man dann `triggerEventHandler('eventName',$event)` aufrufen. Wobei `$event` auch null sein darf
+- finde ein `DebugElement` , wie oben, darauf kann man dann `triggerEventHandler('eventName',$event)` aufrufen. Wobei `$event` auch null sein darf:
+```typescript
+ const editButton = fixture.debugElement.query(
+        By.css('[data-cy="editBtn"]')
+      );
+      // ACT; ACHTUNG geht auch bei anderen Elementen als BUTTONS, z.B. auch SVGs
+      editButton.triggerEventHandler('click');
+```
+das ist die allgemeinere Lösung und daher besser als 
+```typescript
+const deleteButton = fixture.debugElement.query(
+        By.css('[data-cy="deleteBtn"]')
+      );
+      //ACT, ACHTUNG: hier "nativeElement" und nicht direkt das debugElement
+      deleteButton.nativeElement.click();
+```
 
 ## Code Coverage
 
