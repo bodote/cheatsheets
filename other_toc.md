@@ -1,4 +1,7 @@
 
+   * [Keycloak](./keycloak.md#keycloak)
+      * [Logging](./keycloak.md#logging)
+
 * [Kubernetes](./kubernetes.md#kubernetes)
    * [wichtige minikube commandos](./kubernetes.md#wichtige-minikube-commandos)
    * [wichtige kubectl commandos](./kubernetes.md#wichtige-kubectl-commandos)
@@ -13,10 +16,12 @@
 * [Lockback in SpringBoot](./logback.md#lockback-in-springboot)
    * [Example logback.groovy configuration:](./logback.md#example-logbackgroovy-configuration)
 
-* [Intellij Http-Client](./intellij_http_client.md#intellij-http-client)
-   * [View "Endpoints"](./intellij_http_client.md#view-endpoints)
-   * [Examples for getting Keycloak tokens:](./intellij_http_client.md#examples-for-getting-keycloak-tokens)
-   * [other examples:](./intellij_http_client.md#other-examples)
+* [Intellij](./intellij_http_client.md#intellij)
+   * [Http-Client](./intellij_http_client.md#http-client)
+      * [View "Endpoints"](./intellij_http_client.md#view-endpoints)
+      * [Examples for getting Keycloak tokens:](./intellij_http_client.md#examples-for-getting-keycloak-tokens)
+      * [other examples:](./intellij_http_client.md#other-examples)
+   * [DEBUG Log output](./intellij_http_client.md#debug-log-output)
 
 * [Developing LangtonsAnt TDD style](./LangtonsAnt.md#developing-langtonsant-tdd-style)
    * [Implementation Rules:](./LangtonsAnt.md#implementation-rules)
@@ -27,16 +32,12 @@
       * [next step  (2) according to the rules](./LangtonsAnt.md#next-step--2-according-to-the-rules)
       * [next step  (3) according to the rules](./LangtonsAnt.md#next-step--3-according-to-the-rules)
 
-
-
 * [Maven tricks](./maven.md#maven-tricks)
    * [Filtering resources](./maven.md#filtering-resources)
 
 * [Unix based OS](./unix.md#unix-based-os)
    * [ruby , gem](./unix.md#ruby--gem)
    * [find](./unix.md#find)
-
-
 
 * [Docu fix for jekyll + minimal-mistakes theme](./jekyll.md#docu-fix-for-jekyll--minimal-mistakes-theme)
    * [1st Trail (not working)](./jekyll.md#1st-trail-not-working)
@@ -57,6 +58,10 @@
    * [git patch](./git.md#git-patch)
    * [git apply](./git.md#git-apply)
    * [git checkout file specifig commit](./git.md#git-checkout-file-specifig-commit)
+* [working with forks and pull requests on github:](./git.md#working-with-forks-and-pull-requests-on-github)
+   * [sync fork with master](./git.md#sync-fork-with-master)
+   * [configure (local checked out ) fork with upstream repo:](./git.md#configure-local-checked-out--fork-with-upstream-repo)
+      * [dannach synch mit:](./git.md#dannach-synch-mit)
 
 * [Junit5](./java_junit5.md#junit5)
    * [Exceptions](./java_junit5.md#exceptions)
@@ -74,18 +79,12 @@
 * [Ansible](./ansible.md#ansible)
    * [humen readable output:](./ansible.md#humen-readable-output)
 
-
-
-
-
 * [OpenStack](./openstack.md#openstack)
    * [auf Mac, (python27 geht nicht):](./openstack.md#auf-mac-python27-geht-nicht)
    * [besser mit python3 und vscode:](./openstack.md#besser-mit-python3-und-vscode)
       * [Links](./openstack.md#links)
       * [Netways OpenStack  nutzen, einmalige Installation](./openstack.md#netways-openstack--nutzen-einmalige-installation)
       * [Netways nutzten , nach der Installation](./openstack.md#netways-nutzten--nach-der-installation)
-
-
 
 * [Cloud Foundry](./cloud_foundry.md#cloud-foundry)
    * [Tutorial links:](./cloud_foundry.md#tutorial-links)
