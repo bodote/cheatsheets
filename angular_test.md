@@ -30,6 +30,29 @@ ebenso `beforeAll()` `afterEach()` und `afterAll()`
 - `ng test --include='**/search*.ts'` **or**
 - `ng test --include relative_or_absolute_path_here`
 
+## Objekte teilweise vergleichen
+```typescript
+describe("jasmine.objectContaining", function() {
+  var foo;
+
+  beforeEach(function() {
+    foo = {
+      a: 1,
+      b: 2,
+      bar: "baz"
+    };
+  });
+
+  it("matches objects with the expect key/value pairs", function() {
+    expect(foo).toEqual(jasmine.objectContaining({
+      bar: "baz"
+    }));
+    expect(foo).not.toEqual(jasmine.objectContaining({
+      c: 37
+    }));
+  });
+});
+``` 
 
 
 
@@ -278,6 +301,18 @@ beforeEach((done) => {
     });
 ```
 
+## testen mit manipuliertem timer / clock
+```typescript
+ beforeEach(() => {
+      jasmine.clock().install();
+      jasmine.clock().mockDate(new Date(1000 * 120));
+      //Date.now() will always return 1000*120 from now on 
+    });
+afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+``` 
+
 ## Testing Forms
 
 - Initialisiere : `component= new MyComponent(new FormBuilder)`
@@ -299,6 +334,25 @@ expect(control.valid).toBeFalsy();
 - verwende `jasmine.createSpyObj()` um einen spy ganz ohne echte Klasse zu erzeugen
 **wichtig** "tape" ist nur ein name für das spy-objekt, hat nix mit dem klassennamen zu tun !
 ```typescript
+  tape = jasmine.createSpyObj('tape', ['play', 'pause', 'stop', 'rewind']);
+  ...
+  tape.rewind(0);
+
+  expect(tape.rewind).toBeDefined();
+
+  expect(tape.rewind).toHaveBeenCalled();
+  expect(tape.stop).not.toHaveBeenCalled();
+  expect(tape.rewind).toHaveBeenCalledWith(0);
+```  
+### teste unscharf mit jasmine.any und workaround fuer overloaded functions mit spy:
+```typescript
+expect(
+  mockStore.select as jasmine.Spy<(s: any) => Observable<any>>
+).toHaveBeenCalledWith(jasmine.any(Function));
+```
+
+
+```typescript
 tape = jasmine.createSpyObj("tape", {
   controls: {
     rewind: function () {
@@ -311,6 +365,22 @@ tape = jasmine.createSpyObj("tape", {
 });
 spyOn(tape.controls(), "rewind");
 ```
+
+### spy on properties:
+```typescript
+it("creates a spy object with properties", function() {
+  let obj = createSpyObj("myObject", {}, { x: 3, y: 4 });
+  expect(obj.x).toEqual(3);
+
+  Object.getOwnPropertyDescriptor(obj, "x").get.and.returnValue(7);
+  expect(obj.x).toEqual(7);
+});
+``` 
+
+### see also 
+https://jasmine.github.io/tutorials/your_first_suite
+
+
 
 ## Testen von Services selbst
 
