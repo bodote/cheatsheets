@@ -128,8 +128,8 @@ siehe auch :[Auto-configured Spring MVC Tests](https://docs.spring.io/spring-boo
         myComponent = new Component( arg1, arg2,...)
     }
 ```      
-
-## Use of @Autowired for logger
+## Logging tests
+### Use of @Autowired for logger
 `@Autowired Logger log;` funktioniert nur wenn man folgendes definiert und konfiguriert:
 * LoggingConfiguration klasse: 
 ```java
@@ -145,6 +145,21 @@ public class LoggingConfiguration {
 }
 ```
 * Die Test-KLASSE  mit `@ContextConfiguration(classes = { LoggingConfiguration.class, ...  })` zusätzlich annotieren. **ACHTUNG** : dabei muss aber nach `LoggingConfiguration.class,` auch alle weiteren Classen, die getestet werden sollen mit angegeben werden. 
+
+### controlling log level
+To disable the logs, turn off the logging.level in both `src/test/resources/application.properties` and `src/test/resources/logback-test.xml`:
+```properties
+logging.level.org.springframework=OFF
+logging.level.root=OFF
+```
+and
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <logger name="org.springframework" level="OFF"/>
+</configuration>
+```
 
 ## @SpyBean 
 geht nicht ohneweiteres. statt dessen machs , wie oben unter "Testing with **@WebMvcTest** -> **@TestConfiguration In static nested class** beschrieben und dann: 

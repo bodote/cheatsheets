@@ -184,3 +184,20 @@ eg. in the first test you want to call `put()` and in the 2nd test you want to c
   ```
 
   using the "FunctionalInterface" `Function<T, R>` with its `apply()`- method call . 
+
+## AssertJ, SoftAssertions and assertAll
+```java
+import static org.junit.jupiter.api.Assertions.assertAll;
+
+assertAll(
+  () -> assertThat("a").as("Phone 1").isEqualTo("a"),
+  () -> assertThat("b").as("Service bundle").endsWith("c")
+);
+```
+or
+```java
+SoftAssertions phoneBundle = new SoftAssertions();
+phoneBundle.assertThat("a").as("Phone 1").isEqualTo("a");
+phoneBundle.assertThat("b").as("Service bundle").endsWith("c");
+phoneBundle.assertAll();
+```
