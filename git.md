@@ -81,7 +81,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 - `git revert -m 1 08b3783` This will create a new commit which undoes the last merge commit.
 - Prüfe mit `git log`, nimm die letzten und die 3-letzte commit id , und mache dann damit ein `git diff <aktuellster-commit> <3-letzter-commit>` und es sollte KEINE Differenz sein.
 
-## git logs :
+## git logs :gi
 
 - last commit message `git log -1 --pretty=%B`
 - changes by author `git log --stat --author="Bodo"`
