@@ -106,3 +106,13 @@ Passiert ja im RestController unter Umständen komplett implizit, daher [hier](h
         //read json file and convert to customer object
         Customer customer = objectMapper.readValue(new File("customer.json"), Customer.class);
 ``` 
+## Api Documentation Sourcefile download Intellij/maven/gradle
+- in Intellij - maven see https://stackoverflow.com/a/36071308/3952407
+- gradle: add `plugins{ id 'idea' }` and 
+```groovy   
+idea {
+    module {
+        downloadJavadoc = true
+    }
+}
+```

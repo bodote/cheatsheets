@@ -78,7 +78,8 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 
 ### wenn schon gemerged (und evtl. gepusht):
 
-- `git revert -m 1 08b3783` This will create a new commit which undoes the last merge commit.
+- `git revert -m 1 08b3783` This will create a new commit which undoes the last merge commit, whereby `08b3783`is the commit thats beeing reverted so that the changes the `08b3783` are no longer visible 
+  - `-m parent-number` =  `--mainline parent-number` only relevant with a revert of a  `merge` to decide from with of the 2 parents we want the to be the main-line (usualy  'main' -> m=1) 
 - Prüfe mit `git log`, nimm die letzten und die 3-letzte commit id , und mache dann damit ein `git diff <aktuellster-commit> <3-letzter-commit>` und es sollte KEINE Differenz sein.
 
 ## git logs :gi
@@ -109,6 +110,7 @@ um ein mit `git diff` erzeugtes patch file anzuwenden: `git apply --exclude=*pac
 https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-web-ui
 ## configure (local checked out ) fork with upstream repo:
 - `git remote add upstream git@github.com:stryker-mutator/stryker-js.git`
+- `git remote set-url --push upstream nope` -> kein push zum upstream repo
 - check with `git remote -v`
 ### dannach synch mit:
 - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line
@@ -116,3 +118,5 @@ https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/workin
 - `git merge upstream/master`  to get upstreams changes without loosing local changes
   - resolve conflicts , if there are any
 - or : `git fetch upstream && git merge upstream/master && git push && npm i`
+- see https://www.atlassian.com/git/tutorials/git-forks-and-upstreams daraus: **WICHTIG**: für eigene Änderungen erstmal einen branch in `origin/master` abseits von `master` anlegen, damit der `origin/master` per fetch immer synchron zum `upstream/master` gehalten werden kann
+- see https://sylhare.github.io/2021/04/05/Use-git-with-upstream-repository.html with https://github.com/bodote/UpstreamRepo 

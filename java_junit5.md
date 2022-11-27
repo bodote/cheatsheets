@@ -15,12 +15,16 @@ Exception exception = assertThrows(NumberFormatException.class, () -> {
 
 ### filter logmessages in a test case
 
+**THIS IS PROBALBY NOT THREAD SAVE!**
+
 #### Variante B: logback TurboFilter
 
 #### Variante A: Appender Filter (log4j 2.x)
 
 ```java
-   @MockBean
+@ExtendWith(MockitoExtension.class)
+public class MyTest {
+   @Mock
        private Appender<ILoggingEvent> mockedAppender;
 
    @Captor
@@ -28,9 +32,10 @@ Exception exception = assertThrows(NumberFormatException.class, () -> {
 
    @Test
    public void testTerribleCase() throws ModuleException {
-       Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-       rootLogger.addAppender(mockedAppender);
-       rootLogger.setLevel(Level.ERROR);
+       Logger myLogger = (Logger) LoggerFactory.getLogger(<ClassUnderTest>.class);// never ever the 
+       //ROOT_LOGGER! because that would interfere with other tests running in parallel at the same time!
+       myLogger.addAppender(mockedAppender);
+       myLogger.setLevel(Level.ERROR);
        ...
        Mockito.verify(mockedAppender, times(1)).doAppend(loggingEventCaptor.capture());
        ILoggingEvent loggingEvent = loggingEventCaptor.getAllValues().get(0);
@@ -67,20 +72,36 @@ public void testTerribleCase() throws ModuleException {
 
 ### Variante C
 
-https://www.baeldung.com/junit-asserting-logs
+https://github.com/eugenp/tutorials/blob/master/testing-modules/testing-assertions/src/test/java/com/baeldung/junit/log/BusinessWorkerUnitTest.java
+
 MemoryAppender:
 
 ```java
-    Logger logger = (Logger) LoggerFactory.getLogger(LOGGER_NAME);
+private  MemoryAppender prepareLogger(Logger logger) {
+    MemoryAppender memoryAppender;// never ever use the the
+    //ROOT_LOGGER! because that would interfere with other tests running in parallel at the same time!
     memoryAppender = new MemoryAppender();
     memoryAppender.setContext((LoggerContext) LoggerFactory.getILoggerFactory());
     logger.setLevel(Level.DEBUG);
     logger.addAppender(memoryAppender);
     memoryAppender.start();
+    return memoryAppender;
+}
+@Test
+mytest(){
+    Logger logger = (Logger) LoggerFactory.getLogger(<ClassUnderTest>.class);// never use the ROOT_LOGGER!
+    MemoryAppender memoryAppender prepareLogger( logger) 
     // ....
     assertThat(memoryAppender.countEventsForLogger(LOGGER_NAME)).isEqualTo(4);
     assertThat(memoryAppender.search(MSG, Level.INFO).size()).isEqualTo(1);
     assertThat(memoryAppender.contains(MSG, Level.TRACE)).isFalse();
+    cleanUp(memoryAppender)
+}
+
+public void cleanUp(MemoryAppender memoryAppender) {
+    memoryAppender.reset();
+    memoryAppender.stop();
+}
 ```
 
 ### Pitest
