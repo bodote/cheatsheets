@@ -66,7 +66,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 
 ## git stash oder reset
 
-- `git stash list` `git stash push -m "name" `
+- `git stash list` `git stash push -m "name" ` , `git stash apply stash@{stash_index}`
 - `git reset HEAD ; git restore *`
   - --soft: uncommit changes, changes are left staged (index).
   - --mixed (default): uncommit + unstage changes, changes are left in working tree.

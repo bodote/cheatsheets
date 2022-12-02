@@ -222,3 +222,11 @@ phoneBundle.assertThat("a").as("Phone 1").isEqualTo("a");
 phoneBundle.assertThat("b").as("Service bundle").endsWith("c");
 phoneBundle.assertAll();
 ```
+
+### verify calling mock-methods
+```java 
+@Captor
+    ArgumentCaptor<String> stringArgumentCaptorCaptor;
+verify(bar, times(1)).someMethod(stringArgumentCaptorCaptor);
+stringArg = stringArgumentCaptorCaptor.getAllValues().get(0)
+assertThat(stringArg).isEqualTo("whatever")

@@ -145,6 +145,24 @@ public class LoggingConfiguration {
 }
 ```
 * Die Test-KLASSE  mit `@ContextConfiguration(classes = { LoggingConfiguration.class, ...  })` zusätzlich annotieren. **ACHTUNG** : dabei muss aber nach `LoggingConfiguration.class,` auch alle weiteren Classen, die getestet werden sollen mit angegeben werden. 
+**not necessary when using lomboks @Slf4j annotoation**
+
+## @ExtendWith(OutputCaptureExtension.class) and @SpringBootTest();
+```java
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = {"de.brandad.omega.service.k8s.K8sDevServer.timeoutSeconds=1"})
+@Slf4j
+@ExtendWith(OutputCaptureExtension.class)
+class MyTestClazz {
+    @Test
+    @Description("make sure that property de.brandad.omega.service.k8s.K8sDevServer.timeoutSeconds=1 ")
+    void k8sdevserverScheduler(CapturedOutput output) {
+        // here you can check the output
+    }
+
+}
+```
 
 ### controlling log level
 To disable the logs, turn off the logging.level in both `src/test/resources/application.properties` and `src/test/resources/logback-test.xml`:
