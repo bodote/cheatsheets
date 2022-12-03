@@ -1,4 +1,5 @@
 ## Optional
+use Optional as a return type but never als a method - argument;
 ### ifPresent(<lambda>)
 ```java
    Optional<String> opt = Optional.of("baeldung");
@@ -35,4 +36,13 @@ Optional.ofNullable(modem2)
     int size = listOptional
       .map(List::size)
       .orElse(0);
+``` 
+### ifPresentOrElse(<lamda-present>,<lambda-else>)
+```java
+// returns empty Optional
+Optional<Guitarist> lookupResult = guitaristService.findByLastName("Page");
+lookupResult.ifPresentOrElse(
+        guitarist -> System.out.println(guitarist.getSignatureSong()),
+        () -> System.out.println("Guitarist not found!")
+);
 ``` 
