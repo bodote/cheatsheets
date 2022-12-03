@@ -13,6 +13,17 @@
 
 
 
+* [change java versions in Intellij for a project:](./gradle.md#change-java-versions-in-intellij-for-a-project)
+   * [check java version used during build and at runtime:](./gradle.md#check-java-version-used-during-build-and-at-runtime)
+
+* [Java](./java_main.md#java)
+   * [Optional](./java_main.md#optional)
+      * [ifPresent()](./java_main.md#ifpresent)
+      * [orElseGet()](./java_main.md#orelseget)
+      * [throw Exception](./java_main.md#throw-exception)
+      * [filter and map](./java_main.md#filter-and-map)
+      * [ifPresentOrElse(,)](./java_main.md#ifpresentorelse)
+
 * [Lockback in SpringBoot](./logback.md#lockback-in-springboot)
    * [Example logback.groovy configuration:](./logback.md#example-logbackgroovy-configuration)
 
@@ -53,7 +64,7 @@
       * [rebase vs merge:](./git.md#rebase-vs-merge)
    * [git stash oder reset](./git.md#git-stash-oder-reset)
       * [wenn schon gemerged (und evtl. gepusht):](./git.md#wenn-schon-gemerged-und-evtl-gepusht)
-   * [git logs :](./git.md#git-logs-)
+   * [git logs :gi](./git.md#git-logs-gi)
    * [git diff](./git.md#git-diff)
    * [git patch](./git.md#git-patch)
    * [git apply](./git.md#git-apply)
@@ -75,6 +86,8 @@
       * [Arguments](./java_junit5.md#arguments)
    * [ArgumentCaptor vs ArgumentMatcher](./java_junit5.md#argumentcaptor-vs-argumentmatcher)
    * [Method references as parameters](./java_junit5.md#method-references-as-parameters)
+   * [AssertJ, SoftAssertions and assertAll](./java_junit5.md#assertj-softassertions-and-assertall)
+      * [verify calling mock-methods](./java_junit5.md#verify-calling-mock-methods)
 
 * [Ansible](./ansible.md#ansible)
    * [humen readable output:](./ansible.md#humen-readable-output)
