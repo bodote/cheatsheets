@@ -100,6 +100,18 @@ class QuearnApplicationTests {
         }
 
 ```
+* with authentication:
+```Java
+    @Test
+    @SneakyThrows
+    void helloWorld()  {
+        // Hint: don't use //.with(SecurityMockMvcRequestPostProcessors.httpBasic("userInADatabase", "secret")) because that can not be resolved
+        // instead SecurityMockMvcRequestPostProcessors.user("mvctestUser").roles(ROLE_END_USER_DEV) bypasses the 
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/hello")
+                        .with(SecurityMockMvcRequestPostProcessors.user("mvctestUser").roles(ROLE_END_USER_DEV))).
+                andDo(MockMvcResultHandlers.log()).andExpect(jsonPath("$",hasSize(2)));
+    }
+``` 
 siehe auch :[Auto-configured Spring MVC Tests](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests)
 
 ### Testing RestServices with JsonPath
