@@ -30,17 +30,31 @@ public class MyTest {
    @Captor
        private ArgumentCaptor<ch.qos.logback.classic.spi.LoggingEvent> loggingEventCaptor;
 
+ Logger myLogger ;
+
+   @BeforeEach
+    void setup() {
+      // never ever the 
+       //ROOT_LOGGER! because that would interfere with other tests running in parallel at the same time!
+        myLogger = (Logger) LoggerFactory.getLogger(DeveloperListService.class);
+        myLogger.addAppender(mockedAppender);
+        myLogger.setLevel(ERROR);
+    }
+
    @Test
    public void testTerribleCase() throws ModuleException {
-       Logger myLogger = (Logger) LoggerFactory.getLogger(<ClassUnderTest>.class);// never ever the 
-       //ROOT_LOGGER! because that would interfere with other tests running in parallel at the same time!
-       myLogger.addAppender(mockedAppender);
-       myLogger.setLevel(Level.ERROR);
-       ...
-       Mockito.verify(mockedAppender, times(1)).doAppend(loggingEventCaptor.capture());
-       ILoggingEvent loggingEvent = loggingEventCaptor.getAllValues().get(0);
-       assertThat(loggingEvent.getMessage()).contains("error execute actual user data change in keycloak");
+       Mockito.verify(mockedAppender, atLeast(1)).doAppend(loggingEventCaptor.capture());
+        assertThat(loggingEventCaptor.getAllValues())
+                .filteredOn(event -> event.getFormattedMessage().contains("Whatever error message you want to see"))
+                .hasSizeGreaterThanOrEqualTo(1);
+       
    }
+
+    @AfterEach
+    void shutdown() {
+        mockedAppender.stop();
+        myLogger.detachAppender(mockedAppender);
+    }
 ```
 
 #### Variante B: logback TurboFilter
