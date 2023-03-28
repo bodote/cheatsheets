@@ -74,6 +74,59 @@ class QuearnApplicationTests {
 ```
 
 
+### SpringBootTest with BASIC Authentication
+```java
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("local")
+class HelloApplicationTests {
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Test
+    void HalloEndpoint() {
+        ResponseEntity<HelloList> responseEntity =
+                restTemplate.withBasicAuth("myuser", "test").getForEntity("/api/hello", HelloList.class);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isEqualTo(new HelloList(Arrays.asList("Hallo", "Welt")));
+    }
+}
+```
+### SpringBootTest with JWT Authentication
+```java
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Import(HelloWorldIT.TestConfig.class)
+classHelloWorldIT {
+
+    // Define a custom JWT decoder as a lambda function returning a dummy token
+    @TestConfiguration
+    static class TestConfig {
+        @Bean
+        public JwtDecoder jwtDecoder() {
+            return token -> new Jwt(
+                    "token", Instant.now(), Instant.MAX, Map.of("alg", "none"), Map.of(JwtClaimNames.SUB, "testUser"));
+        }
+    }
+
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
+    @Test
+     void testRestEndpoint() {
+        // add Token as Bearer-Autorisierungsheader 
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + "dummy"); // + createToken("user"));
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> response =
+                testRestTemplate.exchange("/api/hello", HttpMethod.GET, entity, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+       
+    }
+}
+```
+
+
+
 
 ## Testing with @WebMvcTest
 * [@TestConfiguration](https://www.logicbig.com/tutorials/spring-framework/spring-boot/test-configuration.html)
@@ -106,7 +159,7 @@ class QuearnApplicationTests {
     @SneakyThrows
     void helloWorld()  {
         // Hint: don't use //.with(SecurityMockMvcRequestPostProcessors.httpBasic("userInADatabase", "secret")) because that can not be resolved
-        // instead SecurityMockMvcRequestPostProcessors.user("mvctestUser").roles(ROLE_END_USER_DEV) bypasses the 
+        // instead SecurityMockMvcRequestPostProcessors.user("mvctestUser").roles(ROLE_END_USER_DEV) bypasses the real authentication and sets user and role
         mockMvc.perform(MockMvcRequestBuilders.get("/api/hello")
                         .with(SecurityMockMvcRequestPostProcessors.user("mvctestUser").roles(ROLE_END_USER_DEV))).
                 andDo(MockMvcResultHandlers.log()).andExpect(jsonPath("$",hasSize(2)));
