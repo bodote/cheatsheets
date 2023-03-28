@@ -115,7 +115,7 @@ classHelloWorldIT {
      void testRestEndpoint() {
         // add Token as Bearer-Autorisierungsheader 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + "dummy"); // + createToken("user"));
+        headers.set("Authorization", "Bearer " + "dummy"); 
         HttpEntity<String> entity = new HttpEntity<>(headers);
         ResponseEntity<String> response =
                 testRestTemplate.exchange("/api/hello", HttpMethod.GET, entity, String.class);
