@@ -90,7 +90,7 @@ public class CleanArchitectureTest {
    
        ArchRule rule = classes()
                .that().resideInAnyPackage("your.base.package.adapters.primary..")
-               .should().onlyHaveDependentClassesThat().resideInAnyPackage("your.base.package.domain..");
+               .should().onlyHaveDependentClassesThat().resideInAnyPackage("your.base.package.domain..","your.base.package.adapters.primary..");
    
        rule.check(importedClasses);
    }
@@ -101,7 +101,7 @@ public class CleanArchitectureTest {
    
        ArchRule rule = classes()
                .that().resideInAnyPackage("your.base.package.adapters.secondary..")
-               .should().onlyHaveDependentClassesThat().resideInAnyPackage("your.base.package.domain..");
+               .should().onlyHaveDependentClassesThat().resideInAnyPackage("your.base.package.domain..","your.base.package.adapters.secondary..");
    
        rule.check(importedClasses);
    }
