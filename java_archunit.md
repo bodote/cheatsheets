@@ -110,7 +110,7 @@ public class CleanArchitectureTest {
 
 Replace `your.base.package` with the base package of your application where you want to apply the rules.
 
-This test class defines four ArchUnit rules:
+#### This test class defines four ArchUnit rules:
 
 1. Domain should not depend on adapters or framework: This rule ensures that classes in the domain package don't depend on classes in adapters or framework packages.
 2. Adapters should not depend on framework: This rule ensures that classes in the adapters package don't depend on classes in the framework package.
@@ -119,3 +119,12 @@ This test class defines four ArchUnit rules:
 
 These rules help enforce the dependencies between layers as described in the Clean Architecture. If any of the rules are violated, the corresponding test will fail, and you'll see a description of the violations in the test output.
 
+
+
+### Primary Adapters (also known as "driven" adapters):
+These adapters are responsible for receiving input from external systems, such as user interfaces or APIs, and then translating or adapting that input into a format that the domain layer can understand. They essentially serve as an entry point to the application. Examples of primary adapters include controllers in a web application, command-line interfaces, or REST API endpoints.
+
+### Secondary Adapters (also known as "driving" adapters):
+These adapters handle interactions with external systems, such as databases, messaging systems, or third-party services, on behalf of the domain layer. They are responsible for translating the domain layer's output or requests into a format that can be used by the external systems. Secondary adapters typically implement interfaces defined by the domain layer, allowing the domain to remain decoupled from the specific details of the external systems. Examples of secondary adapters include repositories for database access, services for interacting with external APIs, or gateways for communicating with messaging systems.
+
+In summary, primary adapters are responsible for handling inputs from external systems and passing them to the domain layer, while secondary adapters are responsible for handling interactions with external systems on behalf of the domain layer. This separation of concerns enables the application to be more modular and maintainable.
