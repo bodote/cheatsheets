@@ -143,6 +143,15 @@ pom.xml:
         for (var file : files) {
             log.info("CanonicalPath {}", file.getCanonicalPath());
         }
+
+        log.info("test.csv {}",session.isFile("test.csv"));
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        session.read("test.csv",outputStream);
+        byte[] fileContents = outputStream.toByteArray();
+        outputStream.close();
+        session.close();
+        log.info("File content: " + new String(fileContents));
     }
 ```
 
