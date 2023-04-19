@@ -116,3 +116,33 @@ idea {
     }
 }
 ```
+
+## spring-integration-smb
+pom.xml:
+```xml
+<dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-smb</artifactId>
+            <version>6.0.4</version>
+        </dependency>
+```
+
+
+
+```java
+ void integrationSpringtest() throws IOException {
+        var ssf = new SmbSessionFactory(); 
+        ssf.setHost(host);
+        // ssf.setHost(transfer);
+        ssf.setUsername(host + "\\" + username);
+        ssf.setPassword(password);
+        ssf.setShareAndDir("/SHAREName/mydir/"); 
+        var session = ssf.getSession();
+
+        var files = session.list(".");
+        for (var file : files) {
+            log.info("CanonicalPath {}", file.getCanonicalPath());
+        }
+    }
+```
+
