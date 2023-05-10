@@ -50,6 +50,7 @@ git push --set-upstream origin newBranch  # diesen dann auch remote einchecken
 - checkout tag `git checkout tags/<tag>` oder `git checkout tags/<tag> -b <branch>`
 - clone with tag: `git clone --depth 1 --branch <tag_name> <repo_url>`
 - delete remote : `git push origin --delete <branch_name>`
+- 
 
 ## git merge
 
