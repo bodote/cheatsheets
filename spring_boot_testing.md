@@ -16,6 +16,7 @@ siehe auch [hier](java_junit5.md)
   * `@Repository` annotates classes at the persistence layer, which will act as a database repository
 * `@Entity` JPA-Entity , DB-Classe entspricht oft einer DB-Table
 
+
 ### Testing slices 
 ..of the application Sometimes you would like to test a simple “slice” of the application instead of auto-configuring the whole application. Test Slices are a Spring Boot feature introduced in the 1.4. The idea is fairly simple, Spring will create a reduced application context for a specific slice of your app.
 Also, the framework will take care of configuring the very minimum. Spring Boot 1.4 introduces 4 new test annotations:
@@ -27,6 +28,11 @@ Also, the framework will take care of configuring the very minimum. Spring Boot 
 * `@DataMongoTest`: Tries to provide an in-memory mongo testing setup
 * `@SpringBootTest`: Kompletter Integrationtest: hier kann man im TestCode auch `@Autowired` verwenden !
 As of Spring Boot >= 2.1, we no longer need to load the `@ExtendWith(SpringExtension.class)` because it's included as a meta annotation in the Spring Boot test annotations like `@DataJpaTest`, `@WebMvcTest`, and `@SpringBootTest`.
+
+### Caching of Test slices 
+the Spring context is cached across tests for test slices (like `@WebMvcTest` see above). If the two test classes are in the **same module** and they have the **same configuration** (meaning that they are not configuring different beans or different properties), then the Spring context will be loaded only once and shared across those tests.
+
+
 ## SpringBootTest (Integrationtest)
 ### arguments
 By default, `@SpringBootTest` will not start a server.
@@ -41,6 +47,14 @@ class QuearnApplicationTests {
     @LocalServerPort
     private int port;
 ```
+### @SpringBootTest with `@MockMvc` vs. `@WebMvcTest`
+
+To use `@MockMvc`in a `@SpringBootTest` you need `@AutoConfigureMockMvc`. 
+Wheras with `@WebMvcTest` the  use of `@MockMvc` is included in `@WebMvcTest`, no need to `@AutoConfigureMockMvc`
+
+### caching contexts of @SpringBootTest between tests
+When using `@SpringBootTest` in your JUnit tests, the Spring context is cached across tests. If the two test classes are in the **same module** and they have the **same configuration** (meaning that they are not configuring different beans or different properties), then the Spring context will be **loaded only once** and shared across those tests.
+
 ### RestTemplate vs. TestRestTemplate
 
 ```java
