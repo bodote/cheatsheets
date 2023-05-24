@@ -122,3 +122,13 @@ https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/workin
 - or : `git fetch upstream && git merge upstream/master && git push && npm i`
 - see https://www.atlassian.com/git/tutorials/git-forks-and-upstreams daraus: **WICHTIG**: für eigene Änderungen erstmal einen branch in `origin/master` abseits von `master` anlegen, damit der `origin/master` per fetch immer synchron zum `upstream/master` gehalten werden kann
 - see https://sylhare.github.io/2021/04/05/Use-git-with-upstream-repository.html with https://github.com/bodote/UpstreamRepo 
+  
+## git und bash
+```
+  export PS1='\[\033[32m\]\w\[\033[35m\]`__git_ps1`\[\033[0m\] $ '
+shopt -s histappend
+HISTSIZE=20000
+HISTFILESIZE=20000
+export PROMPT_COMMAND='history -a'
+```
+  
