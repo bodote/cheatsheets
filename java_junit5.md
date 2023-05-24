@@ -241,6 +241,6 @@ phoneBundle.assertAll();
 ```java 
 @Captor
     ArgumentCaptor<String> stringArgumentCaptorCaptor;
-verify(bar, times(1)).someMethod(stringArgumentCaptorCaptor);
+verify(bar, times(1)).someMethod(stringArgumentCaptorCaptor.capture());
 stringArg = stringArgumentCaptorCaptor.getAllValues().get(0)
 assertThat(stringArg).isEqualTo("whatever")
