@@ -1,5 +1,8 @@
 # git tricks:
 
+## Fehler actueller Version, letzten fehlerfreien Commit finden wenn mehr als 2 alte commits in frage kommen:
+`git bisect`
+
 ## neues project welches local schon ein git ist, nach github oder git.office hochladen
 
 - in WebGui neues Projekt per github CLI (diese muss vorher installiert werden)
