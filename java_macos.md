@@ -3,9 +3,12 @@
 shows what is installed in /`Library/Java/JavaVirtualMachines` or `/Users/<name>/Library/Java/JavaVirtualMachines`
 
 ## Homebrew
-to make java jdk's installed by homebrew be known by the `/usr/libexec/java_home` you need to make  symlink like this:
+to make java jdk's installed by homebrew be known by the `/usr/libexec/java_home ` you need to make  symlink like this:
 `sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk`
 
+## JAVA_HOME
+to make **JAVA_HOME** defined even before starting a bash shell use: 
+`~/Library/LaunchAgents/setenv.allEnvVars.plist` (see example below)
 
 ```bash
 echo -e "________________________________________________________
