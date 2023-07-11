@@ -33,16 +33,16 @@ ________________________________________________________
 "
 
 /usr/libexec/java_home  -V 
-
-read -p "Are you sure you want to continue? [y/n] " -n 1 -r
-echo  
+echo  " "
+echo " Now, want to continue setting JAVA_HOME, GIT_RZ_SCRIPTS_SECRET, GIT_DEVS_LIST_SECRET "
+read -p " to ~/Library/LaunchAgents/setenv.allEnvVars.plist ? [y/n] " -n 1 -r
+echo  " "
 if [[ $REPLY =~ ^[Nn]$ ]]
 then
     echo "stopped"
     exit 1
 fi
 echo "ok, continue setting JAVA_HOME, GIT_RZ_SCRIPTS_SECRET, GIT_DEVS_LIST_SECRET ..."
-exit 0
 
 cat << EOF > ~/Library/LaunchAgents/setenv.allEnvVars.plist
 <?xml version="1.0" encoding="UTF-8"?>
@@ -77,5 +77,6 @@ cat << EOF > ~/Library/LaunchAgents/setenv.allEnvVars.plist
   </dict>
 </plist>
 EOF
+
 ````
 
