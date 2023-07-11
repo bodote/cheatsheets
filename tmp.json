@@ -1,0 +1,8 @@
+{ 
+    at_hash=PDh8Njmkpm64B36RbYbIfA, 
+    sub=eb3c9cca-f957-412a-a64a-57b9d50ebae1, 
+    email_verified=false, 
+    iss=http://localhost:8180/realms/myrealm, 
+    typ=ID, preferred_username=alice, given_name=, 
+    nonce=d3JiU_3-gQC-enVEOfVOjpTGFxC4dj3K5uS4yOxDryU, 
+    sid=dade329b-1623-4397-bd7f-4dda4eae2b02, aud=[mywebapp], acr=1, realm_access={"roles":["default-roles-myrealm","offline_access","uma_authorization"]}, azp=mywebapp, auth_time=2023-07-02T10:04:33Z, exp=2023-07-02T10:09:33Z, session_state=dade329b-1623-4397-bd7f-4dda4eae2b02, iat=2023-07-02T10:04:33Z, family_name=, jti=119ebe52-a821-49de-bdeb-0d44435cb299}], headers=[accept:"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", accept-encoding:"gzip, deflate, br", accept-language:"de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7,zh;q=0.6,da;q=0.5", cache-control:"no-cache", connection:"keep-alive", host:"localhost:8080", pragma:"no-cache", sec-ch-ua:""Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"", sec-ch-ua-mobile:"?0", sec-ch-ua-platform:""macOS"", sec-fetch-dest:"document", sec-fetch-mode:"navigate", sec-fetch-site:"same-site", sec-fetch-user:"?1", upgrade-insecure-requests:"1", user-agent:"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"]]
