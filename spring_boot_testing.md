@@ -51,7 +51,7 @@ class QuearnApplicationTests {
 * if `@TestConfiguration` is an inner class of the test class, it is used automatically,
 * otherwise use `@Import(myTestConfig.class)`
 * to overwrite the production `@Configuration` (which can **not** be easyly exlcuded, but overwritten) use:
-```
+```java
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {
