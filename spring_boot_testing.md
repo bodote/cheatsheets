@@ -47,6 +47,19 @@ class QuearnApplicationTests {
     @LocalServerPort
     private int port;
 ```
+### Overwriteing @Configuration with @TestConfiguration
+* if `@TestConfiguration` is an inner class of the test class, it is used automatically,
+* otherwise use `@Import(myTestConfig.class)`
+* to overwrite the production `@Configuration` (which can **not** be easyly exlcuded, but overwritten) use:
+```
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = {
+            "whatever=true",
+            "spring.main.allow-bean-definition-overriding=true"
+        })
+```
+(see [Testing with Spring Boot’s @TestConfiguration Annotation](https://reflectoring.io/spring-boot-testconfiguration) )
 ### @SpringBootTest with `@MockMvc` vs. `@WebMvcTest`
 
 To use `@MockMvc`in a `@SpringBootTest` you need `@AutoConfigureMockMvc`. 
