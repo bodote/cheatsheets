@@ -36,11 +36,48 @@ management.endpoints.web.exposure.include=*
 spring.websecurity.debug=true
 ```
 
+## Spring Boot
+* enable color console, disable banner:
+```properties
+spring.main.banner-mode=off 
+spring.output.ansi.enabled=ALWAYS
+```
+## Spring Boot Logback extensions (logback-classic)
+* nur wenn man `logback-spring.xml` verwendet, klappt nicht mit `logback.xml` !
+* `scan` klappt nur von src-dir aus wenn man in application.properties: 
+`logging.config=/Users/me/myproj/src/main/resources/logback-spring.xml` setzt.
+```xml
+<configuration debug="true" scan="true" scanPeriod="3 seconds">
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+        <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+
+        <springProfile name="staging">
+            <!-- configuration to be enabled when the "staging" profile is active -->
+        </springProfile>
+
+        <springProfile name="dev | staging">
+            <!-- configuration to be enabled when the "dev" or "staging" profiles are active -->
+        </springProfile>
+
+        <springProfile name="!production">
+            
+            <root level="INFO">
+                <appender-ref ref="CONSOLE" />
+            </root>
+            <logger name="org.springframework.web" level="DEBUG"/>
+        </springProfile>
+</configuration>
+```
+
 ## H2-Database console access:
 * [http://localhost:9090/h2-console/](http://localhost:9090/h2-console/) 
 * user/password: add to `src/main/resources/application.properties`
 * add `security.headers.frame-options=disable` to `src/main/resources/application.properties`;
   * because : This is because the H2 Database console is typically accessed within an iframe, and by default, the X-Frame-Options header is set to DENY or SAMEORIGIN, which prevents the console from being loaded within a frame.
+
+## Logback-access does NOT work with REST endpoints
+The logback-access module, part of the standard logback distribution, integrates with Servlet containers such as Jetty or Tomcat to provide rich and powerful HTTP-access log functionality. [more on logback-access](https://logback.qos.ch/access.html)
 
 
 ## DEBUG Log output for Spring-Boot Start up

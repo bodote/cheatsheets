@@ -1,38 +1,4 @@
 # Logging in Java
-## Spring Boot
-* enable color console, disable banner:
-```properties
-spring.main.banner-mode=off 
-spring.output.ansi.enabled=ALWAYS
-```
-## Spring Boot Logback extensions (logback-classic)
-* nur wenn man `logback-spring.xml` verwendet, klappt nicht mit `logback.xml` !
-* `scan` klappt nur von src-dir aus wenn man in application.properties: 
-`logging.config=/Users/me/myproj/src/main/resources/logback-spring.xml` setzt.
-```xml
-<configuration debug="true" scan="true" scanPeriod="3 seconds">
-        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-        <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
-        <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
-
-        <springProfile name="staging">
-            <!-- configuration to be enabled when the "staging" profile is active -->
-        </springProfile>
-
-        <springProfile name="dev | staging">
-            <!-- configuration to be enabled when the "dev" or "staging" profiles are active -->
-        </springProfile>
-
-        <springProfile name="!production">
-            
-            <root level="INFO">
-                <appender-ref ref="CONSOLE" />
-            </root>
-            <logger name="org.springframework.web" level="DEBUG"/>
-        </springProfile>
-</configuration>
-```
-
 * debugging logback itself: `<configuration debug="true">`
 * scan for changes of the log config: `<configuration  scan="true" scanPeriod="3 seconds">`
     * `scan` klappt nur von src-dir aus wenn man in application.properties: 
@@ -49,8 +15,23 @@ spring.output.ansi.enabled=ALWAYS
         </root>
 ```
 
-## Logback-access does NOT work with REST endpoints
-The logback-access module, part of the standard logback distribution, integrates with Servlet containers such as Jetty or Tomcat to provide rich and powerful HTTP-access log functionality. [more on logback-access](https://logback.qos.ch/access.html)
+## MDC
+`@SLF4J` example:
+```Java
+MDC.put("remoteAddr",request.getRemoteAddr());
+MDC.put("remotePort",Integer.toString(request.getRemotePort()));
+MDC.put("requestID",requestId);
+```
+in another method that is called later: 
+`MDC.clear();`
 
-
-
+add to logback config `%blue(%X{requestID}) %green(%X{remoteAddr}:%X{remotePort})`here:
+```xml
+<appender name="MyAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+            ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+        <pattern>%-30(%d{dd'T'HH:mm:ss.SSS} %blue([%thread])) %red(%-5level) %cyan(%logger{15}) %blue(%X{requestID}) %green(%X{remoteAddr}:%X{remotePort}) %msg %n</pattern>
+    </encoder>
+</appender>
+```
