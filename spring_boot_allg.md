@@ -86,6 +86,17 @@ The logback-access module, part of the standard logback distribution, integrates
 * open  *"View->Tools Windows->Service->Edit Configuration"* in Intellij und setze "Enable debug output" (sets the -Ddebug switch)
 * now spring shows during its startup what Beans/AutoConfiguration are configured 
 
+## Debugging Execption Handling on HTTP responses
+[here](https://reflectoring.io/spring-boot-exception-handling/)
+
+add to application properities:
+```properties
+server.error.include-message=always
+server.error.include-binding-errors=always
+server.error.include-stacktrace=ON_PARAM  # or always or never
+server.error.include-exception=true
+```
+
 ## Debug WebMCV oder webmvc tests
 ### Debug log for webmvc rest calls:
 add  to `src/test/resources/application.properties` or `src/main/resources/application.properties`
@@ -100,6 +111,13 @@ Filter vs Interceptors:
 * Interceptor are more powerful, have access to more details
 * Interceptor can log the response IF it overwrites the `afterCompletion()` method
 * however Interceptors does **not log errors** if a Filter in the securityFilterChain does deny a request, HandlerInterceptor's afterCompletion method is only called after successful completion of a request, not when an exception has been thrown.
+* https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
+* org.springframework.web.servlet.HandlerInterceptor interface. This gives us the option to override three methods:
+    * preHandle() – Executed before the target handler is called
+    * postHandle() – Executed after the target handler but before the DispatcherServlet renders the view
+    * afterCompletion() – Callback after completion of request processing and view rendering*
+* ![FiltersVsInterceptors](https://www.baeldung.com/wp-content/uploads/2021/05/filters_vs_interceptors.jpg)
+
 
 ```Java
 @Component
@@ -318,7 +336,6 @@ http.addFilterBefore(new MyOncePerRequestExceptionHandlingFilter(),
 return http.build();
 }
 ```
-
 
 
 
