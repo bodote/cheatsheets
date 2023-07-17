@@ -28,6 +28,9 @@ wobei `(args) ->` hier die `args` von `main(args)` sind
 Da `@Configuration` auch `@Component` einschließt , kann letzteres auch funktionieren, insb. wenn dessen Methoden auch noch mit `@Bean` markiert sind, muss aber nicht.
 
 # Logging and Debugging
+
+## Spring Boot
+* enable color console, disable banner:
 ```properties
 spring.main.banner-mode=off
 spring.output.ansi.enabled=ALWAYS
@@ -35,13 +38,20 @@ logging.config=/Users/<mylocation>/src/main/resources/mylogbackconfig.xml
 management.endpoints.web.exposure.include=*
 spring.websecurity.debug=true
 ```
+## Debugging Execption Handling on HTTP responses
+[see here](https://reflectoring.io/spring-boot-exception-handling/)
 
-## Spring Boot
-* enable color console, disable banner:
+add to application properities:
 ```properties
-spring.main.banner-mode=off 
-spring.output.ansi.enabled=ALWAYS
+server.error.include-message=always
+server.error.include-binding-errors=always
+server.error.include-stacktrace=ON_PARAM  # or always or never
+server.error.include-exception=true
 ```
+
+
+
+
 ## Spring Boot Logback extensions (logback-classic)
 * nur wenn man `logback-spring.xml` verwendet, klappt nicht mit `logback.xml` !
 * `scan` klappt nur von src-dir aus wenn man in application.properties: 
@@ -86,16 +96,6 @@ The logback-access module, part of the standard logback distribution, integrates
 * open  *"View->Tools Windows->Service->Edit Configuration"* in Intellij und setze "Enable debug output" (sets the -Ddebug switch)
 * now spring shows during its startup what Beans/AutoConfiguration are configured 
 
-## Debugging Execption Handling on HTTP responses
-[here](https://reflectoring.io/spring-boot-exception-handling/)
-
-add to application properities:
-```properties
-server.error.include-message=always
-server.error.include-binding-errors=always
-server.error.include-stacktrace=ON_PARAM  # or always or never
-server.error.include-exception=true
-```
 
 ## Debug WebMCV oder webmvc tests
 ### Debug log for webmvc rest calls:
@@ -103,6 +103,14 @@ add  to `src/test/resources/application.properties` or `src/main/resources/appli
 ```properties
 logging.level.org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping=trace
 logging.level.org.springframework.test.web.servlet.TestDispatcherServlet=trace
+```
+OR put it in logback-spring.xml: 
+```xml
+ <logger 
+    name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" 
+    level="TRACE"/>
+<logger name="org.springframework.test.web.servlet.TestDispatcherServlet" level="TRACE"/>
+
 ```
 
 ### Debuglog with an Interceptor **instead** of a Filter
@@ -260,12 +268,11 @@ idea {
 pom.xml:
 ```xml
 <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-smb</artifactId>
-            <version>6.0.4</version>
-        </dependency>
+  <groupId>org.springframework.integration</groupId>
+  <artifactId>spring-integration-smb</artifactId>
+  <version>6.0.4</version>
+</dependency>
 ```
-
 
 
 ```java
