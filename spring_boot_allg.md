@@ -344,6 +344,19 @@ return http.build();
 }
 ```
 
+```java
+@Configuration
+@Slf4j
+public class ProjectConfig implements WebMvcConfigurer {
+   @Value("${spring.websecurity.debug:false}")
+    boolean webSecurityDebug;
+
+   @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.debug(webSecurityDebug);
+  }
+}
+```
 
 
 
