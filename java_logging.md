@@ -70,3 +70,34 @@ add to logback config `%blue(%X{requestID}) %green(%X{remoteAddr}:%X{remotePort}
     </encoder>
 </appender>
 ```
+
+```xml
+<configuration  scan="true" scanPeriod="1 seconds" debug="true">
+
+<appender name="MyAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+        <pattern>%-30(%d{dd'T'HH:mm:ss.SSS} %blue([%thread])) %red(%-5level) %cyan(%logger{40}) %blue(%X{requestID}) %green(%X{remoteAddr}:%X{remotePort}) %msg %n</pattern>
+        <!--            <pattern>(%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}){faint} %clr(%5p)  %green(%h %l %u [%t] "%r" %s %b) %clr(${PID:- }){magenta}-->
+        <!--                %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(){faint}%clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n$%wEx-->
+        <!--            </pattern>-->
+    </encoder>
+</appender>
+
+<root level="INFO">
+<!--            <appender-ref ref="CONSOLE" />-->
+<appender-ref ref="MyAppender" />
+
+</root>
+<logger name="org.springframework.web" level="INFO"/>
+        <!--        <logger name="org.springframework" level="INFO"/>-->
+        <!--    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="TRACE"/>-->
+        <!--    <logger name="org.springframework.test.web.servlet.TestDispatcherServlet" level="TRACE"/>-->
+        <!--    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG"/>-->
+        <!--    <logger name="org.springframework.security" level="DEBUG"/>-->
+        <!--    <logger name="com.laurentiuspilca.ssia.config.LoggingInterceptor" level="DEBUG"/>-->
+<logger name="org.apache.tomcat.util.net.NioEndpoint" level="INFO"/>
+
+        </configuration>
+```
