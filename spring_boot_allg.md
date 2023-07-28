@@ -33,11 +33,28 @@ Da `@Configuration` auch `@Component` einschließt , kann letzteres auch funktio
 * enable color console, disable banner:
 ```properties
 spring.main.banner-mode=off
-spring.output.ansi.enabled=ALWAYS
+spring.output.ansi.enabled=ALWAYS #or DETECT,NEVER
 logging.config=/Users/<mylocation>/src/main/resources/mylogbackconfig.xml
 management.endpoints.web.exposure.include=*
-spring.websecurity.debug=true
+spring.websecurity.debug=true  # nur mit **WebSecurityCustomizer** in`@Configuration`
 ```
+
+```java
+@Configuration
+@Slf4j
+public class ProjectConfig implements WebMvcConfigurer {
+
+  @Value("${spring.websecurity.debug:false}")
+  boolean webSecurityDebug;
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.debug(webSecurityDebug);
+  }
+}
+````
+
+
+
 ## Debugging Execption Handling on HTTP responses
 [see here](https://reflectoring.io/spring-boot-exception-handling/)
 
