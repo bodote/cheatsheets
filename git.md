@@ -135,4 +135,5 @@ HISTFILESIZE=20000
 export PROMPT_COMMAND='history -a'
 ```
 ## github search
-`label:"help wanted" label:"good first issue" state:open language:Java`
+- `label:"help wanted" label:"good first issue" state:open language:Java`
+- `label:"help wanted" label:"good first issue" state:open language:Java user:spring-guides`
