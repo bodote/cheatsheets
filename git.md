@@ -125,7 +125,7 @@ https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/workin
 - or : `git fetch upstream && git merge upstream/master && git push && npm i`
 - see https://www.atlassian.com/git/tutorials/git-forks-and-upstreams daraus: **WICHTIG**: für eigene Änderungen erstmal einen branch in `origin/master` abseits von `master` anlegen, damit der `origin/master` per fetch immer synchron zum `upstream/master` gehalten werden kann
 - see https://sylhare.github.io/2021/04/05/Use-git-with-upstream-repository.html with https://github.com/bodote/UpstreamRepo 
-  
+
 ## git und bash
 ```
   export PS1='\[\033[32m\]\w\[\033[35m\]`__git_ps1`\[\033[0m\] $ '
@@ -134,6 +134,35 @@ HISTSIZE=20000
 HISTFILESIZE=20000
 export PROMPT_COMMAND='history -a'
 ```
-## github search
+### github search
 - `label:"help wanted" label:"good first issue" state:open language:Java`
 - `label:"help wanted" label:"good first issue" state:open language:Java user:spring-guides`
+- 
+### git mit ssh-agent um git password im memory zu halten
+zu `.bashrc` hinzufügen:
+```bash
+if ! ps -u "$USERNAME" | grep ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh/agent-env
+    echo "ssh-agent start "
+fi
+
+if [[ -f ~/.ssh/agent-env ]]; then
+    . ~/.ssh/agent-env > /dev/null
+    if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+        echo "Stale SSH_AGENT_PID; spawning new agent."
+        ssh-agent > ~/.ssh/agent-env
+    fi
+    . ~/.ssh/agent-env > /dev/null
+fi
+if [[ -n $SSH_AGENT_PID && -n $SSH_AUTH_SOCK ]]; then
+    ssh-add -l &>/dev/null
+    STATUS=$?
+    #echo "ssh-add -l &>/dev/null"
+    #echo "exit status was = " $STATUS
+    if [ $STATUS == 1 ]; then
+        ssh-add
+        echo "ssh-add"
+    fi
+fi
+```
+
