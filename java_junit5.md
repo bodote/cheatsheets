@@ -13,6 +13,44 @@ Exception exception = assertThrows(NumberFormatException.class, () -> {
 - die `org.assertj.core.api.Assertions` , die eigentlich mehr **fluent** sind.
 - `org.junit.jupiter.api.Assertions.*` sind nicht so gut
 
+## Test log messages
+
+### Approach 1: Mocking the Logger
+One approach is to mock the logger itself, using a mocking framework like Mockito. This is particularly useful if you cannot easily manipulate the logging framework's configuration or when you're looking for a quick way to assert log calls without changing much of the logging setup.
+
+Inject a Mock Logger: If your class under test injects its logger (though not a common practice, it's possible for testing purposes), you can inject a mocked logger and verify interactions with it.
+
+Write Your Test:
+
+Use Mockito to mock the logger.
+Inject the mock into your class (constructor, setter, or field injection for tests).
+Perform your test action.
+Verify that the expected logging methods were called on the mock.
+Mocking the logger might look like this:
+
+```java
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.slf4j.Logger;
+import static org.mockito.Mockito.*;
+
+class MyServiceTest {
+
+    @Test
+    void testErrorLogging() {
+        Logger mockLogger = mock(Logger.class);
+        MyService service = new MyService(mockLogger);
+
+        service.doSomethingThatFails();
+
+        verify(mockLogger).error("Expected error message");
+    }
+}
+```
+
+This approach requires your service to allow injecting a logger, which might not align with typical logging practices.
+
 ### filter logmessages in a test case
 
 **THIS IS PROBALBY NOT THREAD SAVE!**
@@ -82,7 +120,7 @@ public class TestWithLogger {
 }
 ```
 
-#### Variante B: logback TurboFilter
+#### Variante C: logback TurboFilter
 
 ```java
 @Test
