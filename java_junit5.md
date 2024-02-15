@@ -49,7 +49,7 @@ class MyServiceTest {
 }
 ```
 
-This approach requires your service to allow injecting a logger, which might not align with typical logging practices.
+**However:** This approach requires your service to allow injecting a logger, which might not align with typical logging practices.
 
 ### filter logmessages in a test case
 
