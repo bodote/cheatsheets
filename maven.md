@@ -71,6 +71,10 @@ So just adding this:
 </execution>
 ```
 
+
+is already sufficient to add the integration-tests coverage to the report. 
+
+All the claims on the internet, and in chatGPT for a much more complicated configuration using Jacocos `merge` goal or  defining `<argLine>${argLine}</argLine>` for `surefire-plugin` or `<argLine>${failsafe.argLine}</argLine>` for the `fail-safe-plugin` **is not necessary at all**!
 ## openapi generate sources: 
 ```xml
            <plugin>
@@ -101,6 +105,39 @@ So just adding this:
                 </executions>
             </plugin>
 ```
-is already sufficient to add the integration-tests coverage to the report. 
-
-All the claims on the internet, and in chatGPT for a much more complicated configuration using Jacocos `merge` goal or  defining `<argLine>${argLine}</argLine>` for `surefire-plugin` or `<argLine>${failsafe.argLine}</argLine>` for the `fail-safe-plugin` **is not necessary at all**!
+...
+```xml
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.4.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <id>adp</id>
+                        <configuration>
+                            <inputSpec>
+                                ${project.build.directory}/openapi-specs/myxxx-notification-app-definition-openapi.yml
+                            </inputSpec>
+                            <generatorName>spring</generatorName>
+                            <library>spring-boot</library>
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <invokerPackage>xxx.myapp.myxxx.gen.rest.notification.api</invokerPackage>
+                            <apiPackage>xxx.myapp.myxxx.gen.rest.notification.api</apiPackage>
+                            <modelPackage>xxx.myapp.myxxx.gen.rest.notification.api</modelPackage>
+                            <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useTags>true</useTags>
+                                <openApiNullable>false</openApiNullable>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <documentationProvider>none</documentationProvider>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                   </executions>
+             </plugin>
+```
