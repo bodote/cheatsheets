@@ -70,6 +70,37 @@ So just adding this:
 	</goals>
 </execution>
 ```
+
+## openapi generate sources: 
+```xml
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>xxx.myxxx.notification</groupId>
+                                    <artifactId>myxxx-notification-service-contracts</artifactId>
+                                    <version>${myxxx-notification-service-contracts.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/openapi-specs</outputDirectory>
+                                    <includes>*.yml</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+```
 is already sufficient to add the integration-tests coverage to the report. 
 
 All the claims on the internet, and in chatGPT for a much more complicated configuration using Jacocos `merge` goal or  defining `<argLine>${argLine}</argLine>` for `surefire-plugin` or `<argLine>${failsafe.argLine}</argLine>` for the `fail-safe-plugin` **is not necessary at all**!
