@@ -166,3 +166,14 @@ if [[ -n $SSH_AGENT_PID && -n $SSH_AUTH_SOCK ]]; then
 fi
 ```
 
+## git worktree
+
+statt per `git checkout` zwischen branches zu wechseln, kann man auch worktrees verwenden
+
+- `git worktree add ../clcp-be-pact_test  test/pact_test`
+- `git worktree list `
+- `git worktree remove ../clcp-be-pact_test`
+
+
+
+
