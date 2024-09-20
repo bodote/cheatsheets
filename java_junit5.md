@@ -51,11 +51,92 @@ class MyServiceTest {
 
 **However:** This approach requires your service to allow injecting a logger, which might not align with typical logging practices.
 
+## with `@Slf4J``
+```java
+// What you write:
+@Slf4j
+public class MyClass {
+    // Your code here
+}
+
+// What Lombok generates:
+public class MyClass {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MyClass.class);
+    
+    // Your code here
+}
+```
+
+### check @Slf4J-logs with Mockito.mockStatic:
+
+```java
+void testStaticMocking() {
+    try (MockedStatic<LoggerFactory> mockedStatic = Mockito.mockStatic(LoggerFactory.class)) {
+        Logger loggerMock = Mockito.mock(Logger.class);
+        mockedStatic.when(() -> LoggerFactory.getLogger(DemoCtr.class)).thenReturn(loggerMock);
+        LoggingEventBuilder lEvBuilderMock = Mockito.mock(LoggingEventBuilder.class);
+        when(loggerMock.atInfo()).thenReturn(lEvBuilderMock);
+        // Use your class that calls LoggerFactory.getLogger()
+        DemoCtr instance = new DemoCtr();
+        instance.demo("Your expected log message", "x");
+        // Verify logger interactions
+        Mockito.verify(loggerMock).debug("Your expected log message");
+        Mockito.verify(lEvBuilderMock).log("my log info{}", 1L);
+    }
+}
+```
+
+#### Here are the key points to understand about Mockito.mockStatic() in multi-threaded scenarios:
+
+##### Thread Safety:
+
+MockedStatic is designed to be thread-safe. Each MockedStatic instance is isolated from others.
+However, the static mocking itself affects the global state of the application, which can lead to issues in concurrent testing.
+
+
+##### Scoping:
+
+The static mock is active only within the scope of the try-with-resources block.
+Once the block is exited, the mock is automatically cleared, restoring the original behavior.
+
+
+##### Potential Issues:
+
+If multiple tests mock the same static method concurrently, they might interfere with each other.
+One test might see the mocked behavior set by another test, leading to unpredictable results.
+
+
+##### Best Practices:
+
+Use @Execution(ExecutionMode.CONCURRENT) (JUnit 5) or similar annotations to explicitly define which tests can run concurrently.
+Keep the scope of static mocking as narrow as possible.
+Consider using different classes or methods for static mocking in different tests to avoid conflicts.
+
+
+##### Alternative Approaches:
+
+If possible, refactor the code to avoid static methods, making it more testable and less prone to concurrency issues.
+Use dependency injection to provide mockable instances instead of relying on static methods.
+
+
+##### Mockito's Handling:
+
+Mockito attempts to handle concurrent mocking by using thread-local storage for mocks.
+However, it's still possible for tests to interfere with each other if not properly isolated.
+
+
+##### Testing Frameworks:
+
+Some testing frameworks (like JUnit 5) provide mechanisms to control test execution order and parallelism, which can help manage these issues.
+
 ### filter logmessages in a test case
 
 **THIS IS PROBALBY NOT THREAD SAVE!**
 
 #### extend Test with TestWithLogger
+
+> [!WARNING]
+> THIS IS PROBALBY NOT THREAD SAVE! (except you would use ThreadLocal varables )
 
 ```java
 public class TestWithLogger {
@@ -119,6 +200,10 @@ public class TestWithLogger {
     }
 }
 ```
+
+### Using TestWithLogger:
+- extend your test class with `TestWithLogger`
+- OR: instatiate the `TestWithLogger` as a delegate in your test class, call the `setUp()` and `tearDown()` and then `searchLogEvents()` 
 
 #### Variante C: logback TurboFilter
 
@@ -220,7 +305,7 @@ Mockito.when(platform.authenticate(Mockito.eq(credentials)))
 assertTrue(emailService.authenticatedSuccessfully(credentials));
 ```
 ## Method references as parameters
-If in 2 or more tests, most code lines are dublicates, except a method call,
+If in 2 or more tests, most code lines are duplicates, except a specific method call,
 eg. in the first test you want to call `put()` and in the 2nd test you want to call `post()` but with all other parameters are the same , you can do this: 
 ```java
   //...

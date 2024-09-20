@@ -1,11 +1,68 @@
 # Goal : install pyside6 on raspbian for https://github.com/blauret/pyG5
+- use 64bit system , because pyside6 is not available on 32bit variant.
 - `sudo apt-get update`
 - `sudo apt-get upgrade` und `sudo apt full-upgrade`
 - use pip only with virtual env: `python3 -m venv myenv && source myenv/bin/activate && pip3 install pyside6` 
-    - did not work : `ERROR: Could not find a version that satisfies the requirement pyside6 (from versions: none) ERROR: No matching distribution found for pyside6``
-- use `apt`  instead: `apt-cache search PySide` -> nur PySide2 aber kein PySide6
-- `pip install PyQt6` -> Error : `Preparing metadata (pyproject.toml) did not run successfully. exit code: 1`
-- `sudo apt install bashtop`
+- `sudo apt install btop vim`
+- `sudo apt install libxcb-xinerama0 libxcb-cursor0 libxkbcommon-x11-0` for pyside6 to work
+- `sudo vim /etc/ssh/sshd_config` and set:
+```
+ClientAliveInterval 60
+ClientAliveCountMax 5
+```
+on the ssh - terminal side set : `vim ~/.ssh/config` : 
+```
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 5
+```
+- `sudo systemctl restart ssh`
+
+## install display driver for 7inch HDMI Display-C from lafvintech.com
+https://lafvintech.com/pages/tutorials -> 7inch HDMI Display-C
+http://www.lcdwiki.com/7inch_HDMI_Display-C 
+- first install driver , see "How to rotate the display direction" 
+- then reboot
+- then rotate
+
+
+
+
+
+## install github client `gh`
+```bash
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh
+```
+- `gh auth login`
+## install pyG5 from sources
+- `gh repo clone bodote/pyG5`
+- `gh repo set-default`
+- `source myenv/bin/activate`
+- `source bootstrap.sh`
+## start pyG5 tester
+```
+export DISPLAY=:0
+DISPLAY=:0 xhost +local:
+python -m pyG5.pyG5ViewTester
+```
+## start the real thing:
+```
+export DISPLAY=:0
+DISPLAY=:0 xhost +local:
+python -m pyG5.pyG5Main
+```
+
+## problems 
+- font to big, some characters are not shown `sudo apt-get install libfreetype6` does not help
+
+
+
+
+
 
 ## Build QT6 for Python
 since installing QT6 or even pyside6 did not work with apt or pip, try: 
@@ -71,6 +128,7 @@ collect2: error: ld returned 1 exit status
 ninja: build stopped: subcommand failed.
 ```
 
+13FF-DF56
 
 
 
