@@ -174,6 +174,48 @@ statt per `git checkout` zwischen branches zu wechseln, kann man auch worktrees 
 - `git worktree list `
 - `git worktree remove ../clcp-be-pact_test`
 
+## git, ssh-agent and VSCode
+### on windows: 
+add to your `.bashrc`: 
+```bash
+env=~/.ssh/agent.env
+
+agent_load_env () { test -f "$env" && . "$env" | /dev/null ; }
+
+agent_start () {
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ; }
+
+agent_load_env
+
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+    echo "Starting ssh-agent and adding key"
+    agent_start
+    ssh-add
+
+    echo "Setting Windows SSH user environment variables (pid: $SSH_AGENT_PID, sock: $SSH_AUTH_SOCK)"
+    setx SSH_AGENT_PID "$SSH_AGENT_PID"
+    setx SSH_AUTH_SOCK "$SSH_AUTH_SOCK"
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+    echo "Reusing ssh-agent and adding key"
+    ssh-add
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 0 ]; then
+    echo "Reusing ssh-agent and reusing key"
+    ssh-add -l
+fi
+
+unset env
+```
+add `C:\Program Files\Git\usr\bin` (or whereever the gitbash ssh.exe is installed) to your path AND move it up, so that it is found before the windows11 system ssh.exe is found
+
+**IF** your VSCode has setting `remote.ssh.path` put it also there. But my VSCode doesn't have it. Seems that adding to the "$PATH" as the first entry was sufficient.
+
+see also https://vilimpoc.org/blog/2021/04/02/reusing-ssh-agent-from-git-bash-in-visual-studio-code/
+
+
 
 
 
