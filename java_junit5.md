@@ -68,7 +68,7 @@ public class MyClass {
 ```
 
 ### check @Slf4J-logs with Mockito.mockStatic:
-
+however when using `@WebMvcTest` or `@SpringBootTest` , then `MockedStatic` would have to be called **before** the Beans are created, which is ususaly not feasable.
 ```java
 void testStaticMocking() {
     try (MockedStatic<LoggerFactory> mockedStatic = Mockito.mockStatic(LoggerFactory.class)) {
