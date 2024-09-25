@@ -73,7 +73,8 @@ public class MyClass {
 void testStaticMocking() {
     try (MockedStatic<LoggerFactory> mockedStatic = Mockito.mockStatic(LoggerFactory.class)) {
         Logger loggerMock = Mockito.mock(Logger.class);
-        mockedStatic.when(() -> LoggerFactory.getLogger(DemoCtr.class)).thenReturn(loggerMock);
+        mockedStatic.when(() -> LoggerFactory.getLogger(anyString())).thenReturn(loggerMock);
+        mockedStatic.when(() -> LoggerFactory.getLogger(any(Class.class))).thenReturn(loggerMock);
         LoggingEventBuilder lEvBuilderMock = Mockito.mock(LoggingEventBuilder.class);
         when(loggerMock.atInfo()).thenReturn(lEvBuilderMock);
         // Use your class that calls LoggerFactory.getLogger()
