@@ -19,6 +19,16 @@ https://canvas.arc42.org/downloads#architecture-communication-canvas-acc
 * Diagram as code: 2.0 
     * Architektur in DSL beschreiben
     * Structurizr online oder in pipeline structurizr-site-generator 
+```
+structurizr-site-generatr --help
+Usage: structurizr-site-generatr options_list
+Subcommands: 
+    serve - Start a development server
+    generate-site - Generate a site for the selected workspace.
+    version - Print version information 
+Options: 
+    --help, -h -> Usage info
+``` 
 * wer Markdown über MS-Word vorzieht, der wird auch Structurizr über draw.io vorziehen.
 
 # DDD
@@ -31,3 +41,31 @@ https://canvas.arc42.org/downloads#architecture-communication-canvas-acc
     * Domain Message Flow Modell -> arc42->Laufzeitsicht , dynamic diagram in C4
     * Quality Storming- -> Qualitätsanforderungen
 * Zentraler Punkt: alles collaborativ im Workshopformat erstellen
+
+# technische Redakteurin
+* Fokus für Vortrag: externe öffentliche Docu 
+* Unternehmensziele ?
+* für wen überhaupt ?
+
+# C Heitzmann. Wie gelingt ausgezeichnete Softwaredokumentation?
+* docs as code
+* empfehlung Docu wie Quellcode behandel 
+* AsciiDoc, kein Markdown !, oder reStructuredText
+* problem mit confluence spricht mir aus der seele
+* KEIN markdown/asciidoc to Confluence - export empfohlen  
+* Gegner von JederKannMitmachen
+* docusystem Antora (statt Confluence)
+* https://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/070_publishToConfluence.html
+* oder pandoc
+* mvn plugin für exportieren ?
+
+# Alexander Schwarz: Onlinedocu die hilft
+* code as Docu 
+* im git verwalten
+* automatischer build
+* AsciiDoc als DER standard empfohlen
+* Kata zum Selbststudium !
+* Intellij Plugin für asciidoc
+* asciidoc validieren mit `.vale.ini` oder Grazie (Intellij Plugin)
+* asciidoctor web site
+* https://antora.org/
