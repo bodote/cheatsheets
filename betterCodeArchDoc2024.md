@@ -1,3 +1,4 @@
+[Programm](https://archdoc.bettercode.eu/#programm)
 # Architecture Inception oder Communication Canvas 
 * https://canvas.arc42.org/#:~:text=Based%20upon%20ideas%20from%20the%20famous%20Business%20Model
 * auch draw.io , powerpoint und convanizer.com für Templates zum ACC 
@@ -32,7 +33,7 @@ Options:
 * wer Markdown über MS-Word vorzieht, der wird auch Structurizr über draw.io vorziehen.
 
 # DDD
-* ddd-canvases: github.com/ddd-
+* ddd-canvases: [github.com/ddd-crew](https://github.com/ddd-crew)
 * Business Model Canvas ist wichtig für die Entwickler um das Problem und die Zielgruppe zu verstehen.
 * Eventstorming erklärt
     * ES führt direkt zu Arc42 oder C4 Diagrammen "Context Sicht"
