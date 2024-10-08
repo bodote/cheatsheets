@@ -141,3 +141,35 @@ All the claims on the internet, and in chatGPT for a much more complicated confi
                    </executions>
              </plugin>
 ```
+
+## doppelte "junit-platform.properties warnung
+sometimes you get a warning
+```
+Okt. 08, 2024 8:42:07 AM org.junit.platform.launcher.core.LauncherConfigurationParameters loadClasspathResource
+WARNUNG: Discovered 2 'junit-platform.properties' configuration files in the classpath; only the first will be used.
+Okt. 08, 2024 8:42:07 AM org.junit.platform.launcher.core.LauncherConfigurationParameters loadClasspathResource
+WARNUNG: Discovered 2 'junit-platform.properties' configuration files in the classpath; only the first will be used.
+```
+
+suche mit : 
+```bash
+#!/bin/bash
+# Find all JAR files in the local Maven repository that contain junit-platform.properties
+cd ~/.m2  # Change to the local Maven repository
+# List all JAR files in the classpath
+for jar in $(find . -name "*.jar"); do
+  echo look into $jar
+  # Check if the JAR file contains junit-platform.properties
+  if jar tf "$jar" | grep -q "junit-platform.properties"; then
+    echo "Found in: $jar"
+  fi
+done
+
+# result e.g. :
+# ./repository/org/apache/kafka/kafka-clients/3.7.1/kafka-clients-3.7.1-test.jar
+# and
+# ./repository/org/apache/kafka/kafka-server-common/3.7.1/kafka-server-common-3.7.1-test.jar
+```
+
+
+
