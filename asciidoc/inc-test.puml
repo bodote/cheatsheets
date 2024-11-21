@@ -1,0 +1,8 @@
+@startuml
+!include <C4/C4_Container>
+
+Person(personAlias, "Bodo", "the Developer")
+Container(containerAlias, "Label", "Technology", "Optional Description")
+
+Rel(personAlias, containerAlias, "Label", "Optional Technology")
+@enduml

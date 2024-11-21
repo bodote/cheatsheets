@@ -1,0 +1,35 @@
+= a document
+
+== a section 
+what ?
+
+plantuml::included-diagram.puml[]
+
+=== sec sub 3
+
+[plantuml, c4-stdlib-diagram, png]
+....
+!include <C4/C4_Container>
+
+Person(personAlias, "Label", "Optional Description")
+Container(containerAlias, "Label", "Technology", "Optional Description")
+
+Rel(personAlias, containerAlias, "Label", "Optional Technology")
+....
+
+.Styles of music
+[#music-styles]
+****
+Go off on a tangent to describe what a style of music is.
+
+. that
+. and this
+****
+
+
+== section2
+
+thatever that is
+
+ whatever that is either
+ are you ?

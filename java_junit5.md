@@ -361,3 +361,84 @@ phoneBundle.assertAll();
 verify(bar, times(1)).someMethod(stringArgumentCaptorCaptor.capture());
 stringArg = stringArgumentCaptorCaptor.getAllValues().get(0)
 assertThat(stringArg).isEqualTo("whatever")
+```
+
+### AssertJ and extracting mutiple attributes and ListAssert<?>
+
+```java
+record ClassWithAttributs(String first, String second){}
+List<ClassWithAttributes> listWithAttributes = List.of(
+   new ClassWithAttributs("The first","the second"),
+   new ClassWithAttributs("2nd The first","2nd the second"));
+assertThat(listWithAttributes).extracting(ClassWithAttributes::first,c->c.second())
+    .contains(
+      tuple("The first","the second"),
+      //...
+    )
+```
+### AssertJ and comparing time
+`asserThat(oneMinAgo).isCloseTo(now(),byLessThan(1,SECONDS))`
+
+### AssertJ and Clock
+
+use static mock: 
+```java
+var lastChristmas = LocalDate.of("2023-12-24");
+try(var staticMock = Mockito.mockStatic(LocalDate.class,CALLS_REAL_METHOD)){
+  staticMock.when(LocalDate::now).thenReturn(lastChristmas)
+}
+```
+
+### Junit5 AOP and InvocationInterceptor
+
+```java
+public class CustomInvocationInterceptor implements InvocationInterceptor {
+
+    @Override
+    public void interceptTestMethod(Invocation<Void> invocation, 
+                                    ExtensionContext context, 
+                                    Method testMethod) throws Throwable {
+        System.out.println("Before executing method: " + testMethod.getName());
+        
+        // Proceed with the actual test method execution
+        invocation.proceed();
+
+        System.out.println("After executing method: " + testMethod.getName());
+    }
+}
+```
+use it: 
+```java
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(CustomInvocationInterceptor.class)
+public class SampleTest {
+
+    @Test
+    void testExample() {
+        System.out.println("Executing the test method.");
+    }
+}
+```
+### Soft Assertions 
+```java
+
+public class SoftAssertionsTest {
+
+    @Test
+    void testWithSoftAssertions() {
+        try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+            // Perform multiple assertions
+            softly.assertThat("Hello World").startsWith("Hello");
+            softly.assertThat(42).isGreaterThan(30);
+            softly.assertThat("JUnit 5").contains("5");
+            softly.assertThat(100).isLessThan(50);  // This will fail
+            softly.assertThat("SoftAssertions").endsWith("xyz");  // This will also fail
+        }
+        // Test will fail at the end of the block if any assertions failed
+    }
+}
+```
+
+
