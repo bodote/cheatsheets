@@ -1,0 +1,19 @@
+= plantuml tricks
+for : confluence-publisher use `!pragma layout smetana` for each plantuml diagram or: 
+```pom.xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.sahli.asciidoc.confluence.publisher</groupId>
+            <artifactId>asciidoc-confluence-publisher-maven-plugin</artifactId>
+            <version>YOUR_VERSION_HERE</version>
+            <configuration>
+                <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+                <asciidoctor>
+                    <attributes>
+                        <plantumlconfig>!pragma layout smetana</plantumlconfig>
+                    </attributes>
+                </asciidoctor>
+                <!-- Other configurations... -->
+            </configuration>
+````
