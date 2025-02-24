@@ -215,6 +215,21 @@ add `C:\Program Files\Git\usr\bin` (or whereever the gitbash ssh.exe is installe
 
 see also https://vilimpoc.org/blog/2021/04/02/reusing-ssh-agent-from-git-bash-in-visual-studio-code/
 
+## find a string in in a files history
+```bash
+#!/usr/bin/env bash
+#filename="../src/test/java/datev/umstellungsclcp/integration/EndPointsJGivenIT.java"
+filename="../src/test/java/datev/umstellungsclcp/integration/JGivenIT.java"
+
+
+git log --pretty=format:"%H" -- $filename | while read commit_hash; do
+    echo "Checking commit $commit_hash"
+    git show $commit_hash:$filename | grep -q "to_new" && echo found in $commit_hash
+done
+```
+
+
+
 
 
 
