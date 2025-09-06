@@ -114,11 +114,10 @@ You can set up HtmlUnit with `MockMvcWebClientBuilder` to direct requests to you
 import com.gargoylesoftware.htmlunit.WebClient;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
 // ...
-
 // In a test class, you might set up WebClient like this:
-// WebClient webClient = MockMvcWebClientBuilder
-//     .mockMvcSetup(mockMvc) // assuming 'mockMvc' is autowired from @WebMvcTest
-//     .build();
+WebClient webClient = MockMvcWebClientBuilder
+    .mockMvcSetup(mockMvc) // assuming 'mockMvc' is autowired from @WebMvcTest
+    .build();
 //
 // Then use webClient to navigate and interact with your application as a browser.
 ```
