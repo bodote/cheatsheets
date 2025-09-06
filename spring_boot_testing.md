@@ -32,6 +32,8 @@ As of Spring Boot >= 2.1, we no longer need to load the `@ExtendWith(SpringExten
 ### Caching of Test slices 
 the Spring context is cached across tests for test slices (like `@WebMvcTest` see above). If the two test classes are in the **same module** and they have the **same configuration** (meaning that they are not configuring different beans or different properties), then the Spring context will be loaded only once and shared across those tests.
 
+### optimizing Spring Boot Integration Tests
+https://www.baeldung.com/spring-integration-test-optimize 
 
 ## SpringBootTest (Integrationtest)
 ### arguments
