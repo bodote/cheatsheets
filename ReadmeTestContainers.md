@@ -1,6 +1,6 @@
 # README TestContainers Infrastructure
 
-This document explains in detail the test infrastructure provided by the class `TestContainersBase` (`src/test/java/myapp/integration/TestContainersBase.java`).
+This document explains in detail the test infrastructure provided by the class `TestContainersBase`.
 It covers purpose, structure, and usage of the components: Kafka (via Toxiproxy), MongoDB (via a custom TCP proxy), Redis, and the Spring test configuration.
 
 ## Goal
@@ -45,13 +45,29 @@ toxiproxy = new ToxiproxyContainer(DockerImageName.parse("ghcr.io/shopify/toxipr
 toxiproxy.start();
 var advertisedListener = "PLAINTEXT://" + toxiproxy.getHost() + ":" + toxiproxy.getMappedPort(KAFKA_PROXY_PORT);   
 confluentKafkaContainer = new GenericContainer<>(DockerImageName.parse("confluentinc/cp-kafka:7.4.0"))
-    .withNetwork(SHARED_NETWORK)
-    .withNetworkAliases("kafka-broker")
-    .withEnv("KAFKA_ADVERTISED_LISTENERS", advertisedListener)
-    .withCreateContainerCmdModifier(cmd -> {
-        cmd.withExposedPorts(); // prevents publishing -> forces proxy usage
-        Objects.requireNonNull(cmd.getHostConfig()).withPublishAllPorts(false);
-    });
+                .withNetwork(SHARED_NETWORK)
+                .withNetworkAliases("kafka-broker")
+                .withEnv("KAFKA_BROKER_ID", "1")
+                .withEnv("KAFKA_NODE_ID", "1")
+                .withEnv("KAFKA_PROCESS_ROLES", "broker,controller")
+                .withEnv("KAFKA_LISTENERS", "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093")
+                .withEnv("KAFKA_ADVERTISED_LISTENERS", advertisedListener)
+                .withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT")
+                .withEnv("KAFKA_CONTROLLER_LISTENER_NAMES", "CONTROLLER")
+                .withEnv("KAFKA_INTER_BROKER_LISTENER_NAME", "PLAINTEXT")
+                .withEnv("KAFKA_CONTROLLER_QUORUM_VOTERS", "1@kafka-broker:9093")
+                .withEnv("KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR", "1")
+                .withEnv("KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR", "1")
+                .withEnv("KAFKA_TRANSACTION_STATE_LOG_MIN_ISR", "1")
+                .withEnv("KAFKA_LOG_DIRS", "/tmp/kraft-combined-logs")
+                .withEnv("CLUSTER_ID", "MkU3OEVBNTcwNTJENDM2Qk")
+                .withCreateContainerCmdModifier(cmd -> {
+                    // ✅ Keine Ports nach außen, damit wir sicher sind, dass der Traffic nur
+                    // über Toxiproxy läuft
+                    cmd.withExposedPorts();
+                    Objects.requireNonNull(cmd.getHostConfig()).withPublishAllPorts(false);
+                })
+                .waitingFor(Wait.forLogMessage(".*KafkaRaftServer nodeId=1.*started.*", 1));
 ```
 `advertisedListener` points directly to the proxy host + port:
 ```java
@@ -132,6 +148,7 @@ Replica set startup:
 mongoDbContainer = new MongoDBContainer(DockerImageName.parse("mongo:7"))
     .withCommand("--replSet", "rs0");
 ...
+mongoDbContainer.start();
 mongoDbContainer.execInContainer("mongosh", "--eval", "rs.initiate({...})");
 mongoDbContainer.execInContainer("mongosh", "--eval", "while (!rs.isMaster().ismaster) { sleep(100); }");
 ```
