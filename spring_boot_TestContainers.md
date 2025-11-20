@@ -141,6 +141,37 @@ try (var admin = AdminClient.create(props)) {
     admin.createTopics(toCreate).all().get(...);
 }
 ```
+### Why `ensureKafkaTopicsExist(...)` is useful
+The method `ensureKafkaTopicsExist(List<String> topicNames, String bootstrapServers)` proactively hardens tests and reduces flakiness.
+
+Key benefits:
+- Avoids race conditions: Producers/consumers may start before auto-creation finishes; explicit creation removes that timing gap.
+- Eliminates reliance on broker defaults: Auto-created topics might have unexpected partition or replication settings (in tests we enforce 1/1 deterministically).
+- Idempotent safety: Existing topics are detected and skipped – parallel or repeated test runs remain stable.
+- Reduces `UnknownTopicOrPartitionException`: Ensures the first send / subscribe succeeds without transient errors.
+- Controlled timeouts & retries: Up to several attempts with short backoff cover early broker initialization phases.
+- Fast failure feedback: If topic creation keeps failing you get a clear, early exception instead of hanging clients.
+- Supports unique topic naming: Directly validates that dynamically generated (forceUniqueTopicNames) topics are present before use.
+
+Excerpt of retry loop (simplified):
+```java
+int attempts = 0;
+while (attempts++ < 5) {
+    try {
+        admin.createTopics(toCreate).all().get(...);
+        return; // success
+    } catch (Exception e) {
+        attempts++;
+        if (attempts >= 5) {
+            throw new RuntimeException("Topic creation failed", e);
+        }
+        Thread.sleep(1000); // backoff
+    }
+}
+```
+Best practices:
+- Call immediately after registering dynamic properties, before any producer/consumer beans are exercised.
+- If extending: parameterize partitions/replication via test configuration for performance scenario variations.
 
 ## MongoDB with Replica Set + TCP Proxy
 Replica set startup:
